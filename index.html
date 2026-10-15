@@ -309,12 +309,6 @@
       gap: 9px;
 
       min-height: 27px;
-
-      border-bottom: 1px solid var(--border-soft);
-    }
-
-    .info-item:nth-last-child(-n + 2) {
-      border-bottom: 0;
     }
 
     .info-label {
@@ -2889,9 +2883,9 @@
     function detectFPS(track, mp4) {
 
       /*
-       * Use the video's actual sample timing (stts) when available.
-       * The previous nb_samples / media_duration calculation could
-       * produce absurd values on files with unusual MP4 timing.
+       * MP4Box exposes the MP4 `stts` timing table as
+       * sample_counts + sample_deltas (not `entries`).
+       * FPS = total samples / total decode time.
        */
 
       try {
@@ -2906,32 +2900,31 @@
             ?.stbl
             ?.stts;
 
-        const entries =
-          stts?.entries;
+        const counts =
+          Array.isArray(stts?.sample_counts)
+            ? stts.sample_counts
+            : [];
 
-        if (
-          Array.isArray(entries) &&
-          entries.length
-        ) {
+        const deltas =
+          Array.isArray(stts?.sample_deltas)
+            ? stts.sample_deltas
+            : [];
+
+        if (counts.length && deltas.length) {
 
           let sampleCount = 0;
           let totalTicks = 0;
 
-          for (const entry of entries) {
+          const n =
+            Math.min(
+              counts.length,
+              deltas.length
+            );
 
-            const count =
-              Number(
-                entry.sample_count ??
-                entry.sampleCount ??
-                0
-              );
+          for (let i = 0; i < n; i++) {
 
-            const delta =
-              Number(
-                entry.sample_delta ??
-                entry.sampleDelta ??
-                0
-              );
+            const count = Number(counts[i]);
+            const delta = Number(deltas[i]);
 
             if (
               Number.isFinite(count) &&
@@ -2948,7 +2941,10 @@
           }
 
           const timescale =
-            Number(track.timescale);
+            Number(
+              actualTrack?.mdia?.mdhd?.timescale ??
+              track.timescale
+            );
 
           if (
             sampleCount > 0 &&
@@ -2975,19 +2971,50 @@
 
         }
 
+        /* Some files expose enough information directly on the track. */
+
+        const sampleCount =
+          Number(track.nb_samples);
+
+        const timescale =
+          Number(track.timescale);
+
+        const trackDuration =
+          Number(track.duration);
+
+        if (
+          Number.isFinite(sampleCount) &&
+          sampleCount > 0 &&
+          Number.isFinite(timescale) &&
+          timescale > 0 &&
+          Number.isFinite(trackDuration) &&
+          trackDuration > 0
+        ) {
+
+          const fps =
+            sampleCount /
+            (trackDuration / timescale);
+
+          if (
+            Number.isFinite(fps) &&
+            fps > 1 &&
+            fps < 240
+          ) {
+
+            return fps;
+
+          }
+
+        }
+
       } catch (error) {
 
         console.warn(
-          "stts FPS detection failed:",
+          "FPS detection failed:",
           error
         );
 
       }
-
-
-      /*
-       * Some MP4Box builds expose a direct frame-rate field.
-       */
 
       const directFPS =
         Number(
@@ -3007,11 +3034,9 @@
 
       }
 
-
       return NaN;
 
     }
-
 
     /* =========================================================
        BROWSER MEDIA METADATA
