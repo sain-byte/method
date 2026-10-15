@@ -71,7 +71,15 @@
     header {
       position: relative;
       margin-bottom: 20px;
-      padding-right: 88px;
+      padding-right: 140px;
+    }
+
+    .header-actions {
+      position: absolute;
+      top: 1px;
+      right: 0;
+      display: flex;
+      gap: 6px;
     }
 
     .title {
@@ -102,9 +110,6 @@
     }
 
     .tutorial-btn {
-      position: absolute;
-      top: 1px;
-      right: 0;
 
       padding: 7px 10px;
 
@@ -761,6 +766,55 @@
     }
 
     /* ========================================
+       STATS MODAL
+    ======================================== */
+
+    .stats-modal {
+      width: min(390px, 100%);
+      padding: 20px;
+      border: 1px solid #303534;
+      border-radius: 13px;
+      background: #0d0f0f;
+      box-shadow: 0 25px 70px rgba(0,0,0,.55);
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+
+    .stat-card {
+      padding: 11px 12px;
+      border: 1px solid var(--border);
+      border-radius: 9px;
+      background: #101212;
+    }
+
+    .stat-label {
+      color: #666d69;
+      font-size: 8px;
+      font-weight: 700;
+      letter-spacing: .8px;
+      text-transform: uppercase;
+    }
+
+    .stat-value {
+      margin-top: 5px;
+      color: #e3e7e5;
+      font-size: 19px;
+      font-weight: 700;
+    }
+
+    .stats-status {
+      min-height: 15px;
+      margin-top: 12px;
+      color: var(--muted);
+      font-size: 9px;
+      text-align: center;
+    }
+
+    /* ========================================
        RESOLUTION MODAL
     ======================================== */
 
@@ -995,13 +1049,23 @@
         Powered by CompressBase
       </div>
 
-      <button
-        id="tutorialBtn"
-        class="tutorial-btn"
-        type="button"
-      >
-        TUTORIAL
-      </button>
+      <div class="header-actions">
+        <button
+          id="tutorialBtn"
+          class="tutorial-btn"
+          type="button"
+        >
+          TUTORIAL
+        </button>
+
+        <button
+          id="statsBtn"
+          class="tutorial-btn"
+          type="button"
+        >
+          STATS
+        </button>
+      </div>
 
     </header>
 
@@ -1534,6 +1598,54 @@
 
 
   <!-- ==========================================
+       STATS MODAL
+  =========================================== -->
+
+  <div
+    id="statsBackdrop"
+    class="modal-backdrop"
+    aria-hidden="true"
+  >
+
+    <div
+      class="stats-modal"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="statsTitle"
+    >
+
+      <div class="modal-head">
+        <h2 id="statsTitle" class="modal-title">
+          Statistics
+        </h2>
+
+        <button
+          id="statsClose"
+          class="modal-close"
+          type="button"
+          aria-label="Close"
+        >
+          ×
+        </button>
+      </div>
+
+      <div class="stats-grid">
+        <div class="stat-card"><div class="stat-label">Visits</div><div id="statVisits" class="stat-value">—</div></div>
+        <div class="stat-card"><div class="stat-label">Patch clicks</div><div id="statClicks" class="stat-value">—</div></div>
+        <div class="stat-card"><div class="stat-label">Success</div><div id="statSuccess" class="stat-value">—</div></div>
+        <div class="stat-card"><div class="stat-label">Failed</div><div id="statFailed" class="stat-value">—</div></div>
+        <div class="stat-card"><div class="stat-label">Today</div><div id="statToday" class="stat-value">—</div></div>
+        <div class="stat-card"><div class="stat-label">Last 7 days</div><div id="statWeek" class="stat-value">—</div></div>
+      </div>
+
+      <div id="statsStatus" class="stats-status">Loading statistics…</div>
+
+    </div>
+
+  </div>
+
+
+  <!-- ==========================================
        RESOLUTION WARNING
   =========================================== -->
 
@@ -1715,6 +1827,36 @@
 
     const tutorialBtn =
       document.getElementById("tutorialBtn");
+
+    const statsBtn =
+      document.getElementById("statsBtn");
+
+    const statsBackdrop =
+      document.getElementById("statsBackdrop");
+
+    const statsClose =
+      document.getElementById("statsClose");
+
+    const statVisits =
+      document.getElementById("statVisits");
+
+    const statClicks =
+      document.getElementById("statClicks");
+
+    const statSuccess =
+      document.getElementById("statSuccess");
+
+    const statFailed =
+      document.getElementById("statFailed");
+
+    const statToday =
+      document.getElementById("statToday");
+
+    const statWeek =
+      document.getElementById("statWeek");
+
+    const statsStatus =
+      document.getElementById("statsStatus");
 
     const tutorialBackdrop =
       document.getElementById("tutorialBackdrop");
@@ -1953,6 +2095,65 @@
       );
 
     }
+
+
+    /* =========================================================
+       STATISTICS
+    ========================================================= */
+
+    const STATS_URL =
+      "https://script.google.com/macros/s/AKfycby41RWCBP_JhtEkKiN6DOCtaqKSbVSaSbeLKtjcis_QkwHk6-eac-WShlmUVhblfGOw/exec";
+
+    function sendStats(event) {
+      try {
+        fetch(`${STATS_URL}?event=${encodeURIComponent(event)}`, {
+          method: "GET",
+          mode: "no-cors",
+          keepalive: true
+        }).catch(() => {});
+      } catch (_) {}
+    }
+
+    async function loadStats() {
+      statsStatus.textContent = "Loading statistics…";
+      try {
+        const response = await fetch(`${STATS_URL}?action=stats`, {
+          method: "GET",
+          cache: "no-store"
+        });
+        const data = await response.json();
+        if (!data.ok) throw new Error(data.error || "Unable to load statistics");
+
+        statVisits.textContent = data.total.visits;
+        statClicks.textContent = data.total.patch_click;
+        statSuccess.textContent = data.total.patch_success;
+        statFailed.textContent = data.total.patch_failed;
+        statToday.textContent = data.today;
+        statWeek.textContent = data.last7Days;
+        statsStatus.textContent = "Updated just now.";
+      } catch (error) {
+        statsStatus.textContent = "Statistics unavailable right now.";
+      }
+    }
+
+    function openStats() {
+      statsBackdrop.classList.add("show");
+      statsBackdrop.setAttribute("aria-hidden", "false");
+      loadStats();
+    }
+
+    function closeStats() {
+      statsBackdrop.classList.remove("show");
+      statsBackdrop.setAttribute("aria-hidden", "true");
+    }
+
+    statsBtn.addEventListener("click", openStats);
+    statsClose.addEventListener("click", closeStats);
+    statsBackdrop.addEventListener("click", event => {
+      if (event.target === statsBackdrop) closeStats();
+    });
+
+    sendStats("visit");
 
 
     /* =========================================================
@@ -3640,6 +3841,8 @@
         patchBtn.disabled =
           true;
 
+        sendStats("patch_click");
+
 
         downloadLink.hidden =
           true;
@@ -3724,6 +3927,8 @@
           patchStatus.textContent =
             "Patch complete. Download ready.";
 
+          sendStats("patch_success");
+
 
           /* Automatic download */
 
@@ -3762,6 +3967,8 @@
           patchStatus.textContent =
             error?.message ||
             "Patch failed.";
+
+          sendStats("patch_failed");
 
         } finally {
 
