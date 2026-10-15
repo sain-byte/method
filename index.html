@@ -1,0 +1,2069 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#0a0a0a">
+
+  <title>High Quality Method — @totolat</title>
+
+  <!-- Your existing icon files -->
+  <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="./favicon-16x16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="./apple-touch-icon.png">
+  <link rel="manifest" href="./site.webmanifest">
+
+  <style>
+    :root {
+      --bg: #090909;
+      --surface: #101010;
+      --surface-hover: #151515;
+      --line: #292929;
+      --line-soft: #1c1c1c;
+      --text: #f5f5f5;
+      --muted: #858585;
+      --muted-2: #555;
+      --green: #b9ffcf;
+      --danger: #ff7777;
+
+      --radius: 14px;
+      --content: 720px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      background: var(--bg);
+      color-scheme: dark;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background:
+        radial-gradient(
+          circle at 50% -20%,
+          #1a1a1a 0,
+          #0d0d0d 34%,
+          var(--bg) 70%
+        );
+      color: var(--text);
+      font-family:
+        Inter,
+        ui-sans-serif,
+        system-ui,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    button,
+    input {
+      font: inherit;
+    }
+
+    a {
+      color: inherit;
+    }
+
+    .app {
+      width: min(
+        calc(100% - 32px),
+        var(--content)
+      );
+      margin: 0 auto;
+      padding: 46px 0 60px;
+    }
+
+    /* =========================================
+       HEADER
+    ========================================= */
+
+    .header {
+      margin-bottom: 54px;
+    }
+
+    .title {
+      margin: 0;
+      font-size: clamp(34px, 7vw, 56px);
+      line-height: .95;
+      letter-spacing: -0.055em;
+      font-weight: 850;
+    }
+
+    .creator {
+      display: inline-block;
+      margin-top: 17px;
+      font-size: 15px;
+      font-weight: 700;
+      text-decoration: none;
+      color: #d7d7d7;
+      transition: opacity .2s;
+    }
+
+    .creator:hover {
+      opacity: .6;
+    }
+
+    .powered {
+      margin-top: 5px;
+      color: var(--muted-2);
+      font-size: 11px;
+      letter-spacing: .01em;
+    }
+
+    /* =========================================
+       DROP AREA
+    ========================================= */
+
+    .drop-zone {
+      display: block;
+      min-height: 235px;
+      border: 1px dashed #393939;
+      border-radius: var(--radius);
+      background: rgba(255,255,255,.018);
+      cursor: pointer;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      text-align: center;
+
+      transition:
+        border-color .2s ease,
+        background .2s ease,
+        transform .2s ease;
+    }
+
+    .drop-zone:hover,
+    .drop-zone.dragover {
+      border-color: #777;
+      background: rgba(255,255,255,.035);
+    }
+
+    .drop-zone.dragover {
+      transform: scale(1.008);
+    }
+
+    .drop-inner {
+      pointer-events: none;
+    }
+
+    .drop-title {
+      font-size: 17px;
+      font-weight: 750;
+      letter-spacing: -.02em;
+    }
+
+    .drop-subtitle {
+      margin-top: 9px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .drop-meta {
+      margin-top: 19px;
+      color: var(--muted-2);
+      font-size: 10px;
+      letter-spacing: .13em;
+      text-transform: uppercase;
+    }
+
+    #video {
+      display: none;
+    }
+
+    /* =========================================
+       VIDEO
+    ========================================= */
+
+    .video-section {
+      margin-top: 28px;
+    }
+
+    .video-preview {
+      position: relative;
+      width: 100%;
+      max-height: 430px;
+      overflow: hidden;
+
+      display: flex;
+      justify-content: center;
+
+      border-radius: var(--radius);
+      background: #030303;
+      border: 1px solid var(--line);
+    }
+
+    .video-preview video {
+      display: block;
+      width: 100%;
+      max-height: 430px;
+      object-fit: contain;
+    }
+
+    .video-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 20px;
+      margin-top: 13px;
+    }
+
+    .video-name {
+      min-width: 0;
+      font-size: 14px;
+      font-weight: 700;
+      line-height: 1.35;
+      overflow-wrap: anywhere;
+    }
+
+    .replace {
+      flex-shrink: 0;
+      border: 0;
+      padding: 0;
+      background: none;
+      color: var(--muted);
+      font-size: 12px;
+      cursor: pointer;
+    }
+
+    .replace:hover {
+      color: var(--text);
+    }
+
+    /* =========================================
+       SECTION
+    ========================================= */
+
+    .block {
+      margin-top: 45px;
+    }
+
+    .eyebrow {
+      margin-bottom: 17px;
+      color: var(--muted-2);
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+    }
+
+    /* =========================================
+       MEDIA INFO
+    ========================================= */
+
+    .media-info {
+      border-top: 1px solid var(--line);
+    }
+
+    .info-row {
+      display: grid;
+      grid-template-columns: 120px 1fr;
+      gap: 20px;
+      padding: 12px 0;
+      border-bottom: 1px solid var(--line-soft);
+    }
+
+    .info-label {
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .info-value {
+      min-width: 0;
+      color: #e7e7e7;
+      font-size: 13px;
+      font-weight: 650;
+      text-align: right;
+      overflow-wrap: anywhere;
+    }
+
+    /* =========================================
+       VARIANTS
+    ========================================= */
+
+    .variants {
+      border-top: 1px solid var(--line);
+    }
+
+    .variant {
+      position: relative;
+    }
+
+    .variant input {
+      position: absolute;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .variant label {
+      display: grid;
+      grid-template-columns: 35px 1fr auto;
+      gap: 13px;
+      align-items: center;
+
+      min-height: 66px;
+      padding: 10px 3px;
+
+      border-bottom: 1px solid var(--line-soft);
+      cursor: pointer;
+
+      transition:
+        color .18s,
+        padding .18s,
+        background .18s;
+    }
+
+    .variant label:hover {
+      padding-left: 9px;
+      padding-right: 9px;
+      background: rgba(255,255,255,.025);
+    }
+
+    .variant input:checked + label {
+      padding-left: 11px;
+      padding-right: 11px;
+      background: rgba(255,255,255,.045);
+    }
+
+    .variant-number {
+      color: var(--muted-2);
+      font-size: 11px;
+      font-weight: 700;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .variant-name {
+      font-size: 14px;
+      font-weight: 750;
+    }
+
+    .variant-desc {
+      margin-top: 3px;
+      color: var(--muted);
+      font-size: 11px;
+    }
+
+    .variant-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: transparent;
+      border: 1px solid #454545;
+      transition: .18s;
+    }
+
+    .variant input:checked + label .variant-dot {
+      background: var(--text);
+      border-color: var(--text);
+      box-shadow: 0 0 0 4px rgba(255,255,255,.08);
+    }
+
+    /* =========================================
+       PATCH
+    ========================================= */
+
+    .patch-button {
+      width: 100%;
+      min-height: 62px;
+      margin-top: 26px;
+
+      border: 0;
+      border-radius: var(--radius);
+
+      background: #f2f2f2;
+      color: #080808;
+
+      font-size: 14px;
+      font-weight: 850;
+      letter-spacing: .01em;
+
+      cursor: pointer;
+
+      transition:
+        transform .18s,
+        opacity .18s;
+    }
+
+    .patch-button:hover:not(:disabled) {
+      transform: translateY(-2px);
+    }
+
+    .patch-button:active:not(:disabled) {
+      transform: translateY(0);
+    }
+
+    .patch-button:disabled {
+      cursor: wait;
+      opacity: .45;
+    }
+
+    /* =========================================
+       STATUS
+    ========================================= */
+
+    .status {
+      min-height: 20px;
+      margin: 15px 0 0;
+
+      text-align: center;
+
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .status.success {
+      color: var(--green);
+    }
+
+    .status.error {
+      color: var(--danger);
+    }
+
+    /* =========================================
+       READY
+    ========================================= */
+
+    .ready {
+      margin-top: 26px;
+      padding: 22px 0 0;
+      border-top: 1px solid var(--line);
+    }
+
+    .ready-title {
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    .ready-file {
+      margin-top: 6px;
+      color: var(--muted);
+      font-size: 12px;
+      overflow-wrap: anywhere;
+    }
+
+    .manual-download {
+      display: inline-block;
+      margin-top: 14px;
+      color: var(--muted);
+      font-size: 11px;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+
+    /* =========================================
+       PRIVACY
+    ========================================= */
+
+    .privacy {
+      margin-top: 48px;
+      padding-top: 18px;
+      border-top: 1px solid var(--line-soft);
+
+      color: var(--muted-2);
+      font-size: 10px;
+      line-height: 1.6;
+      text-align: center;
+    }
+
+    /* =========================================
+       ACCESS BLOCK
+    ========================================= */
+
+    .access {
+      display: none;
+      min-height: 100vh;
+      width: min(calc(100% - 32px), 620px);
+      margin: auto;
+      padding: 15vh 0;
+    }
+
+    .access.show {
+      display: block;
+    }
+
+    .access-title {
+      font-size: clamp(34px, 8vw, 56px);
+      font-weight: 850;
+      letter-spacing: -.05em;
+      line-height: .95;
+    }
+
+    .access-text {
+      margin-top: 22px;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.7;
+    }
+
+    .official-url {
+      display: inline-block;
+      margin-top: 20px;
+      padding: 13px 15px;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      color: var(--text);
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-size: 12px;
+      overflow-wrap: anywhere;
+    }
+
+    /* =========================================
+       MOBILE
+    ========================================= */
+
+    @media (max-width: 560px) {
+
+      .app {
+        width: min(calc(100% - 22px), var(--content));
+        padding-top: 30px;
+      }
+
+      .header {
+        margin-bottom: 38px;
+      }
+
+      .drop-zone {
+        min-height: 205px;
+      }
+
+      .video-preview {
+        max-height: 360px;
+      }
+
+      .video-preview video {
+        max-height: 360px;
+      }
+
+      .info-row {
+        grid-template-columns: 95px 1fr;
+        gap: 12px;
+      }
+
+      .variant label {
+        grid-template-columns: 30px 1fr 8px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ==========================================================
+       ACCESS RESTRICTION
+  =========================================================== -->
+
+  <section id="accessPage" class="access">
+
+    <div class="access-title">
+      ACCESS<br>
+      RESTRICTED
+    </div>
+
+    <div class="access-text">
+      This tool is only available through the official
+      GitHub Pages deployment.
+    </div>
+
+    <div class="official-url">
+      https://sain-byte.github.io/method/
+    </div>
+
+  </section>
+
+
+  <!-- ==========================================================
+       MAIN APP
+  =========================================================== -->
+
+  <main id="app" class="app">
+
+    <!-- HEADER -->
+
+    <header class="header">
+
+      <h1 class="title">
+        High Quality Method
+      </h1>
+
+      <a
+        class="creator"
+        href="https://www.tiktok.com/@totolat?_r=1&_t=ZS-9AZ8eQiy7Hd"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        @totolat
+      </a>
+
+      <div class="powered">
+        Powered by CompressBase
+      </div>
+
+    </header>
+
+
+    <!-- ========================================================
+         INPUT
+    ========================================================= -->
+
+    <label
+      id="dropZone"
+      class="drop-zone"
+      for="video"
+    >
+
+      <div class="drop-inner">
+
+        <div class="drop-title">
+          Drop your video here
+        </div>
+
+        <div class="drop-subtitle">
+          or choose a file
+        </div>
+
+        <div class="drop-meta">
+          MP4 · LOCAL PROCESSING
+        </div>
+
+      </div>
+
+    </label>
+
+    <input
+      id="video"
+      type="file"
+      accept="video/mp4,.mp4"
+    >
+
+
+    <!-- ========================================================
+         VIDEO PREVIEW
+    ========================================================= -->
+
+    <section
+      id="videoSection"
+      class="video-section"
+      hidden
+    >
+
+      <div class="video-preview">
+        <video
+          id="preview"
+          controls
+          playsinline
+          preload="metadata"
+        ></video>
+      </div>
+
+      <div class="video-meta">
+
+        <div
+          id="fileName"
+          class="video-name"
+        >
+          —
+        </div>
+
+        <button
+          id="replaceButton"
+          class="replace"
+          type="button"
+        >
+          Replace
+        </button>
+
+      </div>
+
+    </section>
+
+
+    <!-- ========================================================
+         MEDIA INFORMATION
+    ========================================================= -->
+
+    <section
+      id="infoBlock"
+      class="block"
+      hidden
+    >
+
+      <div class="eyebrow">
+        Media Information
+      </div>
+
+      <div class="media-info">
+
+        <div class="info-row">
+          <div class="info-label">File</div>
+          <div id="infoFile" class="info-value">—</div>
+        </div>
+
+        <div class="info-row">
+          <div class="info-label">Size</div>
+          <div id="infoSize" class="info-value">—</div>
+        </div>
+
+        <div class="info-row">
+          <div class="info-label">Duration</div>
+          <div id="infoDuration" class="info-value">—</div>
+        </div>
+
+        <div class="info-row">
+          <div class="info-label">Resolution</div>
+          <div id="infoResolution" class="info-value">—</div>
+        </div>
+
+        <div class="info-row">
+          <div class="info-label">FPS</div>
+          <div id="infoFps" class="info-value">—</div>
+        </div>
+
+        <div class="info-row">
+          <div class="info-label">Bitrate</div>
+          <div id="infoBitrate" class="info-value">—</div>
+        </div>
+
+        <div class="info-row">
+          <div class="info-label">Format</div>
+          <div id="infoFormat" class="info-value">—</div>
+        </div>
+
+        <div class="info-row">
+          <div class="info-label">Quality</div>
+          <div id="infoQuality" class="info-value">—</div>
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- ========================================================
+         VARIANTS
+    ========================================================= -->
+
+    <section
+      id="variantBlock"
+      class="block"
+      hidden
+    >
+
+      <div class="eyebrow">
+        Choose a Variant
+      </div>
+
+      <div class="variants">
+
+        <div class="variant">
+
+          <input
+            id="variant-1"
+            type="radio"
+            name="posting-device"
+            value="variant-1"
+            checked
+          >
+
+          <label for="variant-1">
+
+            <span class="variant-number">
+              01
+            </span>
+
+            <span>
+              <span class="variant-name">
+                Not Aggressive
+              </span>
+
+              <span class="variant-desc">
+                Minimal compatibility changes
+              </span>
+            </span>
+
+            <span class="variant-dot"></span>
+
+          </label>
+
+        </div>
+
+
+        <div class="variant">
+
+          <input
+            id="variant-2"
+            type="radio"
+            name="posting-device"
+            value="variant-2"
+          >
+
+          <label for="variant-2">
+
+            <span class="variant-number">
+              02
+            </span>
+
+            <span>
+              <span class="variant-name">
+                Mid Aggressive
+              </span>
+
+              <span class="variant-desc">
+                Balanced compatibility patch
+              </span>
+            </span>
+
+            <span class="variant-dot"></span>
+
+          </label>
+
+        </div>
+
+
+        <div class="variant">
+
+          <input
+            id="variant-3"
+            type="radio"
+            name="posting-device"
+            value="variant-3"
+          >
+
+          <label for="variant-3">
+
+            <span class="variant-number">
+              03
+            </span>
+
+            <span>
+              <span class="variant-name">
+                Hard Aggressive
+              </span>
+
+              <span class="variant-desc">
+                Strong compatibility patch
+              </span>
+            </span>
+
+            <span class="variant-dot"></span>
+
+          </label>
+
+        </div>
+
+
+        <div class="variant">
+
+          <input
+            id="variant-4"
+            type="radio"
+            name="posting-device"
+            value="variant-4"
+          >
+
+          <label for="variant-4">
+
+            <span class="variant-number">
+              04
+            </span>
+
+            <span>
+              <span class="variant-name">
+                HOLY AGGRESSIVE
+              </span>
+
+              <span class="variant-desc">
+                Maximum compatibility patch
+              </span>
+            </span>
+
+            <span class="variant-dot"></span>
+
+          </label>
+
+        </div>
+
+
+        <div class="variant">
+
+          <input
+            id="variant-5"
+            type="radio"
+            name="posting-device"
+            value="variant-5"
+          >
+
+          <label for="variant-5">
+
+            <span class="variant-number">
+              05
+            </span>
+
+            <span>
+              <span class="variant-name">
+                iPhone / iPad
+              </span>
+
+              <span class="variant-desc">
+                Apple device compatibility
+              </span>
+            </span>
+
+            <span class="variant-dot"></span>
+
+          </label>
+
+        </div>
+
+      </div>
+
+
+      <!-- PATCH -->
+
+      <button
+        id="patch"
+        class="patch-button"
+        type="button"
+      >
+        PATCH VIDEO&nbsp;&nbsp; →
+      </button>
+
+      <p
+        id="status"
+        class="status"
+        role="status"
+        aria-live="polite"
+      ></p>
+
+
+      <!-- READY / AUTO DOWNLOAD -->
+
+      <div
+        id="ready"
+        class="ready"
+        hidden
+      >
+
+        <div class="ready-title">
+          ✓ VIDEO READY
+        </div>
+
+        <div
+          id="readyFile"
+          class="ready-file"
+        >
+          —
+        </div>
+
+        <a
+          id="manualDownload"
+          class="manual-download"
+          hidden
+        >
+          Download manually
+        </a>
+
+      </div>
+
+    </section>
+
+
+    <!-- PRIVACY -->
+
+    <div class="privacy">
+      Your video stays on this device.<br>
+      No video upload is required.
+    </div>
+
+  </main>
+
+
+  <script type="module">
+
+    /* ============================================================
+       OFFICIAL DEPLOYMENT CHECK
+    ============================================================ */
+
+    const OFFICIAL_ORIGIN =
+      "https://sain-byte.github.io";
+
+    const OFFICIAL_PATH =
+      "/method/";
+
+    const currentOrigin =
+      window.location.origin;
+
+    const currentPath =
+      window.location.pathname;
+
+    const isOfficial =
+      currentOrigin === OFFICIAL_ORIGIN &&
+      (
+        currentPath === OFFICIAL_PATH ||
+        currentPath === "/method" ||
+        currentPath.startsWith("/method/")
+      );
+
+
+    if (!isOfficial) {
+
+      document.querySelector("#app").style.display =
+        "none";
+
+      document.querySelector("#accessPage")
+        .classList.add("show");
+
+      throw new Error(
+        "Unauthorized deployment."
+      );
+    }
+
+
+    /* ============================================================
+       IMPORT PATCHER
+    ============================================================ */
+
+    const {
+      patchVideo
+    } = await import(
+      "https://compressbase.com/method-api/client.mjs"
+    );
+
+
+    /* ============================================================
+       ELEMENTS
+    ============================================================ */
+
+    const input =
+      document.querySelector("#video");
+
+    const dropZone =
+      document.querySelector("#dropZone");
+
+    const videoSection =
+      document.querySelector("#videoSection");
+
+    const preview =
+      document.querySelector("#preview");
+
+    const fileName =
+      document.querySelector("#fileName");
+
+    const replaceButton =
+      document.querySelector("#replaceButton");
+
+    const infoBlock =
+      document.querySelector("#infoBlock");
+
+    const variantBlock =
+      document.querySelector("#variantBlock");
+
+    const patchButton =
+      document.querySelector("#patch");
+
+    const status =
+      document.querySelector("#status");
+
+    const ready =
+      document.querySelector("#ready");
+
+    const readyFile =
+      document.querySelector("#readyFile");
+
+    const manualDownload =
+      document.querySelector("#manualDownload");
+
+
+    /* ============================================================
+       INFO ELEMENTS
+    ============================================================ */
+
+    const infoFile =
+      document.querySelector("#infoFile");
+
+    const infoSize =
+      document.querySelector("#infoSize");
+
+    const infoDuration =
+      document.querySelector("#infoDuration");
+
+    const infoResolution =
+      document.querySelector("#infoResolution");
+
+    const infoFps =
+      document.querySelector("#infoFps");
+
+    const infoBitrate =
+      document.querySelector("#infoBitrate");
+
+    const infoFormat =
+      document.querySelector("#infoFormat");
+
+    const infoQuality =
+      document.querySelector("#infoQuality");
+
+
+    /* ============================================================
+       STATE
+    ============================================================ */
+
+    let selectedFile = null;
+
+    let previewURL = null;
+
+    let outputURL = null;
+
+    let probeWorker = null;
+
+
+    /* ============================================================
+       HELPERS
+    ============================================================ */
+
+    function bytesToSize(bytes) {
+
+      if (!Number.isFinite(bytes)) {
+        return "—";
+      }
+
+      if (bytes < 1024) {
+        return `${bytes} B`;
+      }
+
+      if (bytes < 1024 * 1024) {
+        return `${(bytes / 1024).toFixed(1)} KB`;
+      }
+
+      if (bytes < 1024 * 1024 * 1024) {
+        return `${(bytes / 1024 / 1024).toFixed(1)} MB`;
+      }
+
+      return `${(
+        bytes /
+        1024 /
+        1024 /
+        1024
+      ).toFixed(2)} GB`;
+    }
+
+
+    function formatDuration(seconds) {
+
+      if (
+        !Number.isFinite(seconds) ||
+        seconds < 0
+      ) {
+        return "—";
+      }
+
+      const total =
+        Math.round(seconds);
+
+      const hours =
+        Math.floor(total / 3600);
+
+      const minutes =
+        Math.floor(
+          (total % 3600) / 60
+        );
+
+      const secs =
+        total % 60;
+
+      if (hours > 0) {
+
+        return (
+          String(hours).padStart(2, "0") +
+          ":" +
+          String(minutes).padStart(2, "0") +
+          ":" +
+          String(secs).padStart(2, "0")
+        );
+      }
+
+      return (
+        String(minutes).padStart(2, "0") +
+        ":" +
+        String(secs).padStart(2, "0")
+      );
+    }
+
+
+    function formatBitrate(value) {
+
+      const bitrate =
+        Number(value);
+
+      if (
+        !Number.isFinite(bitrate) ||
+        bitrate <= 0
+      ) {
+        return "—";
+      }
+
+      if (bitrate >= 1000000) {
+
+        return (
+          (bitrate / 1000000)
+            .toFixed(1)
+            .replace(/\.0$/, "") +
+          " Mbps"
+        );
+      }
+
+      return (
+        Math.round(bitrate / 1000) +
+        " kbps"
+      );
+    }
+
+
+    function parseFPS(value) {
+
+      if (!value) {
+        return "—";
+      }
+
+      const text =
+        String(value);
+
+      if (text.includes("/")) {
+
+        const parts =
+          text.split("/");
+
+        const a =
+          Number(parts[0]);
+
+        const b =
+          Number(parts[1]);
+
+        if (
+          Number.isFinite(a) &&
+          Number.isFinite(b) &&
+          b !== 0
+        ) {
+
+          return (
+            a / b
+          )
+            .toFixed(2)
+            .replace(/\.00$/, "");
+        }
+      }
+
+      const number =
+        Number(value);
+
+      if (Number.isFinite(number)) {
+
+        return number
+          .toFixed(2)
+          .replace(/\.00$/, "");
+      }
+
+      return "—";
+    }
+
+
+    function codecName(codec) {
+
+      if (!codec) {
+        return "—";
+      }
+
+      const value =
+        String(codec).toLowerCase();
+
+      if (
+        value === "hevc" ||
+        value === "h265"
+      ) {
+        return "HEVC";
+      }
+
+      if (
+        value === "h264" ||
+        value === "avc"
+      ) {
+        return "H.264";
+      }
+
+      if (value === "av1") {
+        return "AV1";
+      }
+
+      if (value === "vp9") {
+        return "VP9";
+      }
+
+      if (value === "vp8") {
+        return "VP8";
+      }
+
+      return String(codec).toUpperCase();
+    }
+
+
+    function detectQuality(stream) {
+
+      if (!stream) {
+        return "Unknown";
+      }
+
+      const text =
+        JSON.stringify(stream)
+          .toLowerCase();
+
+
+      /* Dolby Vision */
+
+      if (
+        text.includes("dolby vision") ||
+        text.includes("dolby_vision") ||
+        text.includes("dovi") ||
+        text.includes("dvhe") ||
+        text.includes("dvh1")
+      ) {
+        return "Dolby Vision";
+      }
+
+
+      /* HDR10+ */
+
+      if (
+        text.includes("hdr10+") ||
+        text.includes("smpte2094-40") ||
+        text.includes("2094-40")
+      ) {
+        return "HDR10+";
+      }
+
+
+      /* HLG */
+
+      if (
+        text.includes("arib-std-b67") ||
+        text.includes("hlg")
+      ) {
+        return "HLG";
+      }
+
+
+      /* HDR10 */
+
+      if (
+        text.includes("smpte2084") ||
+        text.includes("pq")
+      ) {
+        return "HDR10";
+      }
+
+
+      return "SDR";
+    }
+
+
+    function setStatus(
+      message,
+      type = ""
+    ) {
+
+      status.textContent =
+        message;
+
+      status.className =
+        `status ${type}`;
+    }
+
+
+    function clearOutput() {
+
+      ready.hidden = true;
+
+      manualDownload.hidden = true;
+
+      manualDownload.removeAttribute(
+        "href"
+      );
+
+      if (outputURL) {
+
+        URL.revokeObjectURL(
+          outputURL
+        );
+
+        outputURL = null;
+      }
+    }
+
+
+    /* ============================================================
+       BROWSER FALLBACK METADATA
+    ============================================================ */
+
+    async function browserMetadata(file) {
+
+      return await new Promise(
+        resolve => {
+
+          const url =
+            URL.createObjectURL(file);
+
+          const temp =
+            document.createElement("video");
+
+          temp.preload =
+            "metadata";
+
+          temp.onloadedmetadata =
+            () => {
+
+              const data = {
+                duration:
+                  temp.duration,
+
+                width:
+                  temp.videoWidth,
+
+                height:
+                  temp.videoHeight
+              };
+
+              URL.revokeObjectURL(
+                url
+              );
+
+              resolve(data);
+            };
+
+          temp.onerror =
+            () => {
+
+              URL.revokeObjectURL(
+                url
+              );
+
+              resolve({});
+            };
+
+          temp.src =
+            url;
+        }
+      );
+    }
+
+
+    /* ============================================================
+       FFPROBE
+    ============================================================ */
+
+    async function loadFFprobe() {
+
+      if (probeWorker) {
+        return probeWorker;
+      }
+
+      /*
+       * Lazy load so the ~4 MB browser module
+       * is not downloaded until a video is selected.
+       */
+
+      const module =
+        await import(
+          "https://cdn.jsdelivr.net/npm/ffprobe-wasm@0.3.1/browser.mjs"
+        );
+
+      probeWorker =
+        new module.FFprobeWorker();
+
+      return probeWorker;
+    }
+
+
+    async function analyzeFile(file) {
+
+      /*
+       * Always populate the information we can
+       * get without FFprobe first.
+       */
+
+      infoFile.textContent =
+        file.name;
+
+      infoSize.textContent =
+        bytesToSize(file.size);
+
+      infoDuration.textContent =
+        "Reading…";
+
+      infoResolution.textContent =
+        "Reading…";
+
+      infoFps.textContent =
+        "Reading…";
+
+      infoBitrate.textContent =
+        "Reading…";
+
+      infoFormat.textContent =
+        "Reading…";
+
+      infoQuality.textContent =
+        "Reading…";
+
+
+      let browserInfo =
+        await browserMetadata(file);
+
+
+      /*
+       * FFprobe-like analysis.
+       */
+
+      try {
+
+        const worker =
+          await loadFFprobe();
+
+        const result =
+          await worker.getFileInfo(
+            file
+          );
+
+        const streams =
+          result?.streams || [];
+
+        const format =
+          result?.format || {};
+
+        const video =
+          streams.find(
+            stream =>
+              stream.codec_type === "video"
+          );
+
+
+        /* Duration */
+
+        const duration =
+          Number(
+            video?.duration ??
+            format?.duration
+          );
+
+        infoDuration.textContent =
+          formatDuration(
+            Number.isFinite(duration)
+              ? duration
+              : browserInfo.duration
+          );
+
+
+        /* Resolution */
+
+        const width =
+          Number(
+            video?.width ??
+            browserInfo.width
+          );
+
+        const height =
+          Number(
+            video?.height ??
+            browserInfo.height
+          );
+
+        if (
+          width > 0 &&
+          height > 0
+        ) {
+
+          infoResolution.textContent =
+            `${width} × ${height}`;
+
+        } else {
+
+          infoResolution.textContent =
+            "—";
+        }
+
+
+        /* FPS */
+
+        infoFps.textContent =
+          parseFPS(
+            video?.avg_frame_rate ??
+            video?.r_frame_rate
+          );
+
+
+        /* Bitrate */
+
+        infoBitrate.textContent =
+          formatBitrate(
+            video?.bit_rate ??
+            format?.bit_rate
+          );
+
+
+        /* Format */
+
+        infoFormat.textContent =
+          codecName(
+            video?.codec_name
+          );
+
+
+        /* Quality */
+
+        infoQuality.textContent =
+          detectQuality(video);
+
+
+        setStatus(
+          "Ready to patch."
+        );
+
+
+      } catch (error) {
+
+        console.warn(
+          "FFprobe WASM unavailable:",
+          error
+        );
+
+
+        /*
+         * Browser fallback.
+         */
+
+        infoDuration.textContent =
+          formatDuration(
+            browserInfo.duration
+          );
+
+        infoResolution.textContent =
+          browserInfo.width &&
+          browserInfo.height
+            ? `${browserInfo.width} × ${browserInfo.height}`
+            : "—";
+
+        infoFps.textContent =
+          "—";
+
+        infoBitrate.textContent =
+          "—";
+
+        infoFormat.textContent =
+          "MP4";
+
+        infoQuality.textContent =
+          "Unknown";
+
+
+        setStatus(
+          "Video loaded. Some details are unavailable."
+        );
+      }
+    }
+
+
+    /* ============================================================
+       SELECT FILE
+    ============================================================ */
+
+    async function selectFile(file) {
+
+      if (!file) {
+        return;
+      }
+
+
+      const isMP4 =
+        file.type === "video/mp4" ||
+        file.name
+          .toLowerCase()
+          .endsWith(".mp4");
+
+
+      if (!isMP4) {
+
+        setStatus(
+          "Please choose an MP4 video.",
+          "error"
+        );
+
+        return;
+      }
+
+
+      selectedFile =
+        file;
+
+
+      clearOutput();
+
+
+      /* Preview */
+
+      if (previewURL) {
+
+        URL.revokeObjectURL(
+          previewURL
+        );
+      }
+
+      previewURL =
+        URL.createObjectURL(
+          file
+        );
+
+      preview.src =
+        previewURL;
+
+      fileName.textContent =
+        file.name;
+
+
+      videoSection.hidden =
+        false;
+
+      infoBlock.hidden =
+        false;
+
+      variantBlock.hidden =
+        false;
+
+
+      setStatus(
+        "Reading video…"
+      );
+
+
+      await analyzeFile(
+        file
+      );
+    }
+
+
+    /* ============================================================
+       FILE INPUT
+    ============================================================ */
+
+    input.addEventListener(
+      "change",
+      event => {
+
+        const file =
+          event.target.files?.[0];
+
+        selectFile(file);
+      }
+    );
+
+
+    /* ============================================================
+       REPLACE
+    ============================================================ */
+
+    replaceButton.addEventListener(
+      "click",
+      () => {
+
+        input.value = "";
+
+        input.click();
+      }
+    );
+
+
+    /* ============================================================
+       DRAG & DROP
+    ============================================================ */
+
+    [
+      "dragenter",
+      "dragover"
+    ].forEach(
+      eventName => {
+
+        dropZone.addEventListener(
+          eventName,
+          event => {
+
+            event.preventDefault();
+
+            event.stopPropagation();
+
+            dropZone.classList.add(
+              "dragover"
+            );
+          }
+        );
+      }
+    );
+
+
+    [
+      "dragleave",
+      "drop"
+    ].forEach(
+      eventName => {
+
+        dropZone.addEventListener(
+          eventName,
+          event => {
+
+            event.preventDefault();
+
+            event.stopPropagation();
+
+            dropZone.classList.remove(
+              "dragover"
+            );
+          }
+        );
+      }
+    );
+
+
+    dropZone.addEventListener(
+      "drop",
+      event => {
+
+        const file =
+          event.dataTransfer
+            ?.files?.[0];
+
+        selectFile(file);
+      }
+    );
+
+
+    /* ============================================================
+       PATCH
+    ============================================================ */
+
+    patchButton.addEventListener(
+      "click",
+      async () => {
+
+        if (!selectedFile) {
+
+          setStatus(
+            "Choose a video first.",
+            "error"
+          );
+
+          return;
+        }
+
+
+        const selected =
+          document.querySelector(
+            'input[name="posting-device"]:checked'
+          );
+
+
+        if (!selected) {
+
+          setStatus(
+            "Choose a variant first.",
+            "error"
+          );
+
+          return;
+        }
+
+
+        patchButton.disabled =
+          true;
+
+        clearOutput();
+
+
+        try {
+
+          const output =
+            await patchVideo(
+              selectedFile,
+              {
+                postingDevice:
+                  selected.value,
+
+                signal:
+                  AbortSignal.timeout(
+                    180000
+                  ),
+
+                onStatus:
+                  message => {
+
+                    setStatus(
+                      message ||
+                      "Patching…"
+                    );
+                  }
+              }
+            );
+
+
+          /*
+           * Output filename:
+           *
+           * video.mp4
+           *       ↓
+           * video_totolat.mp4
+           */
+
+          const baseName =
+            selectedFile.name
+              .replace(
+                /\.mp4$/i,
+                ""
+              );
+
+
+          const outputName =
+            `${baseName}_totolat.mp4`;
+
+
+          outputURL =
+            URL.createObjectURL(
+              output
+            );
+
+
+          /*
+           * Hidden manual fallback.
+           */
+
+          manualDownload.href =
+            outputURL;
+
+          manualDownload.download =
+            outputName;
+
+          manualDownload.textContent =
+            "Download manually";
+
+
+          /*
+           * UI feedback.
+           */
+
+          readyFile.textContent =
+            outputName;
+
+          ready.hidden =
+            false;
+
+          setStatus(
+            "✓ Patch complete. Download starting…",
+            "success"
+          );
+
+
+          /*
+           * Automatic download.
+           */
+
+          const link =
+            document.createElement("a");
+
+          link.href =
+            outputURL;
+
+          link.download =
+            outputName;
+
+          link.style.display =
+            "none";
+
+          document.body.appendChild(
+            link
+          );
+
+          link.click();
+
+          link.remove();
+
+
+          /*
+           * Some browsers may block automatic
+           * downloads. Keep the manual fallback
+           * available without making it the main UI.
+           */
+
+          setTimeout(
+            () => {
+
+              manualDownload.hidden =
+                false;
+
+            },
+            1800
+          );
+
+
+        } catch (error) {
+
+          console.error(error);
+
+          setStatus(
+            error?.message ||
+            "Patching failed.",
+            "error"
+          );
+
+        } finally {
+
+          patchButton.disabled =
+            false;
+        }
+      }
+    );
+
+
+    /* ============================================================
+       CLEANUP
+    ============================================================ */
+
+    window.addEventListener(
+      "beforeunload",
+      () => {
+
+        if (previewURL) {
+
+          URL.revokeObjectURL(
+            previewURL
+          );
+        }
+
+        if (outputURL) {
+
+          URL.revokeObjectURL(
+            outputURL
+          );
+        }
+
+        if (probeWorker) {
+
+          try {
+            probeWorker.terminate();
+          } catch {}
+        }
+      }
+    );
+
+  </script>
+
+</body>
+</html>
