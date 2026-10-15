@@ -2114,6 +2114,8 @@
       } catch (_) {}
     }
 
+    sendStats("visit");
+
     async function loadStats() {
       statsStatus.textContent = "Loading statistics…";
       try {
