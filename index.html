@@ -1,1825 +1,1920 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#080808">
-
-<title>High Quality Method</title>
-
-<link rel="icon" type="image/png" sizes="32x32" href="./favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="./favicon-16x16.png">
-<link rel="apple-touch-icon" href="./apple-touch-icon.png">
-<link rel="manifest" href="./site.webmanifest">
-
-<style>
-*{
-  box-sizing:border-box;
-}
-
-html,
-body{
-  margin:0;
-  width:100%;
-  height:100%;
-  background:#080808;
-  color:#f2f2f2;
-  font-family:
-    Inter,
-    ui-sans-serif,
-    system-ui,
-    -apple-system,
-    BlinkMacSystemFont,
-    "Segoe UI",
-    sans-serif;
-}
-
-body{
-  overflow:hidden;
-}
-
-button,
-select,
-input{
-  font:inherit;
-}
-
-button{
-  cursor:pointer;
-}
-
-
-/* =========================================================
-   APP
-========================================================= */
-
-#app{
-  width:min(680px,100%);
-  height:100dvh;
-  margin:auto;
-
-  padding:
-    max(18px,env(safe-area-inset-top))
-    18px
-    max(14px,env(safe-area-inset-bottom));
-
-  display:flex;
-  flex-direction:column;
-
-  overflow:hidden;
-}
-
-
-/* =========================================================
-   HEADER
-========================================================= */
-
-header{
-  flex:0 0 auto;
-  padding-bottom:14px;
-}
-
-.brand{
-  font-size:24px;
-  font-weight:750;
-  letter-spacing:-.055em;
-  line-height:1.05;
-}
-
-.creator{
-  margin-top:8px;
-  font-size:15px;
-}
-
-.creator a{
-  color:#929292;
-  text-decoration:none;
-}
-
-.creator a:hover{
-  color:#fff;
-}
-
-.powered{
-  margin-top:5px;
-  color:#505050;
-  font-size:12px;
-}
-
-
-/* =========================================================
-   UPLOAD
-========================================================= */
-
-.upload{
-  flex:0 0 auto;
-
-  height:72px;
-
-  border:1px dashed #343434;
-  border-radius:11px;
-
-  display:flex;
-  align-items:center;
-  justify-content:center;
-
-  cursor:pointer;
-
-  transition:
-    border-color .2s,
-    background .2s;
-}
-
-.upload:hover,
-.upload.dragover{
-  border-color:#666;
-  background:#101010;
-}
-
-.upload input{
-  display:none;
-}
-
-.upload-main{
-  font-size:14px;
-  font-weight:600;
-}
-
-.upload-sub{
-  margin-left:7px;
-  color:#555;
-  font-size:12px;
-}
-
-
-/* =========================================================
-   PREVIEW
-========================================================= */
-
-.preview-area{
-  display:none;
-  flex:0 0 auto;
-  margin-top:11px;
-}
-
-.preview-box{
-  width:100%;
-  height:305px;
-
-  display:flex;
-  align-items:center;
-  justify-content:center;
-
-  background:#0b0b0b;
-
-  border:1px solid #292929;
-  border-radius:12px;
-
-  overflow:hidden;
-}
-
-#preview{
-  display:block;
-
-  width:100%;
-  height:100%;
-
-  object-fit:contain;
-
-  background:#050505;
-}
-
-.file-row{
-  display:flex;
-  align-items:center;
-  gap:12px;
-
-  min-height:42px;
-  margin-top:5px;
-}
-
-.filename{
-  min-width:0;
-  flex:1;
-
-  color:#dedede;
-
-  font-size:14px;
-  font-weight:500;
-
-  white-space:nowrap;
-  overflow:hidden;
-  text-overflow:ellipsis;
-}
-
-/* REPLACE BUTTON */
-
-.replace{
-  flex:0 0 auto;
-
-  height:31px;
-  padding:0 13px;
-
-  border:0;
-  border-radius:7px;
-
-  background:#b7ff19;
-  color:#101010;
-
-  font-size:11px;
-  font-weight:800;
-  letter-spacing:.02em;
-
-  transition:
-    background .15s,
-    transform .1s;
-}
-
-.replace:hover{
-  background:#c8ff4d;
-}
-
-.replace:active{
-  transform:scale(.96);
-}
-
-
-/* =========================================================
-   SECTIONS
-========================================================= */
-
-.section{
-  flex:0 0 auto;
-  margin-top:11px;
-}
-
-.section-label{
-  margin-bottom:8px;
-
-  color:#555;
-
-  font-size:10px;
-  font-weight:700;
-  letter-spacing:.16em;
-
-  text-transform:uppercase;
-}
-
-
-/* =========================================================
-   MEDIA INFORMATION
-========================================================= */
-
-.info{
-  border-top:1px solid #242424;
-  border-bottom:1px solid #242424;
-}
-
-.info-file{
-  min-height:38px;
-
-  display:grid;
-  grid-template-columns:68px 1fr;
-  align-items:center;
-
-  border-bottom:1px solid #1c1c1c;
-}
-
-.info-grid{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-}
-
-.info-item{
-  min-height:50px;
-
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
-
-  padding:5px 10px 5px 0;
-}
-
-.info-item:nth-child(even){
-  padding-left:14px;
-  border-left:1px solid #1c1c1c;
-}
-
-.info-key{
-  color:#505050;
-
-  font-size:9px;
-  font-weight:700;
-  letter-spacing:.08em;
-
-  text-transform:uppercase;
-}
-
-.info-value{
-  margin-top:4px;
-
-  color:#d9d9d9;
-
-  font-size:14px;
-  font-weight:500;
-
-  white-space:nowrap;
-  overflow:hidden;
-  text-overflow:ellipsis;
-}
-
-.info-file .info-value{
-  font-size:13px;
-}
-
-
-/* =========================================================
-   VARIANT
-========================================================= */
-
-.variant-select{
-  width:100%;
-  height:52px;
-
-  padding:0 14px;
-
-  border:1px solid #2b2b2b;
-  border-radius:11px;
-
-  outline:none;
-
-  background:#101010;
-  color:#eee;
-
-  font-size:14px;
-}
-
-.variant-select:focus{
-  border-color:#555;
-}
-
-
-/* =========================================================
-   PATCH
-========================================================= */
-
-.patch{
-  flex:0 0 auto;
-
-  width:100%;
-  height:59px;
-
-  margin-top:11px;
-
-  border:0;
-  border-radius:11px;
-
-  background:#f1f1f1;
-  color:#080808;
-
-  font-size:13px;
-  font-weight:800;
-  letter-spacing:.06em;
-
-  transition:
-    opacity .2s,
-    transform .1s;
-}
-
-.patch:hover{
-  background:#fff;
-}
-
-.patch:active{
-  transform:scale(.995);
-}
-
-.patch:disabled{
-  opacity:.45;
-  cursor:wait;
-}
-
-
-/* =========================================================
-   STATUS
-========================================================= */
-
-.status{
-  flex:0 0 auto;
-
-  min-height:16px;
-
-  margin-top:5px;
-
-  color:#555;
-
-  font-size:10px;
-  text-align:center;
-}
-
-.manual-download{
-  display:none;
-
-  margin-top:2px;
-
-  color:#555;
-
-  font-size:10px;
-  text-align:center;
-}
-
-.manual-download a{
-  color:#999;
-}
-
-
-/* =========================================================
-   PRIVACY
-========================================================= */
-
-.privacy{
-  margin-top:auto;
-  padding-top:7px;
-
-  color:#3e3e3e;
-
-  font-size:10px;
-  text-align:center;
-}
-
-
-/* =========================================================
-   SMALL HEIGHT
-========================================================= */
-
-@media(max-height:800px){
-
-  #app{
-    padding-top:
-      max(12px,env(safe-area-inset-top));
-  }
-
-  header{
-    padding-bottom:10px;
-  }
-
-  .brand{
-    font-size:21px;
-  }
-
-  .creator{
-    margin-top:5px;
-    font-size:13px;
-  }
-
-  .powered{
-    margin-top:3px;
-    font-size:10px;
-  }
-
-  .preview-box{
-    height:250px;
-  }
-
-  .file-row{
-    min-height:34px;
-  }
-
-  .section{
-    margin-top:8px;
-  }
-
-  .info-item{
-    min-height:42px;
-  }
-
-  .variant-select{
-    height:46px;
-  }
-
-  .patch{
-    height:50px;
-    margin-top:8px;
-  }
-}
-
-
-/* =========================================================
-   VERY SHORT
-========================================================= */
-
-@media(max-height:680px){
-
-  .preview-box{
-    height:205px;
-  }
-
-  .info-item{
-    min-height:36px;
-  }
-
-  .info-value{
-    font-size:12px;
-  }
-
-  .privacy{
-    display:none;
-  }
-}
-
-
-/* =========================================================
-   SMALL WIDTH
-========================================================= */
-
-@media(max-width:380px){
-
-  #app{
-    padding-left:14px;
-    padding-right:14px;
-  }
-
-  .brand{
-    font-size:21px;
-  }
-
-  .preview-box{
-    height:235px;
-  }
-
-  .info-value{
-    font-size:12px;
-  }
-
-  .replace{
-    padding:0 11px;
-  }
-}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>High Quality Method</title>
+
+  <link rel="apple-touch-icon" sizes="180x180" href="./apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="./favicon-16x16.png">
+  <link rel="manifest" href="./site.webmanifest">
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    :root {
+      --bg: #080808;
+      --panel: #101010;
+      --panel-2: #141414;
+      --border: #272727;
+      --border-light: #323232;
+      --text: #f4f4f4;
+      --muted: #8e8e8e;
+      --muted-2: #666;
+      --green: #20d66b;
+      --green-dark: #0f9f4c;
+      --red: #ff5c5c;
+    }
+
+    html,
+    body {
+      margin: 0;
+      width: 100%;
+      min-height: 100%;
+      background: var(--bg);
+      color: var(--text);
+      font-family:
+        Inter,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Roboto,
+        Arial,
+        sans-serif;
+    }
+
+    body {
+      overflow: hidden;
+    }
+
+    button,
+    select,
+    input {
+      font: inherit;
+    }
+
+    .app {
+      width: min(680px, 100%);
+      height: 100dvh;
+      margin: 0 auto;
+      padding: 26px 20px 22px;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    /* =========================
+       HEADER
+    ========================= */
+
+    .header {
+      flex: 0 0 auto;
+      margin-bottom: 20px;
+    }
+
+    .brand {
+      font-size: 24px;
+      font-weight: 700;
+      letter-spacing: -0.7px;
+      line-height: 1.1;
+    }
+
+    .creator {
+      display: inline-block;
+      margin-top: 7px;
+      color: var(--text);
+      font-size: 13px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: opacity .18s ease;
+    }
+
+    .creator:hover {
+      opacity: .65;
+    }
+
+    .powered {
+      margin-top: 3px;
+      color: var(--muted-2);
+      font-size: 11px;
+      letter-spacing: .1px;
+    }
+
+    /* =========================
+       MAIN
+    ========================= */
+
+    .content {
+      flex: 1;
+      min-height: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    /* =========================
+       UPLOAD
+    ========================= */
+
+    .upload-box {
+      flex: 0 0 72px;
+      border: 1px dashed var(--border-light);
+      background: #0d0d0d;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition:
+        border-color .18s ease,
+        background .18s ease;
+    }
+
+    .upload-box:hover {
+      border-color: #4a4a4a;
+      background: #111;
+    }
+
+    .upload-inner {
+      text-align: center;
+    }
+
+    .upload-title {
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    .upload-sub {
+      margin-top: 4px;
+      color: var(--muted);
+      font-size: 11px;
+    }
+
+    #file-input {
+      display: none;
+    }
+
+    /* =========================
+       PREVIEW
+    ========================= */
+
+    .preview-section {
+      display: none;
+      flex-direction: column;
+      gap: 9px;
+      min-height: 0;
+    }
+
+    .preview-box {
+      width: 100%;
+      height: 305px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+      background: #000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .preview-box video {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      background: #000;
+    }
+
+    .file-row {
+      min-height: 43px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .file-name {
+      min-width: 0;
+      flex: 1;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      color: var(--text);
+      font-size: 12px;
+      font-weight: 500;
+    }
+
+    .replace-btn {
+      flex: 0 0 auto;
+      height: 34px;
+      padding: 0 13px;
+      border: 1px solid var(--green);
+      border-radius: 8px;
+      background: transparent;
+      color: var(--green);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: .3px;
+      cursor: pointer;
+      transition:
+        background .18s ease,
+        color .18s ease;
+    }
+
+    .replace-btn:hover {
+      background: var(--green);
+      color: #06150c;
+    }
+
+    /* =========================
+       MEDIA INFORMATION
+    ========================= */
+
+    .section-label {
+      margin-bottom: 7px;
+      color: var(--muted-2);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    .media-card {
+      border: 1px solid var(--border);
+      border-radius: 11px;
+      overflow: hidden;
+      background: var(--panel);
+    }
+
+    .media-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .media-item {
+      min-height: 48px;
+      padding: 9px 12px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .media-item:nth-child(odd) {
+      border-right: 1px solid var(--border);
+    }
+
+    .media-item:nth-last-child(-n + 2) {
+      border-bottom: 0;
+    }
+
+    .media-key {
+      color: var(--muted-2);
+      font-size: 9px;
+      text-transform: uppercase;
+      letter-spacing: .7px;
+      margin-bottom: 3px;
+    }
+
+    .media-value {
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      color: var(--text);
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .quality-value {
+      color: var(--text);
+    }
+
+    /* =========================
+       VARIANT
+    ========================= */
+
+    .variant-section {
+      flex: 0 0 auto;
+    }
+
+    .variant-select {
+      width: 100%;
+      height: 52px;
+      padding: 0 14px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      outline: none;
+      background: var(--panel);
+      color: var(--text);
+      font-size: 12px;
+      cursor: pointer;
+    }
+
+    .variant-select:focus {
+      border-color: #454545;
+    }
+
+    /* =========================
+       PATCH
+    ========================= */
+
+    .patch-btn {
+      width: 100%;
+      height: 59px;
+      border: 1px solid var(--green);
+      border-radius: 11px;
+      background: var(--green);
+      color: #06150c;
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: .5px;
+      cursor: pointer;
+      transition:
+        transform .12s ease,
+        background .18s ease,
+        opacity .18s ease;
+    }
+
+    .patch-btn:hover {
+      background: #32e57b;
+    }
+
+    .patch-btn:active {
+      transform: scale(.995);
+    }
+
+    .patch-btn:disabled {
+      opacity: .45;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .status {
+      min-height: 17px;
+      margin: 0;
+      color: var(--muted);
+      font-size: 10px;
+      line-height: 1.4;
+      text-align: center;
+    }
+
+    .download-link {
+      display: block;
+      margin-top: -3px;
+      color: var(--green);
+      font-size: 11px;
+      text-align: center;
+      text-decoration: none;
+    }
+
+    .download-link:hover {
+      text-decoration: underline;
+    }
+
+    .privacy {
+      flex: 0 0 auto;
+      color: var(--muted-2);
+      font-size: 9px;
+      line-height: 1.35;
+      text-align: center;
+    }
+
+    /* =========================
+       ERROR MODAL
+    ========================= */
+
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 22px;
+      background: rgba(0, 0, 0, .72);
+      backdrop-filter: blur(7px);
+    }
+
+    .modal-backdrop.show {
+      display: flex;
+    }
+
+    .modal {
+      width: min(390px, 100%);
+      padding: 22px;
+      border: 1px solid #343434;
+      border-radius: 15px;
+      background: #111;
+      box-shadow: 0 25px 80px rgba(0,0,0,.55);
+    }
+
+    .modal-title {
+      color: var(--text);
+      font-size: 15px;
+      font-weight: 800;
+      letter-spacing: -.2px;
+    }
+
+    .modal-message {
+      margin-top: 9px;
+      color: #c8c8c8;
+      font-size: 12px;
+      line-height: 1.55;
+    }
+
+    .modal-detail {
+      margin-top: 7px;
+      color: var(--muted);
+      font-size: 10px;
+      line-height: 1.5;
+    }
+
+    .modal-ok {
+      width: 100%;
+      height: 42px;
+      margin-top: 18px;
+      border: 1px solid #3b3b3b;
+      border-radius: 9px;
+      background: #191919;
+      color: var(--text);
+      font-size: 11px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .modal-ok:hover {
+      background: #202020;
+    }
+
+    /* =========================
+       SMALL SCREEN
+    ========================= */
+
+    @media (max-height: 800px) {
+      .app {
+        padding-top: 18px;
+        padding-bottom: 14px;
+      }
+
+      .header {
+        margin-bottom: 14px;
+      }
+
+      .preview-box {
+        height: 250px;
+      }
+
+      .content {
+        gap: 10px;
+      }
+
+      .media-item {
+        min-height: 42px;
+        padding: 7px 11px;
+      }
+
+      .variant-select {
+        height: 47px;
+      }
+
+      .patch-btn {
+        height: 52px;
+      }
+    }
+  </style>
 </head>
-
 
 <body>
 
-<main id="app">
-
-<header>
-
-  <div class="brand">
-    High Quality Method
-  </div>
-
-  <div class="creator">
-    <a
-      href="https://www.tiktok.com/@totolat?_r=1&_t=ZS-9AZ8eQiy7Hd"
-      target="_blank"
-      rel="noopener noreferrer"
-    >
-      @totolat
-    </a>
-  </div>
-
-  <div class="powered">
-    Powered by CompressBase
-  </div>
-
-</header>
-
-
-<!-- =======================================================
-     UPLOAD
-======================================================== -->
-
-<label
-  class="upload"
-  id="dropzone"
-  for="video"
->
-  <input
-    id="video"
-    type="file"
-    accept="video/mp4,.mp4"
-  >
-
-  <span class="upload-main">
-    Drop MP4 here · Choose file
-  </span>
-
-  <span class="upload-sub">
-    MP4 only
-  </span>
-</label>
-
-
-<!-- =======================================================
-     PREVIEW
-======================================================== -->
-
-<div
-  class="preview-area"
-  id="previewArea"
->
-
-  <div class="preview-box">
-
-    <video
-      id="preview"
-      controls
-      playsinline
-      preload="metadata"
-    ></video>
-
-  </div>
-
-  <div class="file-row">
-
-    <div
-      class="filename"
-      id="fileName"
-    >
-      —
-    </div>
-
-    <button
-      class="replace"
-      id="replace"
-      type="button"
-    >
-      REPLACE
-    </button>
-
-  </div>
-
-</div>
-
-
-<!-- =======================================================
-     MEDIA INFORMATION
-======================================================== -->
-
-<section
-  class="section"
-  id="infoSection"
-  hidden
->
-
-  <div class="section-label">
-    Media Information
-  </div>
-
-  <div class="info">
-
-    <div class="info-file">
-
-      <div class="info-key">
-        File
+  <!-- ACCESS RESTRICTION -->
+  <div id="restricted-page" style="
+    display:none;
+    min-height:100dvh;
+    align-items:center;
+    justify-content:center;
+    padding:24px;
+    background:#080808;
+    color:#f4f4f4;
+    text-align:center;
+    font-family:Inter,-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;
+  ">
+    <div style="max-width:460px">
+      <div style="
+        font-size:20px;
+        font-weight:800;
+        letter-spacing:-.4px;
+      ">
+        ACCESS RESTRICTED
       </div>
 
-      <div
-        class="info-value"
-        id="infoFile"
+      <div style="
+        margin-top:12px;
+        color:#999;
+        font-size:12px;
+        line-height:1.6;
+      ">
+        This tool is only available through the official GitHub Pages deployment.
+      </div>
+
+      <div style="
+        margin-top:14px;
+        color:#20d66b;
+        font-size:11px;
+        word-break:break-all;
+      ">
+        https://sain-byte.github.io/method/
+      </div>
+    </div>
+  </div>
+
+
+  <main class="app" id="app">
+
+    <!-- HEADER -->
+    <header class="header">
+      <div class="brand">High Quality Method</div>
+
+      <a
+        class="creator"
+        href="https://www.tiktok.com/@totolat?_r=1&_t=ZS-9AZ8eQiy7Hd"
+        target="_blank"
+        rel="noopener noreferrer"
       >
-        —
-      </div>
+        @totolat
+      </a>
 
+      <div class="powered">
+        Powered by CompressBase
+      </div>
+    </header>
+
+
+    <section class="content">
+
+      <!-- UPLOAD -->
+      <label class="upload-box" id="upload-box" for="file-input">
+        <div class="upload-inner">
+          <div class="upload-title">Select MP4 video</div>
+          <div class="upload-sub">Click or drag and drop</div>
+        </div>
+      </label>
+
+      <input
+        id="file-input"
+        type="file"
+        accept="video/mp4,.mp4"
+      >
+
+
+      <!-- PREVIEW -->
+      <section class="preview-section" id="preview-section">
+
+        <div class="preview-box">
+          <video
+            id="preview"
+            controls
+            playsinline
+            preload="metadata"
+          ></video>
+        </div>
+
+        <div class="file-row">
+          <div class="file-name" id="file-name">—</div>
+
+          <button
+            class="replace-btn"
+            id="replace-btn"
+            type="button"
+          >
+            REPLACE
+          </button>
+        </div>
+
+      </section>
+
+
+      <!-- MEDIA INFO -->
+      <section id="media-section" style="display:none">
+
+        <div class="section-label">
+          Media Information
+        </div>
+
+        <div class="media-card">
+          <div class="media-grid">
+
+            <div class="media-item">
+              <div class="media-key">File</div>
+              <div class="media-value" id="info-file">—</div>
+            </div>
+
+            <div class="media-item">
+              <div class="media-key">Size</div>
+              <div class="media-value" id="info-size">—</div>
+            </div>
+
+            <div class="media-item">
+              <div class="media-key">Duration</div>
+              <div class="media-value" id="info-duration">—</div>
+            </div>
+
+            <div class="media-item">
+              <div class="media-key">Resolution</div>
+              <div class="media-value" id="info-resolution">—</div>
+            </div>
+
+            <div class="media-item">
+              <div class="media-key">FPS</div>
+              <div class="media-value" id="info-fps">—</div>
+            </div>
+
+            <div class="media-item">
+              <div class="media-key">Bitrate</div>
+              <div class="media-value" id="info-bitrate">—</div>
+            </div>
+
+            <div class="media-item">
+              <div class="media-key">Format</div>
+              <div class="media-value" id="info-format">—</div>
+            </div>
+
+            <div class="media-item">
+              <div class="media-key">Quality</div>
+              <div class="media-value quality-value" id="info-quality">—</div>
+            </div>
+
+            <div class="media-item">
+              <div class="media-key">Container</div>
+              <div class="media-value" id="info-container">—</div>
+            </div>
+
+          </div>
+        </div>
+
+      </section>
+
+
+      <!-- VARIANT -->
+      <section class="variant-section" id="variant-section" style="display:none">
+
+        <div class="section-label">
+          Method
+        </div>
+
+        <select
+          class="variant-select"
+          id="posting-device"
+        >
+          <option value="variant-1">
+            Variant 1 — Not Aggressive
+          </option>
+
+          <option value="variant-2">
+            Variant 2 — Mid Aggressive
+          </option>
+
+          <option value="variant-3">
+            Variant 3 — Hard Aggressive
+          </option>
+
+          <option value="variant-4">
+            Variant 4 — HOLY AGGRESSIVE
+          </option>
+
+          <option value="variant-5">
+            Variant 5 — iPhone / iPad
+          </option>
+        </select>
+
+      </section>
+
+
+      <!-- PATCH -->
+      <section id="patch-section" style="display:none">
+
+        <button
+          class="patch-btn"
+          id="patch"
+          type="button"
+        >
+          PATCH VIDEO →
+        </button>
+
+        <p class="status" id="status"></p>
+
+        <a
+          class="download-link"
+          id="download"
+          hidden
+        >
+          Download patched video
+        </a>
+
+      </section>
+
+    </section>
+
+
+    <div class="privacy">
+      Your video stays on this device. No video upload is required.
     </div>
 
+  </main>
 
-    <div class="info-grid">
 
-      <div class="info-item">
-        <div class="info-key">Size</div>
-        <div
-          class="info-value"
-          id="infoSize"
-        >—</div>
+  <!-- ERROR MODAL -->
+  <div
+    class="modal-backdrop"
+    id="error-modal"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="modal-title"
+  >
+    <div class="modal">
+
+      <div class="modal-title" id="modal-title">
+        VIDEO NOT SUPPORTED
       </div>
 
-      <div class="info-item">
-        <div class="info-key">Duration</div>
-        <div
-          class="info-value"
-          id="infoDuration"
-        >—</div>
+      <div class="modal-message" id="modal-message">
+        Maximum input resolution is 1080p.
       </div>
 
-      <div class="info-item">
-        <div class="info-key">Resolution</div>
-        <div
-          class="info-value"
-          id="infoResolution"
-        >—</div>
+      <div class="modal-detail" id="modal-detail">
+        Supported up to 1920×1080 landscape or 1080×1920 portrait.
       </div>
 
-      <div class="info-item">
-        <div class="info-key">FPS</div>
-        <div
-          class="info-value"
-          id="infoFps"
-        >—</div>
-      </div>
-
-      <div class="info-item">
-        <div class="info-key">Bitrate</div>
-        <div
-          class="info-value"
-          id="infoBitrate"
-        >—</div>
-      </div>
-
-      <div class="info-item">
-        <div class="info-key">Format</div>
-        <div
-          class="info-value"
-          id="infoFormat"
-        >—</div>
-      </div>
-
-      <div class="info-item">
-        <div class="info-key">Quality</div>
-        <div
-          class="info-value"
-          id="infoQuality"
-        >—</div>
-      </div>
-
-      <div class="info-item">
-        <div class="info-key">Container</div>
-        <div class="info-value">MP4</div>
-      </div>
+      <button
+        class="modal-ok"
+        id="modal-ok"
+        type="button"
+      >
+        OK
+      </button>
 
     </div>
-
   </div>
 
-</section>
 
+  <script type="module">
 
-<!-- =======================================================
-     VARIANT
-======================================================== -->
+    /* =========================================================
+       ACCESS RESTRICTION
+    ========================================================= */
 
-<section
-  class="section"
-  id="variantSection"
-  hidden
->
+    const OFFICIAL_ORIGIN = "https://sain-byte.github.io";
 
-  <div class="section-label">
-    Patch Variant
-  </div>
+    if (
+      location.origin !== OFFICIAL_ORIGIN ||
+      location.pathname !== "/method/" &&
+      location.pathname !== "/method/index.html"
+    ) {
+      document.getElementById("app").style.display = "none";
+      document.getElementById("restricted-page").style.display = "flex";
+      throw new Error("Access restricted.");
+    }
 
-  <select
-    id="posting-device"
-    class="variant-select"
-  >
 
-    <option value="variant-1">
-      Variant 1 — Not Aggressive
-    </option>
+    /* =========================================================
+       ELEMENTS
+    ========================================================= */
 
-    <option value="variant-2">
-      Variant 2 — Mid Aggressive
-    </option>
+    const fileInput =
+      document.querySelector("#file-input");
 
-    <option
-      value="variant-3"
-      selected
-    >
-      Variant 3 — Hard Aggressive
-    </option>
+    const uploadBox =
+      document.querySelector("#upload-box");
 
-    <option value="variant-4">
-      Variant 4 — HOLY AGGRESSIVE
-    </option>
+    const previewSection =
+      document.querySelector("#preview-section");
 
-    <option value="variant-5">
-      Variant 5 — iPhone / iPad
-    </option>
+    const preview =
+      document.querySelector("#preview");
 
-  </select>
+    const fileName =
+      document.querySelector("#file-name");
 
-</section>
+    const replaceBtn =
+      document.querySelector("#replace-btn");
 
+    const mediaSection =
+      document.querySelector("#media-section");
 
-<!-- =======================================================
-     PATCH
-======================================================== -->
+    const variantSection =
+      document.querySelector("#variant-section");
 
-<button
-  class="patch"
-  id="patch"
-  type="button"
-  disabled
->
-  PATCH VIDEO →
-</button>
+    const patchSection =
+      document.querySelector("#patch-section");
 
+    const patchButton =
+      document.querySelector("#patch");
 
-<div
-  class="status"
-  id="status"
-></div>
+    const status =
+      document.querySelector("#status");
 
+    const download =
+      document.querySelector("#download");
 
-<div
-  class="manual-download"
-  id="manualDownload"
->
-  Automatic download blocked.
-  <a
-    id="download"
-    href="#"
-    download
-  >
-    Download manually
-  </a>
-</div>
 
+    /* =========================================================
+       MODAL
+    ========================================================= */
 
-<div class="privacy">
-  Your video stays on this device. No video upload is required.
-</div>
+    const errorModal =
+      document.querySelector("#error-modal");
 
-</main>
+    const modalTitle =
+      document.querySelector("#modal-title");
 
+    const modalMessage =
+      document.querySelector("#modal-message");
 
-<script type="module">
+    const modalDetail =
+      document.querySelector("#modal-detail");
 
-/* =========================================================
-   ELEMENTS
-========================================================= */
+    const modalOk =
+      document.querySelector("#modal-ok");
 
-const videoInput =
-  document.getElementById("video");
 
-const dropzone =
-  document.getElementById("dropzone");
+    function showError(title, message, detail = "") {
 
-const previewArea =
-  document.getElementById("previewArea");
+      modalTitle.textContent = title;
+      modalMessage.textContent = message;
+      modalDetail.textContent = detail;
 
-const preview =
-  document.getElementById("preview");
+      errorModal.classList.add("show");
 
-const fileName =
-  document.getElementById("fileName");
+      setTimeout(() => {
+        modalOk.focus();
+      }, 20);
+    }
 
-const replaceBtn =
-  document.getElementById("replace");
 
-const infoSection =
-  document.getElementById("infoSection");
+    function hideError() {
+      errorModal.classList.remove("show");
+    }
 
-const variantSection =
-  document.getElementById("variantSection");
 
-const infoFile =
-  document.getElementById("infoFile");
+    modalOk.addEventListener("click", hideError);
+
+    errorModal.addEventListener("click", event => {
+      if (event.target === errorModal) {
+        hideError();
+      }
+    });
 
-const infoSize =
-  document.getElementById("infoSize");
+    document.addEventListener("keydown", event => {
+      if (
+        event.key === "Escape" &&
+        errorModal.classList.contains("show")
+      ) {
+        hideError();
+      }
+    });
 
-const infoDuration =
-  document.getElementById("infoDuration");
+
+    /* =========================================================
+       STATE
+    ========================================================= */
+
+    let selectedFile = null;
+    let currentMediaInfo = null;
+    let outputUrl = null;
+
+
+    /* =========================================================
+       MP4BOX
+    ========================================================= */
+
+    const MP4Box =
+      await import(
+        "https://cdn.jsdelivr.net/npm/mp4box@2.4.1/+esm"
+      );
+
 
-const infoResolution =
-  document.getElementById("infoResolution");
+    /* =========================================================
+       HELPERS
+    ========================================================= */
+
+    function formatBytes(bytes) {
+
+      if (!Number.isFinite(bytes)) {
+        return "—";
+      }
+
+      const units = [
+        "B",
+        "KB",
+        "MB",
+        "GB"
+      ];
+
+      let value = bytes;
+      let index = 0;
+
+      while (
+        value >= 1024 &&
+        index < units.length - 1
+      ) {
+        value /= 1024;
+        index++;
+      }
+
+      return (
+        value.toFixed(index === 0 ? 0 : 2)
+        + " "
+        + units[index]
+      );
+    }
+
+
+    function formatDuration(seconds) {
+
+      if (!Number.isFinite(seconds)) {
+        return "—";
+      }
+
+      const total =
+        Math.max(0, Math.round(seconds));
+
+      const hours =
+        Math.floor(total / 3600);
+
+      const minutes =
+        Math.floor((total % 3600) / 60);
+
+      const secs =
+        total % 60;
+
+      if (hours > 0) {
+        return [
+          String(hours).padStart(2, "0"),
+          String(minutes).padStart(2, "0"),
+          String(secs).padStart(2, "0")
+        ].join(":");
+      }
+
+      return [
+        String(minutes).padStart(2, "0"),
+        String(secs).padStart(2, "0")
+      ].join(":");
+    }
+
+
+    function formatBitrate(bitsPerSecond) {
+
+      if (
+        !Number.isFinite(bitsPerSecond) ||
+        bitsPerSecond <= 0
+      ) {
+        return "—";
+      }
 
-const infoFps =
-  document.getElementById("infoFps");
-
-const infoBitrate =
-  document.getElementById("infoBitrate");
-
-const infoFormat =
-  document.getElementById("infoFormat");
-
-const infoQuality =
-  document.getElementById("infoQuality");
-
-const patchButton =
-  document.getElementById("patch");
-
-const variant =
-  document.getElementById("posting-device");
-
-const status =
-  document.getElementById("status");
-
-const manualDownload =
-  document.getElementById("manualDownload");
-
-const download =
-  document.getElementById("download");
-
-
-let selectedFile = null;
-let previewUrl = null;
-let outputUrl = null;
-let MP4BoxModule = null;
-
-
-/* =========================================================
-   MP4BOX
-========================================================= */
-
-async function getMP4Box(){
-
-  if(MP4BoxModule){
-    return MP4BoxModule;
-  }
-
-  status.textContent =
-    "Loading media parser…";
-
-  MP4BoxModule =
-    await import(
-      "https://cdn.jsdelivr.net/npm/mp4box@2.4.1/+esm"
-    );
-
-  return MP4BoxModule;
-}
-
-
-/* =========================================================
-   HELPERS
-========================================================= */
-
-function formatBytes(bytes){
-
-  if(!Number.isFinite(bytes)){
-    return "—";
-  }
-
-  const units =
-    ["B","KB","MB","GB"];
-
-  let value = bytes;
-  let index = 0;
-
-  while(
-    value >= 1024 &&
-    index < units.length - 1
-  ){
-    value /= 1024;
-    index++;
-  }
-
-  return (
-    value.toFixed(
-      index === 0 ? 0 : 1
-    ) +
-    " " +
-    units[index]
-  );
-}
-
-
-function formatDuration(seconds){
-
-  if(
-    !Number.isFinite(seconds) ||
-    seconds < 0
-  ){
-    return "—";
-  }
-
-  seconds =
-    Math.round(seconds);
-
-  const hours =
-    Math.floor(seconds / 3600);
-
-  const minutes =
-    Math.floor(
-      (seconds % 3600) / 60
-    );
-
-  const secs =
-    seconds % 60;
-
-  if(hours > 0){
-
-    return (
-      String(hours) +
-      ":" +
-      String(minutes).padStart(2,"0") +
-      ":" +
-      String(secs).padStart(2,"0")
-    );
-
-  }
-
-  return (
-    String(minutes).padStart(2,"0") +
-    ":" +
-    String(secs).padStart(2,"0")
-  );
-}
-
-
-function formatBitrate(bits){
-
-  if(
-    !Number.isFinite(bits) ||
-    bits <= 0
-  ){
-    return "—";
-  }
-
-  if(bits >= 1000000){
-
-    return (
-      (bits / 1000000).toFixed(1) +
-      " Mbps"
-    );
-
-  }
-
-  if(bits >= 1000){
-
-    return (
-      Math.round(bits / 1000) +
-      " kbps"
-    );
-
-  }
-
-  return (
-    Math.round(bits) +
-    " bps"
-  );
-}
-
-
-function simplifyCodec(codec){
-
-  const c =
-    String(codec || "")
-      .toLowerCase();
-
-  if(
-    c.startsWith("hvc1") ||
-    c.startsWith("hev1") ||
-    c.includes("hevc")
-  ){
-    return "HEVC";
-  }
-
-  if(
-    c.startsWith("avc1") ||
-    c.startsWith("avc3") ||
-    c.includes("h264") ||
-    c.includes("avc")
-  ){
-    return "H.264";
-  }
-
-  if(
-    c.startsWith("av01") ||
-    c.includes("av1")
-  ){
-    return "AV1";
-  }
-
-  if(
-    c.startsWith("vp09") ||
-    c.includes("vp9")
-  ){
-    return "VP9";
-  }
-
-  return codec || "Unknown";
-}
-
-
-function detectQuality(track){
-
-  const text =
-    JSON.stringify(track || {})
-      .toLowerCase();
-
-  if(
-    text.includes("dvhe") ||
-    text.includes("dvh1") ||
-    text.includes("dovi") ||
-    text.includes("dolby")
-  ){
-    return "Dolby Vision";
-  }
-
-  if(
-    text.includes("arib-std-b67") ||
-    text.includes("hlg")
-  ){
-    return "HLG";
-  }
-
-  if(
-    text.includes("hdr10+") ||
-    text.includes("hdr10plus") ||
-    text.includes("dynamic_hdr")
-  ){
-    return "HDR10+";
-  }
-
-  if(
-    text.includes("smpte2084") ||
-    text.includes("pq")
-  ){
-    return "HDR10";
-  }
-
-  return "SDR";
-}
-
-
-/* =========================================================
-   PARSE MP4
-========================================================= */
-
-async function parseMP4(file){
-
-  const MP4Box =
-    await getMP4Box();
-
-  return new Promise(
-    (resolve,reject) => {
-
-      let finished = false;
+      if (bitsPerSecond >= 1000000) {
+        return (
+          (bitsPerSecond / 1000000)
+            .toFixed(2)
+          + " Mbps"
+        );
+      }
+
+      return (
+        (bitsPerSecond / 1000)
+          .toFixed(0)
+        + " kbps"
+      );
+    }
+
+
+    function simplifyCodec(codec) {
+
+      const value =
+        String(codec || "").toLowerCase();
+
+      if (
+        value.includes("hevc") ||
+        value.includes("hvc1") ||
+        value.includes("hev1")
+      ) {
+        return "HEVC";
+      }
+
+      if (
+        value.includes("avc") ||
+        value.includes("avc1")
+      ) {
+        return "H.264";
+      }
+
+      if (value.includes("av01")) {
+        return "AV1";
+      }
+
+      if (
+        value.includes("vp09") ||
+        value.includes("vp9")
+      ) {
+        return "VP9";
+      }
+
+      return codec || "Unknown";
+    }
+
+
+    /* =========================================================
+       RESOLUTION LIMIT
+       TRUE FHD MAXIMUM
+    ========================================================= */
+
+    function isWithinFHD(width, height) {
+
+      if (
+        !Number.isFinite(width) ||
+        !Number.isFinite(height)
+      ) {
+        return false;
+      }
+
+      const landscape =
+        width <= 1920 &&
+        height <= 1080;
+
+      const portrait =
+        width <= 1080 &&
+        height <= 1920;
+
+      return landscape || portrait;
+    }
+
+
+    function showResolutionError(width, height) {
+
+      showError(
+        "VIDEO NOT SUPPORTED",
+        "Maximum input resolution is 1080p.",
+        `Detected ${width}×${height}. Supported up to 1920×1080 landscape or 1080×1920 portrait.`
+      );
+    }
+
+
+    /* =========================================================
+       MP4 SAMPLE ENTRY
+    ========================================================= */
+
+    function getVideoSampleEntry(mp4, track) {
+
+      try {
+
+        if (!mp4 || !track?.id) {
+          return null;
+        }
+
+        const trak =
+          mp4.getTrackById(track.id);
+
+        const entries =
+          trak
+            ?.mdia
+            ?.minf
+            ?.stbl
+            ?.stsd
+            ?.entries;
+
+        if (
+          Array.isArray(entries) &&
+          entries.length
+        ) {
+          return entries[0];
+        }
+
+      } catch (error) {
+        console.warn(
+          "Could not inspect MP4 sample entry:",
+          error
+        );
+      }
+
+      return null;
+    }
+
+
+    /* =========================================================
+       COLOR INFORMATION
+    ========================================================= */
+
+    function getColorInfo(sampleEntry) {
+
+      const colr =
+        sampleEntry?.colr;
+
+      if (!colr) {
+        return null;
+      }
+
+      return {
+        type:
+          colr.colour_type ??
+          colr.color_type ??
+          null,
+
+        primaries:
+          Number(
+            colr.colour_primaries ??
+            colr.color_primaries ??
+            0
+          ),
+
+        transfer:
+          Number(
+            colr.transfer_characteristics ??
+            colr.transfer_characteristic ??
+            0
+          ),
+
+        matrix:
+          Number(
+            colr.matrix_coefficients ??
+            colr.matrix_coefficient ??
+            0
+          )
+      };
+    }
+
+
+    /* =========================================================
+       QUALITY DETECTOR
+    ========================================================= */
+
+    function detectQuality(
+      mp4,
+      track
+    ) {
+
+      const codec =
+        String(
+          track?.codec || ""
+        ).toLowerCase();
+
+      const sampleEntry =
+        getVideoSampleEntry(
+          mp4,
+          track
+        );
+
+      const color =
+        getColorInfo(
+          sampleEntry
+        );
+
+
+      /*
+       * Dolby Vision
+       *
+       * Prefer explicit DV signaling.
+       */
+
+      const hasDolbyVision =
+        codec.startsWith("dvhe") ||
+        codec.startsWith("dvh1") ||
+        !!sampleEntry?.dvcC ||
+        !!sampleEntry?.dvvC ||
+        !!sampleEntry?.dvC1;
+
+
+      if (hasDolbyVision) {
+        return "Dolby Vision";
+      }
+
+
+      /*
+       * HLG
+       *
+       * ITU/ARIB transfer characteristic:
+       * 18 = ARIB STD-B67 / HLG
+       */
+
+      if (
+        color &&
+        color.transfer === 18
+      ) {
+        return "HLG";
+      }
+
+
+      /*
+       * PQ
+       *
+       * 16 = SMPTE ST 2084 / PQ
+       *
+       * Without explicit Dolby Vision signaling,
+       * classify PQ as HDR10 rather than guessing
+       * HDR10+.
+       */
+
+      if (
+        color &&
+        color.transfer === 16
+      ) {
+        return "HDR10";
+      }
+
+
+      /*
+       * Explicit SDR transfer.
+       *
+       * 1 = BT.709
+       */
+
+      if (
+        color &&
+        color.transfer === 1
+      ) {
+        return "SDR";
+      }
+
+
+      /*
+       * Unknown / missing color metadata.
+       *
+       * Don't falsely call BT.2020 HDR.
+       */
+
+      return "SDR";
+    }
+
+
+    /* =========================================================
+       PARSE MP4
+    ========================================================= */
+
+    function parseMP4(file) {
+
+      return new Promise(
+        async (resolve, reject) => {
+
+          try {
+
+            const mp4 =
+              MP4Box.createFile();
+
+            let ready = false;
+
+            mp4.onReady = info => {
+
+              if (ready) {
+                return;
+              }
+
+              ready = true;
+
+              resolve({
+                info,
+                mp4
+              });
+            };
+
+            const CHUNK =
+              1024 * 1024;
+
+            let offset = 0;
+
+            while (
+              offset < file.size &&
+              !ready
+            ) {
+
+              const end =
+                Math.min(
+                  offset + CHUNK,
+                  file.size
+                );
+
+              const buffer =
+                await file
+                  .slice(offset, end)
+                  .arrayBuffer();
+
+              buffer.fileStart =
+                offset;
+
+              mp4.appendBuffer(buffer);
+
+              offset = end;
+            }
+
+            if (!ready) {
+              mp4.flush();
+            }
+
+          } catch (error) {
+            reject(error);
+          }
+
+        }
+      );
+    }
+
+
+    /* =========================================================
+       READ MEDIA INFO
+    ========================================================= */
+
+    async function readMediaInfo(file) {
+
+      const parsed =
+        await parseMP4(file);
+
+      const info =
+        parsed.info;
 
       const mp4 =
-        MP4Box.createFile();
+        parsed.mp4;
 
-      mp4.onError =
-        error => {
 
-          if(finished){
-            return;
-          }
+      const tracks =
+        (
+          info.videoTracks ||
+          []
+        ).filter(Boolean);
 
-          finished = true;
 
-          reject(
-            new Error(
-              String(
-                error ||
-                "MP4 parsing failed."
-              )
-            )
+      const track =
+        tracks[0] ||
+        (
+          info.tracks || []
+        ).find(
+          t => t.type === "video"
+        );
+
+
+      if (!track) {
+        throw new Error(
+          "No video track found."
+        );
+      }
+
+
+      const width =
+        Number(track.video?.width) ||
+        Number(track.width) ||
+        0;
+
+      const height =
+        Number(track.video?.height) ||
+        Number(track.height) ||
+        0;
+
+
+      const duration =
+        Number(track.duration) /
+        Number(track.timescale || 1);
+
+
+      const fps =
+        Number(track.nb_samples) > 0 &&
+        duration > 0
+          ? Number(track.nb_samples) / duration
+          : 0;
+
+
+      const bitrate =
+        Number(track.bitrate) ||
+        (
+          duration > 0
+            ? (file.size * 8) / duration
+            : 0
+        );
+
+
+      const format =
+        simplifyCodec(
+          track.codec
+        );
+
+
+      const quality =
+        detectQuality(
+          mp4,
+          track
+        );
+
+
+      return {
+
+        fileName:
+          file.name,
+
+        size:
+          file.size,
+
+        duration,
+
+        width,
+
+        height,
+
+        fps,
+
+        bitrate,
+
+        format,
+
+        quality,
+
+        container:
+          "MP4"
+      };
+    }
+
+
+    /* =========================================================
+       UPDATE UI
+    ========================================================= */
+
+    function updateMediaInfo(info) {
+
+      document.querySelector(
+        "#info-file"
+      ).textContent =
+        info.fileName;
+
+      document.querySelector(
+        "#info-size"
+      ).textContent =
+        formatBytes(info.size);
+
+      document.querySelector(
+        "#info-duration"
+      ).textContent =
+        formatDuration(info.duration);
+
+      document.querySelector(
+        "#info-resolution"
+      ).textContent =
+        `${info.width} × ${info.height}`;
+
+      document.querySelector(
+        "#info-fps"
+      ).textContent =
+        info.fps > 0
+          ? `${info.fps.toFixed(2)} fps`
+          : "—";
+
+      document.querySelector(
+        "#info-bitrate"
+      ).textContent =
+        formatBitrate(info.bitrate);
+
+      document.querySelector(
+        "#info-format"
+      ).textContent =
+        info.format;
+
+      document.querySelector(
+        "#info-quality"
+      ).textContent =
+        info.quality;
+
+      document.querySelector(
+        "#info-container"
+      ).textContent =
+        info.container;
+    }
+
+
+    /* =========================================================
+       RESET UI
+    ========================================================= */
+
+    function resetUI() {
+
+      preview.pause();
+
+      preview.removeAttribute("src");
+      preview.load();
+
+      previewSection.style.display =
+        "none";
+
+      mediaSection.style.display =
+        "none";
+
+      variantSection.style.display =
+        "none";
+
+      patchSection.style.display =
+        "none";
+
+      status.textContent = "";
+
+      download.hidden = true;
+
+      fileName.textContent = "—";
+
+      currentMediaInfo = null;
+
+      if (outputUrl) {
+        URL.revokeObjectURL(
+          outputUrl
+        );
+        outputUrl = null;
+      }
+    }
+
+
+    /* =========================================================
+       HANDLE FILE
+    ========================================================= */
+
+    async function handleFile(file) {
+
+      if (!file) {
+        return;
+      }
+
+
+      if (
+        !file.type ||
+        file.type !== "video/mp4"
+      ) {
+
+        showError(
+          "INVALID FILE",
+          "Please select an MP4 video.",
+          "Only .mp4 video files are supported."
+        );
+
+        return;
+      }
+
+
+      resetUI();
+
+      selectedFile = file;
+
+      fileName.textContent =
+        file.name;
+
+
+      status.textContent =
+        "Reading video information…";
+
+
+      preview.src =
+        URL.createObjectURL(file);
+
+      previewSection.style.display =
+        "flex";
+
+
+      try {
+
+        const info =
+          await readMediaInfo(file);
+
+
+        /*
+         * IMPORTANT:
+         * Reject immediately after metadata is read.
+         */
+
+        if (
+          !isWithinFHD(
+            info.width,
+            info.height
+          )
+        ) {
+
+          currentMediaInfo = null;
+
+          mediaSection.style.display =
+            "none";
+
+          variantSection.style.display =
+            "none";
+
+          patchSection.style.display =
+            "none";
+
+          showResolutionError(
+            info.width,
+            info.height
           );
-        };
-
-      mp4.onMoovStart =
-        () => {
 
           status.textContent =
-            "Reading media information…";
+            "Video resolution is above the FHD limit.";
 
-        };
-
-      mp4.onReady =
-        info => {
-
-          if(finished){
-            return;
-          }
-
-          finished = true;
-
-          resolve(info);
-        };
-
-      const CHUNK =
-        1024 * 1024;
-
-      let offset = 0;
-
-      async function readNext(){
-
-        if(finished){
           return;
         }
 
-        try{
 
-          const end =
-            Math.min(
-              offset + CHUNK,
-              file.size
-            );
+        currentMediaInfo =
+          info;
 
-          const buffer =
-            await file
-              .slice(offset,end)
-              .arrayBuffer();
 
-          buffer.fileStart =
-            offset;
+        updateMediaInfo(info);
 
-          mp4.appendBuffer(buffer);
 
-          offset = end;
+        mediaSection.style.display =
+          "block";
 
-          if(
-            offset < file.size &&
-            !finished
-          ){
+        variantSection.style.display =
+          "block";
 
-            setTimeout(
-              readNext,
-              0
-            );
+        patchSection.style.display =
+          "block";
 
-          }else if(!finished){
 
-            mp4.flush();
+        status.textContent =
+          `${info.quality} detected. Ready to patch.`;
 
-          }
+      } catch (error) {
 
-        }catch(error){
+        console.error(error);
 
-          if(!finished){
+        status.textContent =
+          "Could not read video metadata.";
 
-            finished = true;
+        showError(
+          "READ ERROR",
+          "Could not read this MP4 video.",
+          error?.message ||
+          "The file may be damaged or use an unsupported MP4 structure."
+        );
+      }
+    }
 
-            reject(error);
 
-          }
+    /* =========================================================
+       FILE INPUT
+    ========================================================= */
 
+    fileInput.addEventListener(
+      "change",
+      event => {
+
+        const file =
+          event.target.files?.[0];
+
+        if (file) {
+          handleFile(file);
+        }
+      }
+    );
+
+
+    replaceBtn.addEventListener(
+      "click",
+      () => {
+
+        fileInput.value = "";
+        fileInput.click();
+      }
+    );
+
+
+    /* =========================================================
+       DRAG & DROP
+    ========================================================= */
+
+    uploadBox.addEventListener(
+      "dragover",
+      event => {
+
+        event.preventDefault();
+
+        uploadBox.style.borderColor =
+          "#20d66b";
+      }
+    );
+
+
+    uploadBox.addEventListener(
+      "dragleave",
+      () => {
+
+        uploadBox.style.borderColor =
+          "";
+      }
+    );
+
+
+    uploadBox.addEventListener(
+      "drop",
+      event => {
+
+        event.preventDefault();
+
+        uploadBox.style.borderColor =
+          "";
+
+        const file =
+          event.dataTransfer.files?.[0];
+
+        if (file) {
+          handleFile(file);
+        }
+      }
+    );
+
+
+    /* =========================================================
+       PATCH
+    ========================================================= */
+
+    patchButton.addEventListener(
+      "click",
+      async () => {
+
+        if (!selectedFile) {
+          return;
         }
 
-      }
 
-      readNext();
+        /*
+         * Safety check again before calling API.
+         */
 
-    }
-  );
-}
-
-
-/* =========================================================
-   MEDIA INFO
-========================================================= */
-
-async function readMediaInfo(file){
-
-  status.textContent =
-    "Reading media information…";
-
-  try{
-
-    const info =
-      await parseMP4(file);
-
-    const tracks =
-      (info.videoTracks || [])
-        .filter(Boolean);
-
-    const track =
-      tracks[0] ||
-      info.tracks?.find(
-        t => t.type === "video"
-      );
-
-    if(!track){
-      throw new Error(
-        "No video track found."
-      );
-    }
-
-    const width =
-      track.video?.width ||
-      track.track_width ||
-      0;
-
-    const height =
-      track.video?.height ||
-      track.track_height ||
-      0;
-
-    let duration = NaN;
-
-    if(
-      Number.isFinite(
-        track.movie_duration
-      ) &&
-      track.movie_duration > 0
-    ){
-
-      duration =
-        track.movie_duration /
-        (
-          track.movie_timescale ||
-          info.timescale ||
-          1
-        );
-
-    }else if(
-      Number.isFinite(track.duration) &&
-      track.duration > 0
-    ){
-
-      duration =
-        track.duration /
-        (
-          track.timescale ||
-          1
-        );
-    }
-
-    if(
-      !Number.isFinite(duration) &&
-      Number.isFinite(preview.duration)
-    ){
-
-      duration =
-        preview.duration;
-    }
-
-    let fps = NaN;
-
-    if(
-      Number.isFinite(track.nb_samples) &&
-      Number.isFinite(duration) &&
-      duration > 0
-    ){
-
-      fps =
-        track.nb_samples /
-        duration;
-    }
-
-    let bitrate =
-      Number(track.bitrate);
-
-    if(
-      !Number.isFinite(bitrate) ||
-      bitrate <= 0
-    ){
-
-      if(
-        Number.isFinite(duration) &&
-        duration > 0
-      ){
-
-        bitrate =
-          file.size *
-          8 /
-          duration;
-      }
-    }
-
-    const format =
-      simplifyCodec(
-        track.codec
-      );
-
-    const quality =
-      detectQuality(track);
-
-    infoFile.textContent =
-      file.name;
-
-    infoSize.textContent =
-      formatBytes(file.size);
-
-    infoDuration.textContent =
-      formatDuration(duration);
-
-    infoResolution.textContent =
-      width && height
-        ? `${width} × ${height}`
-        : "—";
-
-    infoFps.textContent =
-      Number.isFinite(fps)
-        ? `${fps.toFixed(
-            Math.abs(
-              fps - Math.round(fps)
-            ) < 0.03
-              ? 0
-              : 2
-          )} fps`
-        : "—";
-
-    infoBitrate.textContent =
-      formatBitrate(bitrate);
-
-    infoFormat.textContent =
-      format;
-
-    infoQuality.textContent =
-      quality;
-
-    status.textContent =
-      "Media information ready.";
-
-  }catch(error){
-
-    console.warn(
-      "MP4Box error:",
-      error
-    );
-
-    infoFile.textContent =
-      file.name;
-
-    infoSize.textContent =
-      formatBytes(file.size);
-
-    infoDuration.textContent =
-      Number.isFinite(preview.duration)
-        ? formatDuration(
-            preview.duration
+        if (
+          !currentMediaInfo ||
+          !isWithinFHD(
+            currentMediaInfo.width,
+            currentMediaInfo.height
           )
-        : "—";
+        ) {
 
-    infoResolution.textContent =
-      preview.videoWidth &&
-      preview.videoHeight
-        ? `${preview.videoWidth} × ${preview.videoHeight}`
-        : "—";
+          if (currentMediaInfo) {
 
-    infoFps.textContent =
-      "—";
+            showResolutionError(
+              currentMediaInfo.width,
+              currentMediaInfo.height
+            );
 
-    infoBitrate.textContent =
-      "—";
+          } else {
 
-    infoFormat.textContent =
-      "MP4";
-
-    infoQuality.textContent =
-      "Unknown";
-
-    status.textContent =
-      "Basic information ready.";
-  }
-}
-
-
-/* =========================================================
-   FILE
-========================================================= */
-
-async function handleFile(file){
-
-  if(!file){
-    return;
-  }
-
-  if(
-    file.type !== "video/mp4" &&
-    !file.name
-      .toLowerCase()
-      .endsWith(".mp4")
-  ){
-
-    status.textContent =
-      "Please choose an MP4 video.";
-
-    return;
-  }
-
-  selectedFile =
-    file;
-
-  if(previewUrl){
-
-    URL.revokeObjectURL(
-      previewUrl
-    );
-  }
-
-  previewUrl =
-    URL.createObjectURL(file);
-
-  preview.src =
-    previewUrl;
-
-  preview.load();
-
-  fileName.textContent =
-    file.name;
-
-  dropzone.style.display =
-    "none";
-
-  previewArea.style.display =
-    "block";
-
-  infoSection.hidden =
-    false;
-
-  variantSection.hidden =
-    false;
-
-  patchButton.disabled =
-    true;
-
-  status.textContent =
-    "Loading preview…";
-
-  await new Promise(resolve => {
-
-    if(
-      preview.readyState >= 1
-    ){
-
-      resolve();
-      return;
-    }
-
-    preview.addEventListener(
-      "loadedmetadata",
-      resolve,
-      {once:true}
-    );
-
-  });
-
-  patchButton.disabled =
-    false;
-
-  readMediaInfo(file);
-}
-
-
-/* =========================================================
-   INPUT
-========================================================= */
-
-videoInput.addEventListener(
-  "change",
-  () => {
-
-    const file =
-      videoInput.files?.[0];
-
-    if(file){
-      handleFile(file);
-    }
-
-  }
-);
-
-
-/* =========================================================
-   REPLACE
-========================================================= */
-
-replaceBtn.addEventListener(
-  "click",
-  event => {
-
-    event.preventDefault();
-    event.stopPropagation();
-
-    videoInput.value =
-      "";
-
-    videoInput.click();
-
-  }
-);
-
-
-/* =========================================================
-   DRAG & DROP
-========================================================= */
-
-["dragenter","dragover"]
-.forEach(type => {
-
-  dropzone.addEventListener(
-    type,
-    event => {
-
-      event.preventDefault();
-
-      dropzone.classList.add(
-        "dragover"
-      );
-
-    }
-  );
-
-});
-
-["dragleave","drop"]
-.forEach(type => {
-
-  dropzone.addEventListener(
-    type,
-    event => {
-
-      event.preventDefault();
-
-      dropzone.classList.remove(
-        "dragover"
-      );
-
-    }
-  );
-
-});
-
-dropzone.addEventListener(
-  "drop",
-  event => {
-
-    const file =
-      event.dataTransfer
-        ?.files?.[0];
-
-    if(file){
-      handleFile(file);
-    }
-
-  }
-);
-
-
-/* =========================================================
-   COMPRESSBASE
-========================================================= */
-
-const {
-  patchVideo
-} =
-  await import(
-    "https://compressbase.com/method-api/client.mjs"
-  );
-
-
-/* =========================================================
-   PATCH
-========================================================= */
-
-patchButton.addEventListener(
-  "click",
-  async () => {
-
-    if(!selectedFile){
-
-      status.textContent =
-        "Choose an MP4 first.";
-
-      return;
-    }
-
-    const postingDevice =
-      variant.value;
-
-    if(!postingDevice){
-
-      status.textContent =
-        "Choose a variant first.";
-
-      return;
-    }
-
-    patchButton.disabled =
-      true;
-
-    manualDownload.style.display =
-      "none";
-
-    if(outputUrl){
-
-      URL.revokeObjectURL(
-        outputUrl
-      );
-
-      outputUrl =
-        null;
-    }
-
-    status.textContent =
-      "Patching metadata…";
-
-    try{
-
-      const output =
-        await patchVideo(
-          selectedFile,
-          {
-            postingDevice,
-
-            signal:
-              AbortSignal.timeout(
-                180000
-              ),
-
-            onStatus:
-              message => {
-
-                status.textContent =
-                  message;
-
-              }
+            showError(
+              "VIDEO NOT READY",
+              "Please select a supported MP4 video first.",
+              "Maximum input resolution is 1920×1080 or 1080×1920."
+            );
           }
-        );
 
-      outputUrl =
-        URL.createObjectURL(
-          output
-        );
-
-      const outputName =
-        selectedFile.name
-          .replace(
-            /\.mp4$/i,
-            ""
-          ) +
-        "_totolat.mp4";
-
-      download.href =
-        outputUrl;
-
-      download.download =
-        outputName;
-
-      const link =
-        document.createElement("a");
-
-      link.href =
-        outputUrl;
-
-      link.download =
-        outputName;
-
-      link.style.display =
-        "none";
-
-      document.body.appendChild(
-        link
-      );
-
-      link.click();
-
-      link.remove();
-
-      status.textContent =
-        "Done. Download started.";
-
-      setTimeout(
-        () => {
-
-          manualDownload.style.display =
-            "block";
-
-        },
-        1200
-      );
-
-    }catch(error){
-
-      console.error(error);
-
-      status.textContent =
-        error?.message ||
-        "Patch failed.";
-
-    }finally{
-
-      patchButton.disabled =
-        false;
-
-    }
-
-  }
-);
+          return;
+        }
 
 
-/* =========================================================
-   CLEANUP
-========================================================= */
+        const postingDevice =
+          document.querySelector(
+            "#posting-device"
+          ).value;
 
-window.addEventListener(
-  "beforeunload",
-  () => {
 
-    if(previewUrl){
+        if (!postingDevice) {
 
-      URL.revokeObjectURL(
-        previewUrl
-      );
-    }
+          showError(
+            "METHOD REQUIRED",
+            "Please choose a patch method first."
+          );
 
-    if(outputUrl){
+          return;
+        }
 
-      URL.revokeObjectURL(
-        outputUrl
-      );
-    }
 
-  }
-);
+        patchButton.disabled =
+          true;
 
-</script>
+        download.hidden =
+          true;
+
+        status.textContent =
+          "Patching metadata…";
+
+
+        try {
+
+          const {
+            patchVideo
+          } =
+            await import(
+              "https://compressbase.com/method-api/client.mjs"
+            );
+
+
+          const output =
+            await patchVideo(
+              selectedFile,
+              {
+                postingDevice,
+
+                signal:
+                  AbortSignal.timeout(
+                    180000
+                  ),
+
+                onStatus:
+                  message => {
+                    status.textContent =
+                      message;
+                  }
+              }
+            );
+
+
+          if (outputUrl) {
+
+            URL.revokeObjectURL(
+              outputUrl
+            );
+          }
+
+
+          outputUrl =
+            URL.createObjectURL(
+              output
+            );
+
+
+          const outputName =
+            selectedFile.name
+              .replace(
+                /\.mp4$/i,
+                ""
+              )
+            + "_totolat.mp4";
+
+
+          download.href =
+            outputUrl;
+
+          download.download =
+            outputName;
+
+          download.hidden =
+            false;
+
+
+          status.textContent =
+            "Ready. Your video stayed on this device.";
+
+
+          /*
+           * Automatic download
+           */
+
+          const autoDownload =
+            document.createElement(
+              "a"
+            );
+
+          autoDownload.href =
+            outputUrl;
+
+          autoDownload.download =
+            outputName;
+
+          autoDownload.style.display =
+            "none";
+
+          document.body.appendChild(
+            autoDownload
+          );
+
+          autoDownload.click();
+
+          autoDownload.remove();
+
+
+        } catch (error) {
+
+          console.error(
+            "Patch error:",
+            error
+          );
+
+
+          status.textContent =
+            "Patch failed.";
+
+
+          showError(
+            "PATCH ERROR",
+            error?.message ||
+              "The video could not be patched.",
+            "Your original video was not modified."
+          );
+
+        } finally {
+
+          patchButton.disabled =
+            false;
+        }
+      }
+    );
+
+  </script>
 
 </body>
 </html>
+
+Yang penting di versi ini: 4K/1440p langsung berhenti setelah metadata terbaca, jadi nggak akan sampai manggil "patchVideo()". Dan detector sekarang mempertahankan "mp4" object dari MP4Box supaya bisa masuk ke struktur track/sample-entry, bukan cuma informasi ringkasnya. MP4Box.js 2.4.1 memang mendukung progressive parsing di browser dan saat ini merupakan rilis package terbaru.
+
+Coba langsung test 3 file: 1080p SDR → 1080p HLG/HDR → 4K. Kalau HLG masih kebaca SDR, berarti kita tinggal bongkar struktur "colr" dari file HLG tersebut dan bikin fallback detector khusus—bukan balik ke detector string ngawur.
