@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#0a0a0a">
+<meta name="theme-color" content="#080808">
 
 <title>High Quality Method</title>
 
@@ -17,22 +17,30 @@
   box-sizing:border-box;
 }
 
-html,body{
+html,
+body{
   margin:0;
   width:100%;
-  min-height:100%;
+  height:100%;
   background:#080808;
-  color:#f5f5f5;
-  font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,
-    "Segoe UI",sans-serif;
+  color:#f2f2f2;
+  font-family:
+    Inter,
+    ui-sans-serif,
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
 }
 
 body{
-  min-height:100dvh;
   overflow:hidden;
 }
 
-button,input,select{
+button,
+select,
+input{
   font:inherit;
 }
 
@@ -40,63 +48,31 @@ button{
   cursor:pointer;
 }
 
-#restricted{
-  position:fixed;
-  inset:0;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  padding:24px;
-  background:#080808;
-  z-index:999;
-}
-
-.restricted-inner{
-  width:min(440px,100%);
-  text-align:center;
-}
-
-.restricted-title{
-  font-size:13px;
-  font-weight:700;
-  letter-spacing:.16em;
-  margin-bottom:14px;
-}
-
-.restricted-text{
-  color:#888;
-  font-size:13px;
-  line-height:1.6;
-}
-
-.restricted-url{
-  margin-top:18px;
-  padding:12px 14px;
-  border:1px solid #292929;
-  border-radius:9px;
-  color:#bbb;
-  font:12px/1.4 ui-monospace,SFMono-Regular,Menlo,monospace;
-  word-break:break-all;
-}
+/* =========================
+   APP
+========================= */
 
 #app{
   width:min(680px,100%);
   height:100dvh;
   margin:auto;
   padding:
-    max(20px,env(safe-area-inset-top))
+    max(16px,env(safe-area-inset-top))
     18px
-    max(16px,env(safe-area-inset-bottom));
+    max(12px,env(safe-area-inset-bottom));
+
   display:flex;
   flex-direction:column;
   overflow:hidden;
 }
 
-/* HEADER */
+/* =========================
+   HEADER
+========================= */
 
 header{
   flex:0 0 auto;
-  padding:2px 0 14px;
+  padding-bottom:12px;
 }
 
 .brand{
@@ -112,9 +88,8 @@ header{
 }
 
 .creator a{
-  color:#aaa;
+  color:#999;
   text-decoration:none;
-  transition:.2s;
 }
 
 .creator a:hover{
@@ -123,32 +98,36 @@ header{
 
 .powered{
   margin-top:3px;
-  color:#555;
+  color:#4d4d4d;
   font-size:10px;
-  letter-spacing:.01em;
 }
 
-/* UPLOAD */
+/* =========================
+   UPLOAD
+========================= */
 
 .upload{
   flex:0 0 auto;
-  height:58px;
+
+  height:52px;
+
   border:1px dashed #303030;
-  border-radius:10px;
+  border-radius:9px;
+
   display:flex;
   align-items:center;
   justify-content:center;
-  text-align:center;
+
   cursor:pointer;
+
   transition:
     border-color .2s,
     background .2s;
-  overflow:hidden;
 }
 
 .upload:hover,
 .upload.dragover{
-  border-color:#777;
+  border-color:#666;
   background:#101010;
 }
 
@@ -157,38 +136,46 @@ header{
 }
 
 .upload-main{
-  font-size:12px;
-  font-weight:600;
+  font-size:11px;
+  font-weight:650;
 }
 
 .upload-sub{
   margin-left:5px;
-  color:#666;
-  font-size:11px;
-  font-weight:400;
+  color:#555;
+  font-size:10px;
 }
 
-/* FILE AREA */
+/* =========================
+   FILE / PREVIEW
+========================= */
 
 .file-area{
   flex:0 0 auto;
+
   display:none;
+
   align-items:center;
-  gap:12px;
-  margin-top:10px;
+  gap:11px;
+
+  margin-top:9px;
 }
 
 .preview-wrap{
-  width:82px;
-  height:82px;
-  flex:0 0 82px;
-  border-radius:8px;
-  overflow:hidden;
-  background:#111;
-  border:1px solid #252525;
+  width:76px;
+  height:76px;
+
+  flex:0 0 76px;
+
   display:flex;
   align-items:center;
   justify-content:center;
+
+  overflow:hidden;
+
+  background:#111;
+  border:1px solid #242424;
+  border-radius:8px;
 }
 
 #preview{
@@ -204,8 +191,10 @@ header{
 }
 
 .filename{
-  font-size:12px;
-  font-weight:600;
+  color:#ddd;
+  font-size:11px;
+  font-weight:650;
+
   white-space:nowrap;
   overflow:hidden;
   text-overflow:ellipsis;
@@ -213,53 +202,72 @@ header{
 
 .file-note{
   margin-top:4px;
-  color:#666;
-  font-size:10px;
+  color:#555;
+  font-size:9px;
 }
 
 .replace{
   flex:0 0 auto;
+
   border:0;
   background:none;
+
+  padding:5px 0;
+
   color:#888;
-  font-size:11px;
-  padding:6px 0;
+  font-size:10px;
 }
 
 .replace:hover{
   color:#fff;
 }
 
-/* SECTION */
+/* =========================
+   SECTION
+========================= */
 
 .section{
   flex:0 0 auto;
-  margin-top:13px;
+  margin-top:11px;
 }
 
 .section-label{
-  margin-bottom:7px;
-  color:#666;
-  font-size:9px;
-  font-weight:700;
-  letter-spacing:.14em;
+  margin-bottom:6px;
+
+  color:#555;
+
+  font-size:8px;
+  font-weight:750;
+  letter-spacing:.15em;
   text-transform:uppercase;
 }
 
-/* INFO */
+/* =========================
+   MEDIA INFO
+========================= */
 
 .info{
   border-top:1px solid #202020;
   border-bottom:1px solid #202020;
 }
 
+/* File row */
+
 .info-file{
-  min-height:32px;
+  min-height:29px;
+
   display:grid;
-  grid-template-columns:72px 1fr;
+  grid-template-columns:55px 1fr;
   align-items:center;
-  border-bottom:1px solid #1b1b1b;
+
+  border-bottom:1px solid #191919;
 }
+
+.info-file .info-value{
+  font-size:9px;
+}
+
+/* 2-column grid */
 
 .info-grid{
   display:grid;
@@ -267,73 +275,89 @@ header{
 }
 
 .info-item{
-  min-height:36px;
+  min-height:34px;
+
   display:flex;
   flex-direction:column;
   justify-content:center;
-  padding:4px 10px 4px 0;
+
+  padding:3px 8px 3px 0;
 }
 
 .info-item:nth-child(even){
-  padding-left:10px;
-  border-left:1px solid #1b1b1b;
+  padding-left:9px;
+  border-left:1px solid #191919;
 }
 
 .info-key{
-  color:#555;
-  font-size:8px;
-  font-weight:700;
+  color:#505050;
+
+  font-size:7px;
+  font-weight:750;
   letter-spacing:.08em;
   text-transform:uppercase;
 }
 
 .info-value{
   margin-top:2px;
-  color:#ddd;
-  font-size:11px;
+
+  color:#d8d8d8;
+
+  font-size:10px;
   font-weight:600;
+
   white-space:nowrap;
   overflow:hidden;
   text-overflow:ellipsis;
 }
 
-.info-file .info-value{
-  font-size:10px;
-}
-
-/* VARIANT */
+/* =========================
+   VARIANT
+========================= */
 
 .variant-select{
   width:100%;
-  height:43px;
+  height:40px;
+
+  padding:0 10px;
+
   border:1px solid #292929;
   border-radius:8px;
+
+  outline:none;
+
   background:#101010;
   color:#eee;
-  padding:0 12px;
-  outline:none;
-  font-size:11px;
-  appearance:auto;
+
+  font-size:10px;
 }
 
 .variant-select:focus{
   border-color:#555;
 }
 
-/* PATCH */
+/* =========================
+   PATCH BUTTON
+========================= */
 
 .patch{
   flex:0 0 auto;
+
   width:100%;
-  height:48px;
-  margin-top:12px;
+  height:44px;
+
+  margin-top:10px;
+
   border:0;
   border-radius:8px;
-  background:#f2f2f2;
+
+  background:#f1f1f1;
   color:#080808;
-  font-size:11px;
+
+  font-size:10px;
   font-weight:800;
   letter-spacing:.04em;
+
   transition:
     opacity .2s,
     transform .1s;
@@ -348,54 +372,67 @@ header{
 }
 
 .patch:disabled{
-  cursor:wait;
   opacity:.45;
+  cursor:wait;
 }
 
-/* STATUS */
+/* =========================
+   STATUS
+========================= */
 
 .status{
   flex:0 0 auto;
-  min-height:17px;
-  margin-top:7px;
-  color:#666;
-  font-size:9px;
+
+  min-height:15px;
+
+  margin-top:5px;
+
+  color:#5d5d5d;
+
+  font-size:8px;
   text-align:center;
 }
 
 .manual-download{
   display:none;
-  margin-top:2px;
-  color:#aaa;
-  font-size:9px;
+
+  margin-top:1px;
+
+  font-size:8px;
   text-align:center;
 }
 
 .manual-download a{
-  color:#aaa;
+  color:#999;
 }
 
-/* FOOTER */
+/* =========================
+   PRIVACY
+========================= */
 
 .privacy{
-  flex:0 0 auto;
   margin-top:auto;
-  padding-top:9px;
-  color:#444;
-  font-size:9px;
+  padding-top:6px;
+
+  color:#3f3f3f;
+
+  font-size:8px;
   text-align:center;
 }
 
-/* SHORT HEIGHT */
+/* =========================
+   SHORT SCREEN
+========================= */
 
-@media (max-height:700px){
+@media(max-height:700px){
+
   #app{
-    padding-top:max(12px,env(safe-area-inset-top));
-    padding-bottom:max(10px,env(safe-area-inset-bottom));
+    padding-top:
+      max(10px,env(safe-area-inset-top));
   }
 
   header{
-    padding-bottom:9px;
+    padding-bottom:8px;
   }
 
   .brand{
@@ -403,60 +440,63 @@ header{
   }
 
   .upload{
-    height:50px;
-  }
-
-  .preview-wrap{
-    width:68px;
-    height:68px;
-    flex-basis:68px;
+    height:46px;
   }
 
   .file-area{
     margin-top:7px;
   }
 
+  .preview-wrap{
+    width:62px;
+    height:62px;
+    flex-basis:62px;
+  }
+
   .section{
-    margin-top:9px;
-  }
-
-  .info-item{
-    min-height:31px;
-  }
-
-  .variant-select{
-    height:39px;
-  }
-
-  .patch{
-    height:43px;
     margin-top:8px;
   }
 
+  .info-item{
+    min-height:30px;
+  }
+
+  .variant-select{
+    height:37px;
+  }
+
+  .patch{
+    height:41px;
+    margin-top:7px;
+  }
+
   .privacy{
-    padding-top:5px;
+    padding-top:3px;
   }
 }
 
-/* VERY SMALL */
+/* =========================
+   VERY SHORT SCREEN
+========================= */
 
-@media (max-height:600px){
-  .privacy{
-    display:none;
-  }
+@media(max-height:610px){
 
   .file-note{
     display:none;
   }
 
   .preview-wrap{
-    width:58px;
-    height:58px;
-    flex-basis:58px;
+    width:55px;
+    height:55px;
+    flex-basis:55px;
   }
 
   .info-item{
-    min-height:28px;
+    min-height:27px;
+  }
+
+  .privacy{
+    display:none;
   }
 }
 </style>
@@ -464,135 +504,286 @@ header{
 
 <body>
 
-<!-- ACCESS RESTRICTION -->
-<div id="restricted" hidden>
-  <div class="restricted-inner">
-    <div class="restricted-title">ACCESS RESTRICTED</div>
-    <div class="restricted-text">
-      This tool is only available through the official GitHub Pages deployment.
-    </div>
-    <div class="restricted-url">
-      https://sain-byte.github.io/method/
-    </div>
-  </div>
-</div>
+<main id="app">
 
-<main id="app" hidden>
+  <!-- HEADER -->
 
   <header>
-    <div class="brand">High Quality Method</div>
+
+    <div class="brand">
+      High Quality Method
+    </div>
 
     <div class="creator">
       <a
         href="https://www.tiktok.com/@totolat?_r=1&_t=ZS-9AZ8eQiy7Hd"
         target="_blank"
         rel="noopener noreferrer"
-      >@totolat</a>
+      >
+        @totolat
+      </a>
     </div>
 
-    <div class="powered">Powered by CompressBase</div>
+    <div class="powered">
+      Powered by CompressBase
+    </div>
+
   </header>
 
+
   <!-- UPLOAD -->
-  <label class="upload" id="dropzone" for="video">
+
+  <label
+    class="upload"
+    id="dropzone"
+    for="video"
+  >
+
     <input
       id="video"
       type="file"
       accept="video/mp4,.mp4"
     >
-    <span class="upload-main">Drop MP4 here · Choose file</span>
-    <span class="upload-sub">MP4 only</span>
+
+    <span class="upload-main">
+      Drop MP4 here · Choose file
+    </span>
+
+    <span class="upload-sub">
+      MP4 only
+    </span>
+
   </label>
 
-  <!-- FILE / PREVIEW -->
-  <div class="file-area" id="fileArea">
+
+  <!-- PREVIEW -->
+
+  <div
+    class="file-area"
+    id="fileArea"
+  >
 
     <div class="preview-wrap">
+
       <video
         id="preview"
         controls
         playsinline
         preload="metadata"
       ></video>
+
     </div>
 
     <div class="file-meta">
-      <div class="filename" id="fileName">—</div>
+
+      <div
+        class="filename"
+        id="fileName"
+      >
+        —
+      </div>
+
       <div class="file-note">
         Your video stays on this device.
       </div>
+
     </div>
 
-    <button class="replace" id="replace" type="button">
+    <button
+      class="replace"
+      id="replace"
+      type="button"
+    >
       Replace
     </button>
 
   </div>
 
-  <!-- MEDIA INFORMATION -->
-  <section class="section" id="infoSection" hidden>
 
-    <div class="section-label">Media Information</div>
+  <!-- MEDIA INFORMATION -->
+
+  <section
+    class="section"
+    id="infoSection"
+    hidden
+  >
+
+    <div class="section-label">
+      Media Information
+    </div>
 
     <div class="info">
 
+      <!-- FILE -->
+
       <div class="info-file">
-        <div class="info-key">File</div>
-        <div class="info-value" id="infoFile">—</div>
+
+        <div class="info-key">
+          File
+        </div>
+
+        <div
+          class="info-value"
+          id="infoFile"
+        >
+          —
+        </div>
+
       </div>
+
+
+      <!-- 2 COLUMN -->
 
       <div class="info-grid">
 
         <div class="info-item">
-          <div class="info-key">Size</div>
-          <div class="info-value" id="infoSize">—</div>
+
+          <div class="info-key">
+            Size
+          </div>
+
+          <div
+            class="info-value"
+            id="infoSize"
+          >
+            —
+          </div>
+
         </div>
 
-        <div class="info-item">
-          <div class="info-key">Duration</div>
-          <div class="info-value" id="infoDuration">—</div>
-        </div>
 
         <div class="info-item">
-          <div class="info-key">Resolution</div>
-          <div class="info-value" id="infoResolution">—</div>
+
+          <div class="info-key">
+            Duration
+          </div>
+
+          <div
+            class="info-value"
+            id="infoDuration"
+          >
+            —
+          </div>
+
         </div>
 
-        <div class="info-item">
-          <div class="info-key">FPS</div>
-          <div class="info-value" id="infoFps">—</div>
-        </div>
 
         <div class="info-item">
-          <div class="info-key">Bitrate</div>
-          <div class="info-value" id="infoBitrate">—</div>
+
+          <div class="info-key">
+            Resolution
+          </div>
+
+          <div
+            class="info-value"
+            id="infoResolution"
+          >
+            —
+          </div>
+
         </div>
 
-        <div class="info-item">
-          <div class="info-key">Format</div>
-          <div class="info-value" id="infoFormat">—</div>
-        </div>
 
         <div class="info-item">
-          <div class="info-key">Quality</div>
-          <div class="info-value" id="infoQuality">—</div>
+
+          <div class="info-key">
+            FPS
+          </div>
+
+          <div
+            class="info-value"
+            id="infoFps"
+          >
+            —
+          </div>
+
         </div>
 
+
         <div class="info-item">
-          <div class="info-key">Container</div>
-          <div class="info-value">MP4</div>
+
+          <div class="info-key">
+            Bitrate
+          </div>
+
+          <div
+            class="info-value"
+            id="infoBitrate"
+          >
+            —
+          </div>
+
+        </div>
+
+
+        <div class="info-item">
+
+          <div class="info-key">
+            Format
+          </div>
+
+          <div
+            class="info-value"
+            id="infoFormat"
+          >
+            —
+          </div>
+
+        </div>
+
+
+        <div class="info-item">
+
+          <div class="info-key">
+            Quality
+          </div>
+
+          <div
+            class="info-value"
+            id="infoQuality"
+          >
+            —
+          </div>
+
+        </div>
+
+
+        <div class="info-item">
+
+          <div class="info-key">
+            Container
+          </div>
+
+          <div class="info-value">
+            MP4
+          </div>
+
         </div>
 
       </div>
+
     </div>
+
   </section>
 
+
   <!-- VARIANT -->
-  <section class="section" id="variantSection" hidden>
 
-    <div class="section-label">Patch Variant</div>
+  <section
+    class="section"
+    id="variantSection"
+    hidden
+  >
 
-    <select id="posting-device" class="variant-select">
+    <div class="section-label">
+      Patch Variant
+    </div>
+
+    <select
+      id="posting-device"
+      class="variant-select"
+    >
+
       <option value="variant-1">
         Variant 1 — Not Aggressive
       </option>
@@ -601,7 +792,10 @@ header{
         Variant 2 — Mid Aggressive
       </option>
 
-      <option value="variant-3" selected>
+      <option
+        value="variant-3"
+        selected
+      >
         Variant 3 — Hard Aggressive
       </option>
 
@@ -612,22 +806,53 @@ header{
       <option value="variant-5">
         Variant 5 — iPhone / iPad
       </option>
+
     </select>
 
   </section>
 
+
   <!-- PATCH -->
-  <button class="patch" id="patch" type="button" disabled>
+
+  <button
+    class="patch"
+    id="patch"
+    type="button"
+    disabled
+  >
     PATCH VIDEO →
   </button>
 
-  <div class="status" id="status"></div>
 
-  <!-- fallback only -->
-  <div class="manual-download" id="manualDownload">
+  <!-- STATUS -->
+
+  <div
+    class="status"
+    id="status"
+  ></div>
+
+
+  <!-- MANUAL FALLBACK -->
+
+  <div
+    class="manual-download"
+    id="manualDownload"
+  >
+
     Automatic download blocked.
-    <a id="download" href="#" download>Download manually</a>
+
+    <a
+      id="download"
+      href="#"
+      download
+    >
+      Download manually
+    </a>
+
   </div>
+
+
+  <!-- FOOTER -->
 
   <div class="privacy">
     Your video stays on this device. No video upload is required.
@@ -635,89 +860,108 @@ header{
 
 </main>
 
+
 <script type="module">
-
-/* =========================================================
-   ACCESS CONTROL
-========================================================= */
-
-const OFFICIAL_ORIGIN = "https://sain-byte.github.io";
-const OFFICIAL_PATH = "/method";
-
-const currentPath =
-  window.location.pathname.replace(/\/+$/, "");
-
-const isOfficial =
-  window.location.origin === OFFICIAL_ORIGIN &&
-  currentPath === OFFICIAL_PATH;
-
-const restricted = document.getElementById("restricted");
-const app = document.getElementById("app");
-
-if (!isOfficial) {
-  restricted.hidden = false;
-} else {
-  app.hidden = false;
-}
-
 
 /* =========================================================
    ELEMENTS
 ========================================================= */
 
-const videoInput = document.getElementById("video");
-const dropzone = document.getElementById("dropzone");
-const fileArea = document.getElementById("fileArea");
-const preview = document.getElementById("preview");
-const fileName = document.getElementById("fileName");
-const replaceBtn = document.getElementById("replace");
+const videoInput =
+  document.getElementById("video");
 
-const infoSection = document.getElementById("infoSection");
-const variantSection = document.getElementById("variantSection");
+const dropzone =
+  document.getElementById("dropzone");
 
-const infoFile = document.getElementById("infoFile");
-const infoSize = document.getElementById("infoSize");
-const infoDuration = document.getElementById("infoDuration");
-const infoResolution = document.getElementById("infoResolution");
-const infoFps = document.getElementById("infoFps");
-const infoBitrate = document.getElementById("infoBitrate");
-const infoFormat = document.getElementById("infoFormat");
-const infoQuality = document.getElementById("infoQuality");
+const fileArea =
+  document.getElementById("fileArea");
 
-const patchButton = document.getElementById("patch");
-const variant = document.getElementById("posting-device");
-const status = document.getElementById("status");
+const preview =
+  document.getElementById("preview");
 
-const manualDownload = document.getElementById("manualDownload");
-const download = document.getElementById("download");
+const fileName =
+  document.getElementById("fileName");
+
+const replaceBtn =
+  document.getElementById("replace");
+
+const infoSection =
+  document.getElementById("infoSection");
+
+const variantSection =
+  document.getElementById("variantSection");
+
+const infoFile =
+  document.getElementById("infoFile");
+
+const infoSize =
+  document.getElementById("infoSize");
+
+const infoDuration =
+  document.getElementById("infoDuration");
+
+const infoResolution =
+  document.getElementById("infoResolution");
+
+const infoFps =
+  document.getElementById("infoFps");
+
+const infoBitrate =
+  document.getElementById("infoBitrate");
+
+const infoFormat =
+  document.getElementById("infoFormat");
+
+const infoQuality =
+  document.getElementById("infoQuality");
+
+const patchButton =
+  document.getElementById("patch");
+
+const variant =
+  document.getElementById("posting-device");
+
+const status =
+  document.getElementById("status");
+
+const manualDownload =
+  document.getElementById("manualDownload");
+
+const download =
+  document.getElementById("download");
+
 
 let selectedFile = null;
 let previewUrl = null;
 let outputUrl = null;
-let mp4boxReady = null;
 
 
 /* =========================================================
-   MP4BOX.JS
+   MP4BOX
 ========================================================= */
 
-async function loadMP4Box() {
+let MP4BoxModule = null;
 
-  if (mp4boxReady) return mp4boxReady;
+async function getMP4Box(){
 
-  mp4boxReady = import(
-    "https://cdn.jsdelivr.net/npm/mp4box@2.4.1/+esm"
-  ).then(module => {
+  if(MP4BoxModule){
+    return MP4BoxModule;
+  }
 
-    if (!module.createFile) {
-      throw new Error("MP4Box.js API unavailable.");
-    }
+  status.textContent =
+    "Loading media parser…";
 
-    return module;
+  /*
+   * Official package exports createFile()
+   * through the MP4Box module.
+   */
 
-  });
+  MP4BoxModule =
+    await import(
+      "https://cdn.jsdelivr.net/npm/mp4box@2.4.1/+esm"
+    );
 
-  return mp4boxReady;
+  return MP4BoxModule;
 }
 
 
@@ -725,105 +969,144 @@ async function loadMP4Box() {
    HELPERS
 ========================================================= */
 
-function formatBytes(bytes) {
+function formatBytes(bytes){
 
-  if (!Number.isFinite(bytes)) return "—";
+  if(!Number.isFinite(bytes)){
+    return "—";
+  }
 
-  const units = ["B","KB","MB","GB"];
+  const units =
+    ["B","KB","MB","GB"];
 
   let value = bytes;
-  let unit = 0;
+  let index = 0;
 
-  while (value >= 1024 && unit < units.length - 1) {
+  while(
+    value >= 1024 &&
+    index < units.length - 1
+  ){
     value /= 1024;
-    unit++;
+    index++;
   }
 
-  return `${value.toFixed(unit === 0 ? 0 : 1)} ${units[unit]}`;
+  return (
+    value.toFixed(index === 0 ? 0 : 1)
+    + " "
+    + units[index]
+  );
 }
 
 
-function formatDuration(seconds) {
+function formatDuration(seconds){
 
-  if (!Number.isFinite(seconds)) return "—";
+  if(
+    !Number.isFinite(seconds) ||
+    seconds < 0
+  ){
+    return "—";
+  }
 
-  seconds = Math.max(0, Math.round(seconds));
+  seconds =
+    Math.round(seconds);
 
-  const h = Math.floor(seconds / 3600);
-  const m = Math.floor((seconds % 3600) / 60);
-  const s = seconds % 60;
+  const h =
+    Math.floor(seconds / 3600);
 
-  if (h > 0) {
-    return [
-      h,
-      String(m).padStart(2,"0"),
+  const m =
+    Math.floor(
+      (seconds % 3600) / 60
+    );
+
+  const s =
+    seconds % 60;
+
+  if(h > 0){
+
+    return (
+      String(h) +
+      ":" +
+      String(m).padStart(2,"0") +
+      ":" +
       String(s).padStart(2,"0")
-    ].join(":");
+    );
+
   }
 
-  return [
-    String(m).padStart(2,"0"),
+  return (
+    String(m).padStart(2,"0") +
+    ":" +
     String(s).padStart(2,"0")
-  ].join(":");
+  );
 }
 
 
-function formatBitrate(bits) {
+function formatBitrate(bits){
 
-  if (!Number.isFinite(bits) || bits <= 0) return "—";
-
-  if (bits >= 1000000) {
-    return `${(bits / 1000000).toFixed(1)} Mbps`;
+  if(
+    !Number.isFinite(bits) ||
+    bits <= 0
+  ){
+    return "—";
   }
 
-  if (bits >= 1000) {
-    return `${Math.round(bits / 1000)} kbps`;
+  if(bits >= 1000000){
+
+    return (
+      (bits / 1000000).toFixed(1) +
+      " Mbps"
+    );
   }
 
-  return `${Math.round(bits)} bps`;
+  if(bits >= 1000){
+
+    return (
+      Math.round(bits / 1000) +
+      " kbps"
+    );
+  }
+
+  return (
+    Math.round(bits) +
+    " bps"
+  );
 }
 
 
-function simplifyCodec(codec = "") {
+function simplifyCodec(codec){
 
-  const c = codec.toLowerCase();
+  const c =
+    String(codec || "")
+      .toLowerCase();
 
-  if (
+  if(
     c.startsWith("hvc1") ||
     c.startsWith("hev1") ||
     c.includes("hevc")
-  ) {
+  ){
     return "HEVC";
   }
 
-  if (
+  if(
     c.startsWith("avc1") ||
     c.startsWith("avc3") ||
     c.includes("h264") ||
     c.includes("avc")
-  ) {
+  ){
     return "H.264";
   }
 
-  if (
+  if(
     c.startsWith("av01") ||
     c.includes("av1")
-  ) {
+  ){
     return "AV1";
   }
 
-  if (
+  if(
     c.startsWith("vp09") ||
     c.includes("vp9")
-  ) {
+  ){
     return "VP9";
-  }
-
-  if (
-    c.startsWith("vp08") ||
-    c.includes("vp8")
-  ) {
-    return "VP8";
   }
 
   return codec || "Unknown";
@@ -831,67 +1114,56 @@ function simplifyCodec(codec = "") {
 
 
 /* =========================================================
-   QUALITY DETECTION
+   QUALITY
 ========================================================= */
 
-function detectQuality(track) {
+function detectQuality(track){
 
-  const text = JSON.stringify(track || {}).toLowerCase();
-
-  /*
-   * Explicit transfer characteristics first.
-   */
-
-  if (
-    text.includes("smpte2084") ||
-    text.includes("pq")
-  ) {
-
-    /*
-     * Dolby Vision indicators commonly exposed in
-     * codec / configuration metadata.
-     */
-    if (
-      text.includes("dovi") ||
-      text.includes("dolby") ||
-      text.includes("dvhe") ||
-      text.includes("dvh1")
-    ) {
-      return "Dolby Vision";
-    }
-
-    /*
-     * HDR10+ often has dynamic HDR metadata.
-     */
-    if (
-      text.includes("hdr10+") ||
-      text.includes("hdr10plus") ||
-      text.includes("dynamic_hdr")
-    ) {
-      return "HDR10+";
-    }
-
-    return "HDR10";
-  }
-
-  if (
-    text.includes("arib-std-b67") ||
-    text.includes("hlg")
-  ) {
-    return "HLG";
-  }
+  const text =
+    JSON.stringify(track || {})
+      .toLowerCase();
 
   /*
-   * Dolby Vision can sometimes be identifiable
-   * through codec naming even without PQ text.
+   * Dolby Vision first.
    */
-  if (
+
+  if(
     text.includes("dvhe") ||
     text.includes("dvh1") ||
     text.includes("dovi") ||
     text.includes("dolby")
-  ) {
+  ){
     return "Dolby Vision";
+  }
+
+  /*
+   * HLG.
+   */
+
+  if(
+    text.includes("arib-std-b67") ||
+    text.includes("hlg")
+  ){
+    return "HLG";
+  }
+
+  /*
+   * PQ / HDR10+ / HDR10.
+   */
+
+  if(
+    text.includes("hdr10+") ||
+    text.includes("hdr10plus") ||
+    text.includes("dynamic_hdr")
+  ){
+    return "HDR10+";
+  }
+
+  if(
+    text.includes("smpte2084") ||
+    text.includes("pq")
+  ){
+    return "HDR10";
   }
 
   return "SDR";
@@ -902,220 +1174,330 @@ function detectQuality(track) {
    PARSE MP4
 ========================================================= */
 
-async function parseMP4(file) {
+async function parseMP4(file){
 
-  const MP4Box = await loadMP4Box();
+  const MP4Box =
+    await getMP4Box();
 
-  return new Promise((resolve, reject) => {
+  return new Promise(
+    (resolve,reject) => {
 
-    const mp4boxfile = MP4Box.createFile();
+      let finished = false;
 
-    let finished = false;
+      const mp4 =
+        MP4Box.createFile();
 
-    const fail = error => {
-      if (finished) return;
-      finished = true;
-      reject(
-        error instanceof Error
-          ? error
-          : new Error(String(error || "Unable to parse MP4."))
-      );
-    };
+      mp4.onError =
+        error => {
 
-    mp4boxfile.onError = fail;
+          if(finished){
+            return;
+          }
 
-    mp4boxfile.onReady = info => {
+          finished = true;
 
-      if (finished) return;
-      finished = true;
+          reject(
+            new Error(
+              String(
+                error ||
+                "MP4 parsing failed."
+              )
+            )
+          );
+        };
 
-      try {
 
-        const videoTracks =
-          (info.videoTracks || []).filter(Boolean);
+      mp4.onMoovStart =
+        () => {
 
-        if (!videoTracks.length) {
-          throw new Error("No video track found.");
+          status.textContent =
+            "Reading media information…";
+
+        };
+
+
+      mp4.onReady =
+        info => {
+
+          if(finished){
+            return;
+          }
+
+          finished = true;
+
+          resolve(info);
+        };
+
+
+      /*
+       * 1 MB progressive chunks.
+       *
+       * MP4Box only parses the MP4 structure.
+       * It does NOT decode the video.
+       */
+
+      const CHUNK =
+        1024 * 1024;
+
+      let offset = 0;
+
+
+      async function readNext(){
+
+        if(finished){
+          return;
         }
 
-        const track = videoTracks[0];
+        try{
 
-        resolve({
-          track,
-          info
-        });
+          const end =
+            Math.min(
+              offset + CHUNK,
+              file.size
+            );
 
-      } catch (error) {
-        fail(error);
-      }
-    };
+          const buffer =
+            await file
+              .slice(offset,end)
+              .arrayBuffer();
 
-    /*
-     * Read progressively.
-     *
-     * We do NOT decode the video.
-     * Only MP4 structure / metadata is parsed.
-     */
-    const chunkSize = 1024 * 1024;
+          /*
+           * MP4Box needs to know where
+           * this buffer belongs.
+           */
 
-    let offset = 0;
+          buffer.fileStart =
+            offset;
 
-    const readNext = async () => {
+          mp4.appendBuffer(buffer);
 
-      if (finished) return;
+          offset = end;
 
-      try {
 
-        const end =
-          Math.min(offset + chunkSize, file.size);
+          if(
+            offset < file.size &&
+            !finished
+          ){
 
-        const buffer =
-          await file.slice(offset, end).arrayBuffer();
+            setTimeout(
+              readNext,
+              0
+            );
 
-        /*
-         * MP4Box.js requires fileStart.
-         */
-        buffer.fileStart = offset;
+          }else if(!finished){
 
-        mp4boxfile.appendBuffer(buffer);
+            mp4.flush();
 
-        offset = end;
+          }
 
-        if (offset < file.size && !finished) {
-          setTimeout(readNext, 0);
-        } else if (!finished) {
-          mp4boxfile.flush();
+        }catch(error){
+
+          if(!finished){
+
+            finished = true;
+
+            reject(error);
+
+          }
+
         }
 
-      } catch (error) {
-        fail(error);
       }
-    };
 
-    readNext();
 
-  });
+      readNext();
+
+    }
+  );
 }
 
 
 /* =========================================================
-   APPLY INFO
+   APPLY MEDIA INFO
 ========================================================= */
 
-async function readMediaInfo(file) {
+async function readMediaInfo(file){
 
-  status.textContent = "Reading media information…";
+  status.textContent =
+    "Reading media information…";
 
-  /*
-   * Browser metadata gives us an immediate preview and
-   * duration fallback.
-   */
-  const browserDuration =
-    Number.isFinite(preview.duration)
-      ? preview.duration
-      : NaN;
 
-  try {
+  try{
 
-    const { track } = await parseMP4(file);
+    const info =
+      await parseMP4(file);
 
-    const video =
-      track.video || {};
+
+    const videos =
+      (info.videoTracks || [])
+        .filter(Boolean);
+
+
+    const track =
+      videos[0] ||
+      info.tracks?.find(
+        track =>
+          track.type === "video"
+      );
+
+
+    if(!track){
+
+      throw new Error(
+        "No video track found."
+      );
+    }
+
+
+    /*
+     * Resolution
+     */
 
     const width =
-      video.width ||
+      track.video?.width ||
       track.track_width ||
       0;
 
     const height =
-      video.height ||
+      track.video?.height ||
       track.track_height ||
       0;
 
-    const duration =
-      Number.isFinite(track.movie_duration) &&
-      track.movie_duration > 0
-        ? track.movie_duration /
-          (track.movie_timescale || 1)
-        : Number.isFinite(track.duration) &&
-          track.duration > 0
-          ? track.duration /
-            (track.timescale || 1)
-          : browserDuration;
 
     /*
-     * MP4Box track information normally contains:
-     * - timescale
-     * - duration
-     * - nb_samples
-     * - bitrate
-     *
-     * FPS can be derived from sample count / duration
-     * when available.
+     * Duration
      */
-    let fps = NaN;
 
-    if (
-      Number.isFinite(track.nb_samples) &&
-      Number.isFinite(duration) &&
-      duration > 0
-    ) {
-      fps = track.nb_samples / duration;
+    let duration = NaN;
+
+
+    if(
+      Number.isFinite(
+        track.movie_duration
+      ) &&
+      track.movie_duration > 0
+    ){
+
+      duration =
+        track.movie_duration /
+        (
+          track.movie_timescale ||
+          info.timescale ||
+          1
+        );
+
+    }else if(
+      Number.isFinite(
+        track.duration
+      ) &&
+      track.duration > 0
+    ){
+
+      duration =
+        track.duration /
+        (
+          track.timescale ||
+          1
+        );
     }
 
+
     /*
-     * Some files expose media duration / sample count
-     * slightly differently. Try alternate fields.
+     * Browser fallback.
      */
-    if (
-      !Number.isFinite(fps) ||
-      fps <= 0 ||
-      fps > 240
-    ) {
 
-      const mediaDuration =
-        Number.isFinite(track.media_duration)
-          ? track.media_duration /
-            (track.timescale || 1)
-          : NaN;
+    if(
+      !Number.isFinite(duration) &&
+      Number.isFinite(
+        preview.duration
+      )
+    ){
 
-      if (
-        Number.isFinite(mediaDuration) &&
-        mediaDuration > 0 &&
-        Number.isFinite(track.nb_samples)
-      ) {
-        fps = track.nb_samples / mediaDuration;
+      duration =
+        preview.duration;
+    }
+
+
+    /*
+     * FPS
+     */
+
+    let fps = NaN;
+
+
+    if(
+      Number.isFinite(
+        track.nb_samples
+      ) &&
+      Number.isFinite(duration) &&
+      duration > 0
+    ){
+
+      fps =
+        track.nb_samples /
+        duration;
+    }
+
+
+    /*
+     * Bitrate
+     */
+
+    let bitrate =
+      Number(track.bitrate);
+
+
+    if(
+      !Number.isFinite(bitrate) ||
+      bitrate <= 0
+    ){
+
+      if(
+        Number.isFinite(duration) &&
+        duration > 0
+      ){
+
+        bitrate =
+          file.size *
+          8 /
+          duration;
+
+      }else{
+
+        bitrate = NaN;
+
       }
     }
 
-    /*
-     * Prefer MP4Box bitrate when available.
-     * Otherwise estimate total file bitrate from
-     * file size and duration.
-     */
-    let bitrate =
-      Number.isFinite(track.bitrate) &&
-      track.bitrate > 0
-        ? track.bitrate
-        : NaN;
 
-    if (
-      !Number.isFinite(bitrate) &&
-      Number.isFinite(duration) &&
-      duration > 0
-    ) {
-      bitrate =
-        (file.size * 8) / duration;
-    }
+    /*
+     * Format
+     */
 
     const format =
-      simplifyCodec(track.codec);
+      simplifyCodec(
+        track.codec
+      );
+
+
+    /*
+     * Quality
+     */
 
     const quality =
       detectQuality(track);
 
-    infoFile.textContent = file.name;
-    infoSize.textContent = formatBytes(file.size);
+
+    /*
+     * Display
+     */
+
+    infoFile.textContent =
+      file.name;
+
+    infoSize.textContent =
+      formatBytes(file.size);
+
     infoDuration.textContent =
       formatDuration(duration);
 
@@ -1127,7 +1509,10 @@ async function readMediaInfo(file) {
     infoFps.textContent =
       Number.isFinite(fps)
         ? `${fps.toFixed(
-            Math.abs(fps - Math.round(fps)) < 0.03
+            Math.abs(
+              fps -
+              Math.round(fps)
+            ) < 0.03
               ? 0
               : 2
           )} fps`
@@ -1136,282 +1521,467 @@ async function readMediaInfo(file) {
     infoBitrate.textContent =
       formatBitrate(bitrate);
 
-    infoFormat.textContent = format;
-    infoQuality.textContent = quality;
+    infoFormat.textContent =
+      format;
+
+    infoQuality.textContent =
+      quality;
+
 
     status.textContent =
       "Media information ready.";
 
-  } catch (error) {
+  }catch(error){
 
-    console.warn("MP4Box parser failed:", error);
+    console.warn(
+      "MP4Box error:",
+      error
+    );
+
 
     /*
-     * Metadata fallback.
+     * Basic browser fallback.
      */
-    infoFile.textContent = file.name;
-    infoSize.textContent = formatBytes(file.size);
+
+    infoFile.textContent =
+      file.name;
+
+    infoSize.textContent =
+      formatBytes(file.size);
 
     infoDuration.textContent =
-      Number.isFinite(browserDuration)
-        ? formatDuration(browserDuration)
+      Number.isFinite(
+        preview.duration
+      )
+        ? formatDuration(
+            preview.duration
+          )
         : "—";
 
     infoResolution.textContent =
-      preview.videoWidth && preview.videoHeight
+      preview.videoWidth &&
+      preview.videoHeight
         ? `${preview.videoWidth} × ${preview.videoHeight}`
         : "—";
 
-    infoFps.textContent = "—";
-    infoBitrate.textContent = "—";
-    infoFormat.textContent = "MP4";
-    infoQuality.textContent = "Unknown";
+    infoFps.textContent =
+      "—";
+
+    infoBitrate.textContent =
+      "—";
+
+    infoFormat.textContent =
+      "MP4";
+
+    infoQuality.textContent =
+      "Unknown";
 
     status.textContent =
-      "Basic media information ready.";
+      "Basic information ready.";
   }
 }
 
 
 /* =========================================================
-   FILE SELECTION
+   FILE
 ========================================================= */
 
-async function handleFile(file) {
+async function handleFile(file){
 
-  if (!file) return;
-
-  if (
-    file.type !== "video/mp4" &&
-    !file.name.toLowerCase().endsWith(".mp4")
-  ) {
-    status.textContent = "Please choose an MP4 video.";
+  if(!file){
     return;
   }
 
-  selectedFile = file;
 
-  if (previewUrl) {
-    URL.revokeObjectURL(previewUrl);
+  if(
+    file.type !== "video/mp4" &&
+    !file.name
+      .toLowerCase()
+      .endsWith(".mp4")
+  ){
+
+    status.textContent =
+      "Please choose an MP4 video.";
+
+    return;
   }
 
-  previewUrl = URL.createObjectURL(file);
 
-  preview.src = previewUrl;
+  selectedFile =
+    file;
+
+
+  if(previewUrl){
+
+    URL.revokeObjectURL(
+      previewUrl
+    );
+  }
+
+
+  previewUrl =
+    URL.createObjectURL(file);
+
+
+  preview.src =
+    previewUrl;
+
   preview.load();
 
-  fileName.textContent = file.name;
 
-  fileArea.style.display = "flex";
-  infoSection.hidden = false;
-  variantSection.hidden = false;
+  fileName.textContent =
+    file.name;
 
-  patchButton.disabled = true;
 
-  status.textContent = "Loading preview…";
+  fileArea.style.display =
+    "flex";
+
+  infoSection.hidden =
+    false;
+
+  variantSection.hidden =
+    false;
+
+
+  patchButton.disabled =
+    true;
+
+
+  status.textContent =
+    "Loading preview…";
+
+
+  /*
+   * Wait for native video metadata.
+   */
 
   await new Promise(resolve => {
 
-    if (preview.readyState >= 1) {
+    if(
+      preview.readyState >= 1
+    ){
+
       resolve();
       return;
     }
 
-    const done = () => {
-      preview.removeEventListener("loadedmetadata", done);
-      resolve();
-    };
 
-    preview.addEventListener("loadedmetadata", done, {
-      once:true
-    });
+    preview.addEventListener(
+      "loadedmetadata",
+      resolve,
+      {once:true}
+    );
+
   });
 
-  patchButton.disabled = false;
+
+  patchButton.disabled =
+    false;
+
 
   /*
-   * Parser starts only after preview metadata is ready.
+   * Start MP4 parser.
    */
+
   readMediaInfo(file);
+
 }
 
 
 /* =========================================================
-   INPUT
+   FILE INPUT
 ========================================================= */
 
-videoInput.addEventListener("change", () => {
+videoInput.addEventListener(
+  "change",
+  () => {
 
-  const file = videoInput.files?.[0];
+    const file =
+      videoInput.files?.[0];
 
-  if (file) {
-    handleFile(file);
+    if(file){
+      handleFile(file);
+    }
+
   }
-});
-
-
-replaceBtn.addEventListener("click", event => {
-
-  event.preventDefault();
-  event.stopPropagation();
-
-  videoInput.value = "";
-  videoInput.click();
-});
+);
 
 
 /* =========================================================
-   DRAG & DROP
+   REPLACE
 ========================================================= */
 
-["dragenter","dragover"].forEach(type => {
-
-  dropzone.addEventListener(type, event => {
-
-    event.preventDefault();
-    dropzone.classList.add("dragover");
-
-  });
-});
-
-
-["dragleave","drop"].forEach(type => {
-
-  dropzone.addEventListener(type, event => {
+replaceBtn.addEventListener(
+  "click",
+  event => {
 
     event.preventDefault();
-    dropzone.classList.remove("dragover");
+    event.stopPropagation();
 
-  });
-});
+    videoInput.value = "";
 
+    videoInput.click();
 
-dropzone.addEventListener("drop", event => {
-
-  const file =
-    event.dataTransfer?.files?.[0];
-
-  if (file) {
-    handleFile(file);
   }
+);
+
+
+/* =========================================================
+   DRAG DROP
+========================================================= */
+
+["dragenter","dragover"]
+.forEach(type => {
+
+  dropzone.addEventListener(
+    type,
+    event => {
+
+      event.preventDefault();
+
+      dropzone.classList.add(
+        "dragover"
+      );
+
+    }
+  );
+
 });
+
+
+["dragleave","drop"]
+.forEach(type => {
+
+  dropzone.addEventListener(
+    type,
+    event => {
+
+      event.preventDefault();
+
+      dropzone.classList.remove(
+        "dragover"
+      );
+
+    }
+  );
+
+});
+
+
+dropzone.addEventListener(
+  "drop",
+  event => {
+
+    const file =
+      event.dataTransfer
+        ?.files?.[0];
+
+    if(file){
+      handleFile(file);
+    }
+
+  }
+);
+
+
+/* =========================================================
+   COMPRESSBASE
+========================================================= */
+
+const {
+  patchVideo
+} =
+  await import(
+    "https://compressbase.com/method-api/client.mjs"
+  );
 
 
 /* =========================================================
    PATCH
 ========================================================= */
 
-const { patchVideo } =
-  await import(
-    "https://compressbase.com/method-api/client.mjs"
-  );
+patchButton.addEventListener(
+  "click",
+  async () => {
+
+    if(!selectedFile){
+
+      status.textContent =
+        "Choose an MP4 first.";
+
+      return;
+    }
 
 
-patchButton.addEventListener("click", async () => {
+    const postingDevice =
+      variant.value;
 
-  if (!selectedFile) {
-    status.textContent = "Choose an MP4 first.";
-    return;
-  }
 
-  const postingDevice = variant.value;
+    if(!postingDevice){
 
-  if (!postingDevice) {
-    status.textContent = "Choose a variant first.";
-    return;
-  }
+      status.textContent =
+        "Choose a variant first.";
 
-  patchButton.disabled = true;
-  manualDownload.style.display = "none";
+      return;
+    }
 
-  if (outputUrl) {
-    URL.revokeObjectURL(outputUrl);
-    outputUrl = null;
-  }
 
-  status.textContent = "Patching metadata…";
+    patchButton.disabled =
+      true;
 
-  try {
+    manualDownload.style.display =
+      "none";
 
-    const output = await patchVideo(
-      selectedFile,
-      {
-        postingDevice,
 
-        signal:
-          AbortSignal.timeout(180000),
+    if(outputUrl){
 
-        onStatus: message => {
-          status.textContent = message;
-        }
-      }
-    );
+      URL.revokeObjectURL(
+        outputUrl
+      );
 
-    outputUrl =
-      URL.createObjectURL(output);
+      outputUrl =
+        null;
+    }
 
-    download.href = outputUrl;
-
-    download.download =
-      selectedFile.name.replace(
-        /\.mp4$/i,
-        ""
-      ) + "_totolat.mp4";
-
-    /*
-     * Automatic download.
-     */
-    const link =
-      document.createElement("a");
-
-    link.href = outputUrl;
-    link.download = download.download;
-    link.style.display = "none";
-
-    document.body.appendChild(link);
-    link.click();
-    link.remove();
 
     status.textContent =
-      "Done. Download started.";
+      "Patching metadata…";
 
-    /*
-     * Small fallback in case browser blocks
-     * programmatic downloads.
-     */
-    setTimeout(() => {
-      manualDownload.style.display = "block";
-    }, 1200);
 
-  } catch (error) {
+    try{
 
-    console.error(error);
+      const output =
+        await patchVideo(
+          selectedFile,
+          {
+            postingDevice,
 
-    status.textContent =
-      error?.message ||
-      "Patch failed.";
+            signal:
+              AbortSignal.timeout(
+                180000
+              ),
 
-  } finally {
+            onStatus:
+              message => {
 
-    patchButton.disabled = false;
+                status.textContent =
+                  message;
+
+              }
+          }
+        );
+
+
+      outputUrl =
+        URL.createObjectURL(
+          output
+        );
+
+
+      const outputName =
+        selectedFile.name
+          .replace(
+            /\.mp4$/i,
+            ""
+          ) +
+        "_totolat.mp4";
+
+
+      download.href =
+        outputUrl;
+
+      download.download =
+        outputName;
+
+
+      /*
+       * Automatic download.
+       */
+
+      const link =
+        document.createElement("a");
+
+      link.href =
+        outputUrl;
+
+      link.download =
+        outputName;
+
+      link.style.display =
+        "none";
+
+      document.body.appendChild(
+        link
+      );
+
+      link.click();
+
+      link.remove();
+
+
+      status.textContent =
+        "Done. Download started.";
+
+
+      /*
+       * Browser fallback.
+       */
+
+      setTimeout(
+        () => {
+
+          manualDownload.style.display =
+            "block";
+
+        },
+        1200
+      );
+
+
+    }catch(error){
+
+      console.error(error);
+
+      status.textContent =
+        error?.message ||
+        "Patch failed.";
+
+
+    }finally{
+
+      patchButton.disabled =
+        false;
+
+    }
+
   }
-});
+);
 
 
 /* =========================================================
    CLEANUP
 ========================================================= */
 
-window.addEventListener("beforeunload", () => {
+window.addEventListener(
+  "beforeunload",
+  () => {
 
-  if (previewUrl) {
-    URL.revokeObjectURL(previewUrl);
-  }
+    if(previewUrl){
 
-  if (outputUrl) {
-    URL.revokeObjectURL(outputUrl);
+      URL.revokeObjectURL(
+        previewUrl
+      );
+    }
+
+    if(outputUrl){
+
+      URL.revokeObjectURL(
+        outputUrl
+      );
+    }
+
   }
-});
+);
 
 </script>
 
