@@ -19,15 +19,14 @@
     :root {
       --bg: #080808;
       --panel: #101010;
-      --panel-2: #141414;
+      --panel2: #141414;
       --border: #272727;
-      --border-light: #323232;
+      --border2: #343434;
       --text: #f4f4f4;
-      --muted: #8e8e8e;
-      --muted-2: #666;
+      --muted: #8b8b8b;
+      --muted2: #626262;
       --green: #20d66b;
-      --green-dark: #0f9f4c;
-      --red: #ff5c5c;
+      --red: #ff6262;
     }
 
     html,
@@ -90,7 +89,6 @@
       font-size: 13px;
       font-weight: 600;
       text-decoration: none;
-      transition: opacity .18s ease;
     }
 
     .creator:hover {
@@ -99,9 +97,8 @@
 
     .powered {
       margin-top: 3px;
-      color: var(--muted-2);
+      color: var(--muted2);
       font-size: 11px;
-      letter-spacing: .1px;
     }
 
     /* =========================
@@ -122,9 +119,9 @@
 
     .upload-box {
       flex: 0 0 72px;
-      border: 1px dashed var(--border-light);
-      background: #0d0d0d;
+      border: 1px dashed var(--border2);
       border-radius: 12px;
+      background: #0d0d0d;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -201,7 +198,6 @@
       overflow: hidden;
       white-space: nowrap;
       text-overflow: ellipsis;
-      color: var(--text);
       font-size: 12px;
       font-weight: 500;
     }
@@ -229,12 +225,12 @@
     }
 
     /* =========================
-       MEDIA INFORMATION
+       MEDIA INFO
     ========================= */
 
     .section-label {
       margin-bottom: 7px;
-      color: var(--muted-2);
+      color: var(--muted2);
       font-size: 10px;
       font-weight: 700;
       letter-spacing: 1px;
@@ -268,11 +264,11 @@
     }
 
     .media-key {
-      color: var(--muted-2);
-      font-size: 9px;
-      text-transform: uppercase;
-      letter-spacing: .7px;
       margin-bottom: 3px;
+      color: var(--muted2);
+      font-size: 9px;
+      letter-spacing: .7px;
+      text-transform: uppercase;
     }
 
     .media-value {
@@ -284,19 +280,16 @@
       font-weight: 600;
     }
 
-    .quality-value {
-      color: var(--text);
-    }
-
     /* =========================
-       VARIANT
+       METHOD
     ========================= */
 
-    .variant-section {
+    .method-section {
+      display: none;
       flex: 0 0 auto;
     }
 
-    .variant-select {
+    .method-select {
       width: 100%;
       height: 52px;
       padding: 0 14px;
@@ -309,13 +302,18 @@
       cursor: pointer;
     }
 
-    .variant-select:focus {
+    .method-select:focus {
       border-color: #454545;
     }
 
     /* =========================
        PATCH
     ========================= */
+
+    .patch-section {
+      display: none;
+      flex: 0 0 auto;
+    }
 
     .patch-btn {
       width: 100%;
@@ -345,12 +343,11 @@
     .patch-btn:disabled {
       opacity: .45;
       cursor: not-allowed;
-      transform: none;
     }
 
     .status {
       min-height: 17px;
-      margin: 0;
+      margin: 7px 0 0;
       color: var(--muted);
       font-size: 10px;
       line-height: 1.4;
@@ -359,7 +356,7 @@
 
     .download-link {
       display: block;
-      margin-top: -3px;
+      margin-top: 3px;
       color: var(--green);
       font-size: 11px;
       text-align: center;
@@ -372,14 +369,15 @@
 
     .privacy {
       flex: 0 0 auto;
-      color: var(--muted-2);
+      margin-top: 10px;
+      color: var(--muted2);
       font-size: 9px;
       line-height: 1.35;
       text-align: center;
     }
 
     /* =========================
-       ERROR MODAL
+       NOTICE MODAL
     ========================= */
 
     .modal-backdrop {
@@ -390,7 +388,7 @@
       align-items: center;
       justify-content: center;
       padding: 22px;
-      background: rgba(0, 0, 0, .72);
+      background: rgba(0,0,0,.72);
       backdrop-filter: blur(7px);
     }
 
@@ -415,23 +413,30 @@
     }
 
     .modal-message {
-      margin-top: 9px;
+      margin-top: 10px;
       color: #c8c8c8;
       font-size: 12px;
       line-height: 1.55;
     }
 
-    .modal-detail {
-      margin-top: 7px;
-      color: var(--muted);
-      font-size: 10px;
-      line-height: 1.5;
+    .modal-detected {
+      margin-top: 10px;
+      color: var(--text);
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .modal-reject {
+      margin-top: 8px;
+      color: #ff8b8b;
+      font-size: 13px;
+      font-weight: 800;
     }
 
     .modal-ok {
       width: 100%;
       height: 42px;
-      margin-top: 18px;
+      margin-top: 19px;
       border: 1px solid #3b3b3b;
       border-radius: 9px;
       background: #191919;
@@ -446,10 +451,11 @@
     }
 
     /* =========================
-       SMALL SCREEN
+       SMALL HEIGHT
     ========================= */
 
     @media (max-height: 800px) {
+
       .app {
         padding-top: 18px;
         padding-bottom: 14px;
@@ -459,12 +465,12 @@
         margin-bottom: 14px;
       }
 
-      .preview-box {
-        height: 250px;
-      }
-
       .content {
         gap: 10px;
+      }
+
+      .preview-box {
+        height: 250px;
       }
 
       .media-item {
@@ -472,7 +478,7 @@
         padding: 7px 11px;
       }
 
-      .variant-select {
+      .method-select {
         height: 47px;
       }
 
@@ -485,7 +491,10 @@
 
 <body>
 
-  <!-- ACCESS RESTRICTION -->
+  <!-- =========================
+       ACCESS RESTRICTION
+  ========================= -->
+
   <div id="restricted-page" style="
     display:none;
     min-height:100dvh;
@@ -495,13 +504,12 @@
     background:#080808;
     color:#f4f4f4;
     text-align:center;
-    font-family:Inter,-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;
   ">
     <div style="max-width:460px">
+
       <div style="
         font-size:20px;
         font-weight:800;
-        letter-spacing:-.4px;
       ">
         ACCESS RESTRICTED
       </div>
@@ -523,15 +531,24 @@
       ">
         https://sain-byte.github.io/method/
       </div>
+
     </div>
   </div>
 
 
+  <!-- =========================
+       APP
+  ========================= -->
+
   <main class="app" id="app">
 
     <!-- HEADER -->
+
     <header class="header">
-      <div class="brand">High Quality Method</div>
+
+      <div class="brand">
+        High Quality Method
+      </div>
 
       <a
         class="creator"
@@ -545,17 +562,34 @@
       <div class="powered">
         Powered by CompressBase
       </div>
+
     </header>
 
 
     <section class="content">
 
-      <!-- UPLOAD -->
-      <label class="upload-box" id="upload-box" for="file-input">
+      <!-- =========================
+           UPLOAD
+      ========================= -->
+
+      <label
+        class="upload-box"
+        id="upload-box"
+        for="file-input"
+      >
+
         <div class="upload-inner">
-          <div class="upload-title">Select MP4 video</div>
-          <div class="upload-sub">Click or drag and drop</div>
+
+          <div class="upload-title">
+            Select MP4 video
+          </div>
+
+          <div class="upload-sub">
+            Click or drag and drop
+          </div>
+
         </div>
+
       </label>
 
       <input
@@ -565,20 +599,34 @@
       >
 
 
-      <!-- PREVIEW -->
-      <section class="preview-section" id="preview-section">
+      <!-- =========================
+           PREVIEW
+      ========================= -->
+
+      <section
+        class="preview-section"
+        id="preview-section"
+      >
 
         <div class="preview-box">
+
           <video
             id="preview"
             controls
             playsinline
             preload="metadata"
           ></video>
+
         </div>
 
         <div class="file-row">
-          <div class="file-name" id="file-name">—</div>
+
+          <div
+            class="file-name"
+            id="file-name"
+          >
+            —
+          </div>
 
           <button
             class="replace-btn"
@@ -587,83 +635,126 @@
           >
             REPLACE
           </button>
+
         </div>
 
       </section>
 
 
-      <!-- MEDIA INFO -->
-      <section id="media-section" style="display:none">
+      <!-- =========================
+           MEDIA INFORMATION
+      ========================= -->
+
+      <section
+        id="media-section"
+        style="display:none"
+      >
 
         <div class="section-label">
           Media Information
         </div>
 
         <div class="media-card">
+
           <div class="media-grid">
 
             <div class="media-item">
               <div class="media-key">File</div>
-              <div class="media-value" id="info-file">—</div>
+              <div
+                class="media-value"
+                id="info-file"
+              >—</div>
             </div>
 
             <div class="media-item">
               <div class="media-key">Size</div>
-              <div class="media-value" id="info-size">—</div>
+              <div
+                class="media-value"
+                id="info-size"
+              >—</div>
             </div>
 
             <div class="media-item">
               <div class="media-key">Duration</div>
-              <div class="media-value" id="info-duration">—</div>
+              <div
+                class="media-value"
+                id="info-duration"
+              >—</div>
             </div>
 
             <div class="media-item">
               <div class="media-key">Resolution</div>
-              <div class="media-value" id="info-resolution">—</div>
+              <div
+                class="media-value"
+                id="info-resolution"
+              >—</div>
             </div>
 
             <div class="media-item">
               <div class="media-key">FPS</div>
-              <div class="media-value" id="info-fps">—</div>
+              <div
+                class="media-value"
+                id="info-fps"
+              >—</div>
             </div>
 
             <div class="media-item">
               <div class="media-key">Bitrate</div>
-              <div class="media-value" id="info-bitrate">—</div>
+              <div
+                class="media-value"
+                id="info-bitrate"
+              >—</div>
             </div>
 
             <div class="media-item">
               <div class="media-key">Format</div>
-              <div class="media-value" id="info-format">—</div>
+              <div
+                class="media-value"
+                id="info-format"
+              >—</div>
             </div>
 
             <div class="media-item">
               <div class="media-key">Quality</div>
-              <div class="media-value quality-value" id="info-quality">—</div>
+              <div
+                class="media-value"
+                id="info-quality"
+              >—</div>
             </div>
 
             <div class="media-item">
               <div class="media-key">Container</div>
-              <div class="media-value" id="info-container">—</div>
+              <div
+                class="media-value"
+                id="info-container"
+              >—</div>
             </div>
 
           </div>
+
         </div>
 
       </section>
 
 
-      <!-- VARIANT -->
-      <section class="variant-section" id="variant-section" style="display:none">
+      <!-- =========================
+           METHOD
+      ========================= -->
+
+      <section
+        class="method-section"
+        id="method-section"
+      >
 
         <div class="section-label">
           Method
         </div>
 
         <select
-          class="variant-select"
+          class="method-select"
           id="posting-device"
         >
+
           <option value="variant-1">
             Variant 1 — Not Aggressive
           </option>
@@ -683,13 +774,20 @@
           <option value="variant-5">
             Variant 5 — iPhone / iPad
           </option>
+
         </select>
 
       </section>
 
 
-      <!-- PATCH -->
-      <section id="patch-section" style="display:none">
+      <!-- =========================
+           PATCH
+      ========================= -->
+
+      <section
+        class="patch-section"
+        id="patch-section"
+      >
 
         <button
           class="patch-btn"
@@ -699,7 +797,10 @@
           PATCH VIDEO →
         </button>
 
-        <p class="status" id="status"></p>
+        <p
+          class="status"
+          id="status"
+        ></p>
 
         <a
           class="download-link"
@@ -721,26 +822,36 @@
   </main>
 
 
-  <!-- ERROR MODAL -->
+  <!-- =========================
+       RESOLUTION NOTICE
+  ========================= -->
+
   <div
     class="modal-backdrop"
-    id="error-modal"
+    id="resolution-modal"
     role="dialog"
     aria-modal="true"
-    aria-labelledby="modal-title"
   >
+
     <div class="modal">
 
-      <div class="modal-title" id="modal-title">
-        VIDEO NOT SUPPORTED
+      <div class="modal-title">
+        VIDEO ABOVE 1080P
       </div>
 
-      <div class="modal-message" id="modal-message">
-        Maximum input resolution is 1080p.
+      <div class="modal-message">
+        This tool supports input up to 1080p.
       </div>
 
-      <div class="modal-detail" id="modal-detail">
-        Supported up to 1920×1080 landscape or 1080×1920 portrait.
+      <div
+        class="modal-detected"
+        id="modal-detected"
+      >
+        Detected: —
+      </div>
+
+      <div class="modal-reject">
+        Reject 🚫⚠️
       </div>
 
       <button
@@ -752,6 +863,7 @@
       </button>
 
     </div>
+
   </div>
 
 
@@ -761,15 +873,24 @@
        ACCESS RESTRICTION
     ========================================================= */
 
-    const OFFICIAL_ORIGIN = "https://sain-byte.github.io";
+    const OFFICIAL_ORIGIN =
+      "https://sain-byte.github.io";
+
+    const validPath =
+      location.pathname === "/method/" ||
+      location.pathname === "/method/index.html";
 
     if (
       location.origin !== OFFICIAL_ORIGIN ||
-      location.pathname !== "/method/" &&
-      location.pathname !== "/method/index.html"
+      !validPath
     ) {
-      document.getElementById("app").style.display = "none";
-      document.getElementById("restricted-page").style.display = "flex";
+
+      document.querySelector("#app")
+        .style.display = "none";
+
+      document.querySelector("#restricted-page")
+        .style.display = "flex";
+
       throw new Error("Access restricted.");
     }
 
@@ -799,8 +920,8 @@
     const mediaSection =
       document.querySelector("#media-section");
 
-    const variantSection =
-      document.querySelector("#variant-section");
+    const methodSection =
+      document.querySelector("#method-section");
 
     const patchSection =
       document.querySelector("#patch-section");
@@ -815,61 +936,16 @@
       document.querySelector("#download");
 
 
-    /* =========================================================
-       MODAL
-    ========================================================= */
+    /* MODAL */
 
-    const errorModal =
-      document.querySelector("#error-modal");
+    const resolutionModal =
+      document.querySelector("#resolution-modal");
 
-    const modalTitle =
-      document.querySelector("#modal-title");
-
-    const modalMessage =
-      document.querySelector("#modal-message");
-
-    const modalDetail =
-      document.querySelector("#modal-detail");
+    const modalDetected =
+      document.querySelector("#modal-detected");
 
     const modalOk =
       document.querySelector("#modal-ok");
-
-
-    function showError(title, message, detail = "") {
-
-      modalTitle.textContent = title;
-      modalMessage.textContent = message;
-      modalDetail.textContent = detail;
-
-      errorModal.classList.add("show");
-
-      setTimeout(() => {
-        modalOk.focus();
-      }, 20);
-    }
-
-
-    function hideError() {
-      errorModal.classList.remove("show");
-    }
-
-
-    modalOk.addEventListener("click", hideError);
-
-    errorModal.addEventListener("click", event => {
-      if (event.target === errorModal) {
-        hideError();
-      }
-    });
-
-    document.addEventListener("keydown", event => {
-      if (
-        event.key === "Escape" &&
-        errorModal.classList.contains("show")
-      ) {
-        hideError();
-      }
-    });
 
 
     /* =========================================================
@@ -879,6 +955,7 @@
     let selectedFile = null;
     let currentMediaInfo = null;
     let outputUrl = null;
+    let previewUrl = null;
 
 
     /* =========================================================
@@ -892,7 +969,7 @@
 
 
     /* =========================================================
-       HELPERS
+       BASIC HELPERS
     ========================================================= */
 
     function formatBytes(bytes) {
@@ -915,12 +992,15 @@
         value >= 1024 &&
         index < units.length - 1
       ) {
+
         value /= 1024;
         index++;
       }
 
       return (
-        value.toFixed(index === 0 ? 0 : 2)
+        value.toFixed(
+          index === 0 ? 0 : 2
+        )
         + " "
         + units[index]
       );
@@ -934,18 +1014,24 @@
       }
 
       const total =
-        Math.max(0, Math.round(seconds));
+        Math.max(
+          0,
+          Math.round(seconds)
+        );
 
       const hours =
         Math.floor(total / 3600);
 
       const minutes =
-        Math.floor((total % 3600) / 60);
+        Math.floor(
+          (total % 3600) / 60
+        );
 
       const secs =
         total % 60;
 
       if (hours > 0) {
+
         return [
           String(hours).padStart(2, "0"),
           String(minutes).padStart(2, "0"),
@@ -960,26 +1046,25 @@
     }
 
 
-    function formatBitrate(bitsPerSecond) {
+    function formatBitrate(bps) {
 
       if (
-        !Number.isFinite(bitsPerSecond) ||
-        bitsPerSecond <= 0
+        !Number.isFinite(bps) ||
+        bps <= 0
       ) {
         return "—";
       }
 
-      if (bitsPerSecond >= 1000000) {
+      if (bps >= 1000000) {
+
         return (
-          (bitsPerSecond / 1000000)
-            .toFixed(2)
+          (bps / 1000000).toFixed(2)
           + " Mbps"
         );
       }
 
       return (
-        (bitsPerSecond / 1000)
-          .toFixed(0)
+        (bps / 1000).toFixed(0)
         + " kbps"
       );
     }
@@ -987,31 +1072,33 @@
 
     function simplifyCodec(codec) {
 
-      const value =
-        String(codec || "").toLowerCase();
+      const c =
+        String(codec || "")
+          .toLowerCase();
 
       if (
-        value.includes("hevc") ||
-        value.includes("hvc1") ||
-        value.includes("hev1")
+        c.includes("hvc1") ||
+        c.includes("hev1") ||
+        c.includes("hevc")
       ) {
         return "HEVC";
       }
 
       if (
-        value.includes("avc") ||
-        value.includes("avc1")
+        c.includes("avc1") ||
+        c.includes("avc3") ||
+        c.includes("avc")
       ) {
         return "H.264";
       }
 
-      if (value.includes("av01")) {
+      if (c.includes("av01")) {
         return "AV1";
       }
 
       if (
-        value.includes("vp09") ||
-        value.includes("vp9")
+        c.includes("vp09") ||
+        c.includes("vp9")
       ) {
         return "VP9";
       }
@@ -1021,18 +1108,10 @@
 
 
     /* =========================================================
-       RESOLUTION LIMIT
-       TRUE FHD MAXIMUM
+       FHD CHECK
     ========================================================= */
 
     function isWithinFHD(width, height) {
-
-      if (
-        !Number.isFinite(width) ||
-        !Number.isFinite(height)
-      ) {
-        return false;
-      }
 
       const landscape =
         width <= 1920 &&
@@ -1046,30 +1125,219 @@
     }
 
 
-    function showResolutionError(width, height) {
+    function showResolutionNotice(
+      width,
+      height
+    ) {
 
-      showError(
-        "VIDEO NOT SUPPORTED",
-        "Maximum input resolution is 1080p.",
-        `Detected ${width}×${height}. Supported up to 1920×1080 landscape or 1080×1920 portrait.`
+      modalDetected.textContent =
+        `Detected: ${width} × ${height}`;
+
+      resolutionModal.classList.add(
+        "show"
+      );
+
+      setTimeout(() => {
+        modalOk.focus();
+      }, 30);
+    }
+
+
+    function hideResolutionNotice() {
+
+      resolutionModal.classList.remove(
+        "show"
+      );
+    }
+
+
+    modalOk.addEventListener(
+      "click",
+      hideResolutionNotice
+    );
+
+    resolutionModal.addEventListener(
+      "click",
+      event => {
+
+        if (
+          event.target === resolutionModal
+        ) {
+          hideResolutionNotice();
+        }
+      }
+    );
+
+
+    document.addEventListener(
+      "keydown",
+      event => {
+
+        if (
+          event.key === "Escape" &&
+          resolutionModal.classList.contains(
+            "show"
+          )
+        ) {
+          hideResolutionNotice();
+        }
+      }
+    );
+
+
+    /* =========================================================
+       RECURSIVE BOX SEARCH
+       
+       Ini penting untuk HLG.
+       Jangan mengandalkan posisi pasti colr.
+    ========================================================= */
+
+    function findBoxes(
+      object,
+      targetType,
+      results = [],
+      visited = new WeakSet()
+    ) {
+
+      if (
+        !object ||
+        typeof object !== "object"
+      ) {
+        return results;
+      }
+
+      if (
+        typeof object === "object" &&
+        object !== null
+      ) {
+
+        if (
+          typeof object === "object" &&
+          !Array.isArray(object)
+        ) {
+
+          if (
+            visited.has(object)
+          ) {
+            return results;
+          }
+
+          visited.add(object);
+        }
+      }
+
+
+      if (
+        object.type === targetType ||
+        object.boxType === targetType ||
+        object.name === targetType
+      ) {
+
+        results.push(object);
+      }
+
+
+      if (Array.isArray(object)) {
+
+        for (const item of object) {
+
+          findBoxes(
+            item,
+            targetType,
+            results,
+            visited
+          );
+        }
+
+        return results;
+      }
+
+
+      for (
+        const [key, value]
+        of Object.entries(object)
+      ) {
+
+        if (
+          key === "file" ||
+          key === "stream" ||
+          key === "buffer"
+        ) {
+          continue;
+        }
+
+        if (
+          value &&
+          typeof value === "object"
+        ) {
+
+          findBoxes(
+            value,
+            targetType,
+            results,
+            visited
+          );
+        }
+      }
+
+      return results;
+    }
+
+
+    /* =========================================================
+       GET VIDEO TRACK
+    ========================================================= */
+
+    function getVideoTrack(info) {
+
+      const videoTracks =
+        Array.isArray(
+          info?.videoTracks
+        )
+          ? info.videoTracks
+          : [];
+
+      if (videoTracks.length) {
+        return videoTracks[0];
+      }
+
+      const tracks =
+        Array.isArray(info?.tracks)
+          ? info.tracks
+          : [];
+
+      return (
+        tracks.find(
+          t =>
+            t?.type === "video"
+        ) ||
+        null
       );
     }
 
 
     /* =========================================================
-       MP4 SAMPLE ENTRY
+       GET SAMPLE ENTRY
     ========================================================= */
 
-    function getVideoSampleEntry(mp4, track) {
+    function getSampleEntry(
+      mp4,
+      track
+    ) {
+
+      if (
+        !mp4 ||
+        !track?.id
+      ) {
+        return null;
+      }
 
       try {
 
-        if (!mp4 || !track?.id) {
-          return null;
-        }
-
         const trak =
-          mp4.getTrackById(track.id);
+          mp4.getTrackById(
+            track.id
+          );
 
         const entries =
           trak
@@ -1087,8 +1355,9 @@
         }
 
       } catch (error) {
+
         console.warn(
-          "Could not inspect MP4 sample entry:",
+          "Sample entry lookup failed:",
           error
         );
       }
@@ -1098,50 +1367,101 @@
 
 
     /* =========================================================
-       COLOR INFORMATION
+       COLOR INFO
     ========================================================= */
 
-    function getColorInfo(sampleEntry) {
+    function getColorInfo(
+      mp4,
+      track,
+      sampleEntry
+    ) {
 
-      const colr =
+      /*
+       * First: direct sample entry.
+       */
+
+      const direct =
         sampleEntry?.colr;
 
-      if (!colr) {
-        return null;
+      if (direct) {
+        return direct;
       }
 
-      return {
-        type:
-          colr.colour_type ??
-          colr.color_type ??
-          null,
 
-        primaries:
-          Number(
-            colr.colour_primaries ??
-            colr.color_primaries ??
-            0
-          ),
+      /*
+       * Second: recursively search
+       * the complete track structure.
+       */
 
-        transfer:
-          Number(
-            colr.transfer_characteristics ??
-            colr.transfer_characteristic ??
-            0
-          ),
+      try {
 
-        matrix:
-          Number(
-            colr.matrix_coefficients ??
-            colr.matrix_coefficient ??
-            0
-          )
-      };
+        const trak =
+          mp4.getTrackById(
+            track.id
+          );
+
+        const colrBoxes =
+          findBoxes(
+            trak,
+            "colr"
+          );
+
+        if (colrBoxes.length) {
+          return colrBoxes[0];
+        }
+
+      } catch (error) {
+
+        console.warn(
+          "Color box search failed:",
+          error
+        );
+      }
+
+      return null;
     }
 
 
     /* =========================================================
-       QUALITY DETECTOR
+       NORMALIZE COLOR VALUES
+    ========================================================= */
+
+    function getTransferValue(
+      colr
+    ) {
+
+      if (!colr) {
+        return 0;
+      }
+
+      return Number(
+        colr.transfer_characteristics ??
+        colr.transfer_characteristic ??
+        colr.transfer ??
+        0
+      );
+    }
+
+
+    function getPrimariesValue(
+      colr
+    ) {
+
+      if (!colr) {
+        return 0;
+      }
+
+      return Number(
+        colr.colour_primaries ??
+        colr.color_primaries ??
+        colr.primaries ??
+        0
+      );
+    }
+
+
+    /* =========================================================
+       HDR DETECTOR
     ========================================================= */
 
     function detectQuality(
@@ -1154,25 +1474,19 @@
           track?.codec || ""
         ).toLowerCase();
 
+
       const sampleEntry =
-        getVideoSampleEntry(
+        getSampleEntry(
           mp4,
           track
-        );
-
-      const color =
-        getColorInfo(
-          sampleEntry
         );
 
 
       /*
        * Dolby Vision
-       *
-       * Prefer explicit DV signaling.
        */
 
-      const hasDolbyVision =
+      const hasDV =
         codec.startsWith("dvhe") ||
         codec.startsWith("dvh1") ||
         !!sampleEntry?.dvcC ||
@@ -1180,22 +1494,54 @@
         !!sampleEntry?.dvC1;
 
 
-      if (hasDolbyVision) {
+      if (hasDV) {
         return "Dolby Vision";
       }
 
 
       /*
-       * HLG
-       *
-       * ITU/ARIB transfer characteristic:
-       * 18 = ARIB STD-B67 / HLG
+       * Color metadata.
        */
 
-      if (
-        color &&
-        color.transfer === 18
-      ) {
+      const colr =
+        getColorInfo(
+          mp4,
+          track,
+          sampleEntry
+        );
+
+
+      const transfer =
+        getTransferValue(
+          colr
+        );
+
+
+      const primaries =
+        getPrimariesValue(
+          colr
+        );
+
+
+      console.log(
+        "COLOR METADATA:",
+        {
+          colr,
+          transfer,
+          primaries,
+          codec
+        }
+      );
+
+
+      /*
+       * HLG
+       *
+       * ITU/ARIB:
+       * transfer_characteristics = 18
+       */
+
+      if (transfer === 18) {
         return "HLG";
       }
 
@@ -1203,39 +1549,29 @@
       /*
        * PQ
        *
-       * 16 = SMPTE ST 2084 / PQ
-       *
-       * Without explicit Dolby Vision signaling,
-       * classify PQ as HDR10 rather than guessing
-       * HDR10+.
+       * SMPTE ST 2084:
+       * transfer_characteristics = 16
        */
 
-      if (
-        color &&
-        color.transfer === 16
-      ) {
+      if (transfer === 16) {
         return "HDR10";
       }
 
 
       /*
-       * Explicit SDR transfer.
-       *
-       * 1 = BT.709
+       * Explicit BT.709 SDR.
        */
 
-      if (
-        color &&
-        color.transfer === 1
-      ) {
+      if (transfer === 1) {
         return "SDR";
       }
 
 
       /*
-       * Unknown / missing color metadata.
+       * IMPORTANT:
        *
-       * Don't falsely call BT.2020 HDR.
+       * BT.2020 primaries alone are NOT enough
+       * to claim HDR.
        */
 
       return "SDR";
@@ -1256,15 +1592,31 @@
             const mp4 =
               MP4Box.createFile();
 
-            let ready = false;
+            let finished = false;
+
+
+            mp4.onError = error => {
+
+              if (!finished) {
+
+                finished = true;
+
+                reject(
+                  new Error(
+                    String(error)
+                  )
+                );
+              }
+            };
+
 
             mp4.onReady = info => {
 
-              if (ready) {
+              if (finished) {
                 return;
               }
 
-              ready = true;
+              finished = true;
 
               resolve({
                 info,
@@ -1272,14 +1624,16 @@
               });
             };
 
+
             const CHUNK =
               1024 * 1024;
 
             let offset = 0;
 
+
             while (
               offset < file.size &&
-              !ready
+              !finished
             ) {
 
               const end =
@@ -1288,24 +1642,35 @@
                   file.size
                 );
 
+
               const buffer =
                 await file
-                  .slice(offset, end)
+                  .slice(
+                    offset,
+                    end
+                  )
                   .arrayBuffer();
+
 
               buffer.fileStart =
                 offset;
 
-              mp4.appendBuffer(buffer);
+
+              mp4.appendBuffer(
+                buffer
+              );
+
 
               offset = end;
             }
 
-            if (!ready) {
+
+            if (!finished) {
               mp4.flush();
             }
 
           } catch (error) {
+
             reject(error);
           }
 
@@ -1318,71 +1683,97 @@
        READ MEDIA INFO
     ========================================================= */
 
-    async function readMediaInfo(file) {
+    async function readMediaInfo(
+      file
+    ) {
 
-      const parsed =
+      const {
+        info,
+        mp4
+      } =
         await parseMP4(file);
-
-      const info =
-        parsed.info;
-
-      const mp4 =
-        parsed.mp4;
-
-
-      const tracks =
-        (
-          info.videoTracks ||
-          []
-        ).filter(Boolean);
 
 
       const track =
-        tracks[0] ||
-        (
-          info.tracks || []
-        ).find(
-          t => t.type === "video"
-        );
+        getVideoTrack(info);
 
 
       if (!track) {
         throw new Error(
-          "No video track found."
+          "Video track not found."
         );
       }
 
 
       const width =
-        Number(track.video?.width) ||
-        Number(track.width) ||
+        Number(
+          track.video?.width
+        ) ||
+        Number(
+          track.track_width
+        ) ||
+        Number(
+          track.width
+        ) ||
         0;
 
+
       const height =
-        Number(track.video?.height) ||
-        Number(track.height) ||
+        Number(
+          track.video?.height
+        ) ||
+        Number(
+          track.track_height
+        ) ||
+        Number(
+          track.height
+        ) ||
         0;
+
+
+      const timescale =
+        Number(
+          track.timescale
+        ) || 1;
 
 
       const duration =
-        Number(track.duration) /
-        Number(track.timescale || 1);
+        Number(
+          track.duration
+        ) / timescale;
 
 
-      const fps =
+      let fps = 0;
+
+
+      if (
         Number(track.nb_samples) > 0 &&
         duration > 0
-          ? Number(track.nb_samples) / duration
-          : 0;
+      ) {
+
+        fps =
+          Number(
+            track.nb_samples
+          ) / duration;
+      }
 
 
-      const bitrate =
-        Number(track.bitrate) ||
-        (
-          duration > 0
-            ? (file.size * 8) / duration
-            : 0
-        );
+      let bitrate =
+        Number(
+          track.bitrate
+        ) || 0;
+
+
+      if (
+        !bitrate &&
+        duration > 0
+      ) {
+
+        bitrate =
+          (
+            file.size * 8
+          ) / duration;
+      }
 
 
       const format =
@@ -1427,30 +1818,40 @@
 
 
     /* =========================================================
-       UPDATE UI
+       UPDATE MEDIA INFO
     ========================================================= */
 
-    function updateMediaInfo(info) {
+    function updateMediaInfo(
+      info
+    ) {
 
       document.querySelector(
         "#info-file"
       ).textContent =
         info.fileName;
 
+
       document.querySelector(
         "#info-size"
       ).textContent =
-        formatBytes(info.size);
+        formatBytes(
+          info.size
+        );
+
 
       document.querySelector(
         "#info-duration"
       ).textContent =
-        formatDuration(info.duration);
+        formatDuration(
+          info.duration
+        );
+
 
       document.querySelector(
         "#info-resolution"
       ).textContent =
         `${info.width} × ${info.height}`;
+
 
       document.querySelector(
         "#info-fps"
@@ -1459,20 +1860,26 @@
           ? `${info.fps.toFixed(2)} fps`
           : "—";
 
+
       document.querySelector(
         "#info-bitrate"
       ).textContent =
-        formatBitrate(info.bitrate);
+        formatBitrate(
+          info.bitrate
+        );
+
 
       document.querySelector(
         "#info-format"
       ).textContent =
         info.format;
 
+
       document.querySelector(
         "#info-quality"
       ).textContent =
         info.quality;
+
 
       document.querySelector(
         "#info-container"
@@ -1482,40 +1889,58 @@
 
 
     /* =========================================================
-       RESET UI
+       RESET
     ========================================================= */
 
-    function resetUI() {
+    function resetForNewFile() {
 
       preview.pause();
 
-      preview.removeAttribute("src");
+      if (previewUrl) {
+
+        URL.revokeObjectURL(
+          previewUrl
+        );
+
+        previewUrl = null;
+      }
+
+
+      preview.removeAttribute(
+        "src"
+      );
+
       preview.load();
 
-      previewSection.style.display =
-        "none";
+
+      selectedFile = null;
+      currentMediaInfo = null;
+
 
       mediaSection.style.display =
         "none";
 
-      variantSection.style.display =
+      methodSection.style.display =
         "none";
 
       patchSection.style.display =
         "none";
 
-      status.textContent = "";
 
-      download.hidden = true;
+      status.textContent =
+        "";
 
-      fileName.textContent = "—";
 
-      currentMediaInfo = null;
+      download.hidden =
+        true;
+
 
       if (outputUrl) {
+
         URL.revokeObjectURL(
           outputUrl
         );
+
         outputUrl = null;
       }
     }
@@ -1525,7 +1950,9 @@
        HANDLE FILE
     ========================================================= */
 
-    async function handleFile(file) {
+    async function handleFile(
+      file
+    ) {
 
       if (!file) {
         return;
@@ -1533,48 +1960,99 @@
 
 
       if (
-        !file.type ||
-        file.type !== "video/mp4"
+        !file.name
+          .toLowerCase()
+          .endsWith(".mp4")
       ) {
 
-        showError(
-          "INVALID FILE",
-          "Please select an MP4 video.",
-          "Only .mp4 video files are supported."
+        alert(
+          "Please select an MP4 video."
         );
 
         return;
       }
 
 
-      resetUI();
+      resetForNewFile();
 
-      selectedFile = file;
+
+      selectedFile =
+        file;
+
 
       fileName.textContent =
         file.name;
+
+
+      /*
+       * IMPORTANT:
+       *
+       * Upload box disappears
+       * after file selection.
+       */
+
+      uploadBox.style.display =
+        "none";
+
+
+      previewSection.style.display =
+        "flex";
+
+
+      previewUrl =
+        URL.createObjectURL(
+          file
+        );
+
+
+      preview.src =
+        previewUrl;
 
 
       status.textContent =
         "Reading video information…";
 
 
-      preview.src =
-        URL.createObjectURL(file);
-
-      previewSection.style.display =
-        "flex";
-
-
       try {
 
         const info =
-          await readMediaInfo(file);
+          await readMediaInfo(
+            file
+          );
+
+
+        currentMediaInfo =
+          info;
 
 
         /*
-         * IMPORTANT:
-         * Reject immediately after metadata is read.
+         * Media information ALWAYS appears.
+         * Even for 4K.
+         */
+
+        updateMediaInfo(
+          info
+        );
+
+
+        mediaSection.style.display =
+          "block";
+
+        methodSection.style.display =
+          "block";
+
+        patchSection.style.display =
+          "block";
+
+
+        status.textContent =
+          `${info.quality} detected.`;
+
+
+        /*
+         * FHD WARNING ONLY.
+         *
+         * DO NOT BLOCK PATCH.
          */
 
         if (
@@ -1584,63 +2062,193 @@
           )
         ) {
 
-          currentMediaInfo = null;
-
-          mediaSection.style.display =
-            "none";
-
-          variantSection.style.display =
-            "none";
-
-          patchSection.style.display =
-            "none";
-
-          showResolutionError(
+          showResolutionNotice(
             info.width,
             info.height
           );
-
-          status.textContent =
-            "Video resolution is above the FHD limit.";
-
-          return;
         }
 
 
-        currentMediaInfo =
-          info;
-
-
-        updateMediaInfo(info);
-
-
-        mediaSection.style.display =
-          "block";
-
-        variantSection.style.display =
-          "block";
-
-        patchSection.style.display =
-          "block";
-
-
-        status.textContent =
-          `${info.quality} detected. Ready to patch.`;
-
       } catch (error) {
 
-        console.error(error);
-
-        status.textContent =
-          "Could not read video metadata.";
-
-        showError(
-          "READ ERROR",
-          "Could not read this MP4 video.",
-          error?.message ||
-          "The file may be damaged or use an unsupported MP4 structure."
+        console.error(
+          "Media parser error:",
+          error
         );
+
+
+        /*
+         * Fallback:
+         *
+         * Browser metadata can still give us
+         * resolution + duration even if MP4Box
+         * fails on the file structure.
+         */
+
+        const fallback =
+          await getBrowserMetadata(
+            file
+          );
+
+
+        if (fallback) {
+
+          currentMediaInfo =
+            fallback;
+
+
+          updateMediaInfo(
+            fallback
+          );
+
+
+          mediaSection.style.display =
+            "block";
+
+          methodSection.style.display =
+            "block";
+
+          patchSection.style.display =
+            "block";
+
+
+          status.textContent =
+            "Video loaded. HDR metadata unavailable.";
+
+
+          if (
+            !isWithinFHD(
+              fallback.width,
+              fallback.height
+            )
+          ) {
+
+            showResolutionNotice(
+              fallback.width,
+              fallback.height
+            );
+          }
+
+        } else {
+
+          status.textContent =
+            "Could not read video information.";
+
+          alert(
+            "Could not read this MP4 video."
+          );
+        }
       }
+    }
+
+
+    /* =========================================================
+       BROWSER METADATA FALLBACK
+    ========================================================= */
+
+    function getBrowserMetadata(
+      file
+    ) {
+
+      return new Promise(
+        resolve => {
+
+          const video =
+            document.createElement(
+              "video"
+            );
+
+
+          const url =
+            URL.createObjectURL(
+              file
+            );
+
+
+          video.preload =
+            "metadata";
+
+
+          video.onloadedmetadata =
+            () => {
+
+              const width =
+                video.videoWidth || 0;
+
+              const height =
+                video.videoHeight || 0;
+
+              const duration =
+                Number(
+                  video.duration
+                ) || 0;
+
+
+              URL.revokeObjectURL(
+                url
+              );
+
+
+              if (
+                !width ||
+                !height
+              ) {
+
+                resolve(null);
+                return;
+              }
+
+
+              resolve({
+
+                fileName:
+                  file.name,
+
+                size:
+                  file.size,
+
+                duration,
+
+                width,
+
+                height,
+
+                fps: 0,
+
+                bitrate:
+                  duration > 0
+                    ? (
+                        file.size * 8
+                      ) / duration
+                    : 0,
+
+                format:
+                  "Unknown",
+
+                quality:
+                  "Unknown",
+
+                container:
+                  "MP4"
+              });
+            };
+
+
+          video.onerror =
+            () => {
+
+              URL.revokeObjectURL(
+                url
+              );
+
+              resolve(null);
+            };
+
+
+          video.src =
+            url;
+        }
+      );
     }
 
 
@@ -1662,11 +2270,16 @@
     );
 
 
+    /* =========================================================
+       REPLACE
+    ========================================================= */
+
     replaceBtn.addEventListener(
       "click",
       () => {
 
         fileInput.value = "";
+
         fileInput.click();
       }
     );
@@ -1730,38 +2343,6 @@
         }
 
 
-        /*
-         * Safety check again before calling API.
-         */
-
-        if (
-          !currentMediaInfo ||
-          !isWithinFHD(
-            currentMediaInfo.width,
-            currentMediaInfo.height
-          )
-        ) {
-
-          if (currentMediaInfo) {
-
-            showResolutionError(
-              currentMediaInfo.width,
-              currentMediaInfo.height
-            );
-
-          } else {
-
-            showError(
-              "VIDEO NOT READY",
-              "Please select a supported MP4 video first.",
-              "Maximum input resolution is 1920×1080 or 1080×1920."
-            );
-          }
-
-          return;
-        }
-
-
         const postingDevice =
           document.querySelector(
             "#posting-device"
@@ -1770,10 +2351,8 @@
 
         if (!postingDevice) {
 
-          showError(
-            "METHOD REQUIRED",
-            "Please choose a patch method first."
-          );
+          status.textContent =
+            "Choose a variant first.";
 
           return;
         }
@@ -1784,6 +2363,7 @@
 
         download.hidden =
           true;
+
 
         status.textContent =
           "Patching metadata…";
@@ -1803,6 +2383,7 @@
             await patchVideo(
               selectedFile,
               {
+
                 postingDevice,
 
                 signal:
@@ -1812,6 +2393,7 @@
 
                 onStatus:
                   message => {
+
                     status.textContent =
                       message;
                   }
@@ -1860,27 +2442,26 @@
            * Automatic download
            */
 
-          const autoDownload =
+          const a =
             document.createElement(
               "a"
             );
 
-          autoDownload.href =
+          a.href =
             outputUrl;
 
-          autoDownload.download =
+          a.download =
             outputName;
 
-          autoDownload.style.display =
+          a.style.display =
             "none";
 
-          document.body.appendChild(
-            autoDownload
-          );
 
-          autoDownload.click();
+          document.body.appendChild(a);
 
-          autoDownload.remove();
+          a.click();
+
+          a.remove();
 
 
         } catch (error) {
@@ -1895,11 +2476,15 @@
             "Patch failed.";
 
 
-          showError(
-            "PATCH ERROR",
+          /*
+           * Jangan pakai alert untuk API error.
+           * Status tetap menampilkan error,
+           * supaya UI nggak ganggu.
+           */
+
+          console.log(
             error?.message ||
-              "The video could not be patched.",
-            "Your original video was not modified."
+            error
           );
 
         } finally {
@@ -1914,7 +2499,3 @@
 
 </body>
 </html>
-
-Yang penting di versi ini: 4K/1440p langsung berhenti setelah metadata terbaca, jadi nggak akan sampai manggil "patchVideo()". Dan detector sekarang mempertahankan "mp4" object dari MP4Box supaya bisa masuk ke struktur track/sample-entry, bukan cuma informasi ringkasnya. MP4Box.js 2.4.1 memang mendukung progressive parsing di browser dan saat ini merupakan rilis package terbaru.
-
-Coba langsung test 3 file: 1080p SDR → 1080p HLG/HDR → 4K. Kalau HLG masih kebaca SDR, berarti kita tinggal bongkar struktur "colr" dari file HLG tersebut dan bikin fallback detector khusus—bukan balik ke detector string ngawur.
