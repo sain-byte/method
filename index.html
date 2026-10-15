@@ -59,9 +59,9 @@ button{
   margin:auto;
 
   padding:
-    max(14px,env(safe-area-inset-top))
+    max(18px,env(safe-area-inset-top))
     18px
-    max(12px,env(safe-area-inset-bottom));
+    max(14px,env(safe-area-inset-bottom));
 
   display:flex;
   flex-direction:column;
@@ -76,23 +76,23 @@ button{
 
 header{
   flex:0 0 auto;
-  padding-bottom:11px;
+  padding-bottom:14px;
 }
 
 .brand{
-  font-size:20px;
+  font-size:24px;
   font-weight:750;
-  letter-spacing:-.045em;
-  line-height:1.1;
+  letter-spacing:-.055em;
+  line-height:1.05;
 }
 
 .creator{
-  margin-top:5px;
-  font-size:12px;
+  margin-top:8px;
+  font-size:15px;
 }
 
 .creator a{
-  color:#999;
+  color:#929292;
   text-decoration:none;
 }
 
@@ -101,9 +101,9 @@ header{
 }
 
 .powered{
-  margin-top:3px;
-  color:#4d4d4d;
-  font-size:10px;
+  margin-top:5px;
+  color:#505050;
+  font-size:12px;
 }
 
 
@@ -114,10 +114,10 @@ header{
 .upload{
   flex:0 0 auto;
 
-  height:58px;
+  height:72px;
 
-  border:1px dashed #303030;
-  border-radius:10px;
+  border:1px dashed #343434;
+  border-radius:11px;
 
   display:flex;
   align-items:center;
@@ -141,41 +141,39 @@ header{
 }
 
 .upload-main{
-  font-size:11px;
-  font-weight:650;
+  font-size:14px;
+  font-weight:600;
 }
 
 .upload-sub{
-  margin-left:5px;
+  margin-left:7px;
   color:#555;
-  font-size:10px;
+  font-size:12px;
 }
 
 
 /* =========================================================
-   PREVIEW AREA
+   PREVIEW
 ========================================================= */
 
 .preview-area{
   display:none;
-
   flex:0 0 auto;
-
-  margin-top:9px;
+  margin-top:11px;
 }
 
 .preview-box{
   width:100%;
-  height:174px;
+  height:305px;
 
   display:flex;
   align-items:center;
   justify-content:center;
 
-  background:#0d0d0d;
+  background:#0b0b0b;
 
-  border:1px solid #252525;
-  border-radius:10px;
+  border:1px solid #292929;
+  border-radius:12px;
 
   overflow:hidden;
 }
@@ -194,42 +192,55 @@ header{
 .file-row{
   display:flex;
   align-items:center;
-  gap:10px;
+  gap:12px;
 
-  min-height:29px;
-
-  margin-top:4px;
+  min-height:42px;
+  margin-top:5px;
 }
 
 .filename{
   min-width:0;
   flex:1;
 
-  color:#ddd;
+  color:#dedede;
 
-  font-size:11px;
-  font-weight:600;
+  font-size:14px;
+  font-weight:500;
 
   white-space:nowrap;
   overflow:hidden;
   text-overflow:ellipsis;
 }
 
+/* REPLACE BUTTON */
+
 .replace{
   flex:0 0 auto;
 
-  padding:4px 0;
+  height:31px;
+  padding:0 13px;
 
   border:0;
-  background:none;
+  border-radius:7px;
 
-  color:#888;
+  background:#b7ff19;
+  color:#101010;
 
-  font-size:10px;
+  font-size:11px;
+  font-weight:800;
+  letter-spacing:.02em;
+
+  transition:
+    background .15s,
+    transform .1s;
 }
 
 .replace:hover{
-  color:#fff;
+  background:#c8ff4d;
+}
+
+.replace:active{
+  transform:scale(.96);
 }
 
 
@@ -239,17 +250,17 @@ header{
 
 .section{
   flex:0 0 auto;
-  margin-top:9px;
+  margin-top:11px;
 }
 
 .section-label{
-  margin-bottom:6px;
+  margin-bottom:8px;
 
   color:#555;
 
-  font-size:8px;
-  font-weight:750;
-  letter-spacing:.15em;
+  font-size:10px;
+  font-weight:700;
+  letter-spacing:.16em;
 
   text-transform:uppercase;
 }
@@ -260,18 +271,18 @@ header{
 ========================================================= */
 
 .info{
-  border-top:1px solid #202020;
-  border-bottom:1px solid #202020;
+  border-top:1px solid #242424;
+  border-bottom:1px solid #242424;
 }
 
 .info-file{
-  min-height:28px;
+  min-height:38px;
 
   display:grid;
-  grid-template-columns:55px 1fr;
+  grid-template-columns:68px 1fr;
   align-items:center;
 
-  border-bottom:1px solid #191919;
+  border-bottom:1px solid #1c1c1c;
 }
 
 .info-grid{
@@ -280,37 +291,37 @@ header{
 }
 
 .info-item{
-  min-height:32px;
+  min-height:50px;
 
   display:flex;
   flex-direction:column;
   justify-content:center;
 
-  padding:3px 8px 3px 0;
+  padding:5px 10px 5px 0;
 }
 
 .info-item:nth-child(even){
-  padding-left:9px;
-  border-left:1px solid #191919;
+  padding-left:14px;
+  border-left:1px solid #1c1c1c;
 }
 
 .info-key{
   color:#505050;
 
-  font-size:7px;
-  font-weight:750;
+  font-size:9px;
+  font-weight:700;
   letter-spacing:.08em;
 
   text-transform:uppercase;
 }
 
 .info-value{
-  margin-top:2px;
+  margin-top:4px;
 
-  color:#d8d8d8;
+  color:#d9d9d9;
 
-  font-size:10px;
-  font-weight:600;
+  font-size:14px;
+  font-weight:500;
 
   white-space:nowrap;
   overflow:hidden;
@@ -318,7 +329,7 @@ header{
 }
 
 .info-file .info-value{
-  font-size:9px;
+  font-size:13px;
 }
 
 
@@ -328,19 +339,19 @@ header{
 
 .variant-select{
   width:100%;
-  height:39px;
+  height:52px;
 
-  padding:0 10px;
+  padding:0 14px;
 
-  border:1px solid #292929;
-  border-radius:8px;
+  border:1px solid #2b2b2b;
+  border-radius:11px;
 
   outline:none;
 
   background:#101010;
   color:#eee;
 
-  font-size:10px;
+  font-size:14px;
 }
 
 .variant-select:focus{
@@ -356,19 +367,19 @@ header{
   flex:0 0 auto;
 
   width:100%;
-  height:44px;
+  height:59px;
 
-  margin-top:9px;
+  margin-top:11px;
 
   border:0;
-  border-radius:8px;
+  border-radius:11px;
 
   background:#f1f1f1;
   color:#080808;
 
-  font-size:10px;
+  font-size:13px;
   font-weight:800;
-  letter-spacing:.04em;
+  letter-spacing:.06em;
 
   transition:
     opacity .2s,
@@ -396,29 +407,29 @@ header{
 .status{
   flex:0 0 auto;
 
-  min-height:14px;
+  min-height:16px;
 
-  margin-top:4px;
+  margin-top:5px;
 
   color:#555;
 
-  font-size:8px;
+  font-size:10px;
   text-align:center;
 }
 
 .manual-download{
   display:none;
 
-  margin-top:1px;
+  margin-top:2px;
 
-  color:#777;
+  color:#555;
 
-  font-size:8px;
+  font-size:10px;
   text-align:center;
 }
 
 .manual-download a{
-  color:#aaa;
+  color:#999;
 }
 
 
@@ -428,81 +439,87 @@ header{
 
 .privacy{
   margin-top:auto;
-  padding-top:5px;
+  padding-top:7px;
 
-  color:#3f3f3f;
+  color:#3e3e3e;
 
-  font-size:8px;
+  font-size:10px;
   text-align:center;
 }
 
 
 /* =========================================================
-   SHORT SCREEN
+   SMALL HEIGHT
 ========================================================= */
 
-@media(max-height:720px){
+@media(max-height:800px){
 
   #app{
     padding-top:
-      max(10px,env(safe-area-inset-top));
+      max(12px,env(safe-area-inset-top));
   }
 
   header{
-    padding-bottom:8px;
+    padding-bottom:10px;
   }
 
   .brand{
-    font-size:18px;
+    font-size:21px;
   }
 
-  .upload{
-    height:50px;
+  .creator{
+    margin-top:5px;
+    font-size:13px;
   }
 
-  .preview-area{
-    margin-top:7px;
+  .powered{
+    margin-top:3px;
+    font-size:10px;
   }
 
   .preview-box{
-    height:145px;
+    height:250px;
   }
 
   .file-row{
-    min-height:25px;
+    min-height:34px;
   }
 
   .section{
-    margin-top:7px;
+    margin-top:8px;
   }
 
   .info-item{
-    min-height:29px;
+    min-height:42px;
   }
 
   .variant-select{
-    height:37px;
+    height:46px;
   }
 
   .patch{
-    height:41px;
-    margin-top:7px;
+    height:50px;
+    margin-top:8px;
   }
 }
 
 
 /* =========================================================
-   VERY SHORT SCREEN
+   VERY SHORT
 ========================================================= */
 
-@media(max-height:650px){
+@media(max-height:680px){
 
   .preview-box{
-    height:125px;
+    height:205px;
   }
 
   .info-item{
-    min-height:26px;
+    min-height:36px;
+  }
+
+  .info-value{
+    font-size:12px;
   }
 
   .privacy{
@@ -515,19 +532,27 @@ header{
    SMALL WIDTH
 ========================================================= */
 
-@media(max-width:360px){
+@media(max-width:380px){
 
   #app{
     padding-left:14px;
     padding-right:14px;
   }
 
+  .brand{
+    font-size:21px;
+  }
+
   .preview-box{
-    height:135px;
+    height:235px;
   }
 
   .info-value{
-    font-size:9px;
+    font-size:12px;
+  }
+
+  .replace{
+    padding:0 11px;
   }
 }
 </style>
@@ -538,362 +563,283 @@ header{
 
 <main id="app">
 
-  <!-- =====================================================
-       HEADER
-  ====================================================== -->
+<header>
 
-  <header>
+  <div class="brand">
+    High Quality Method
+  </div>
 
-    <div class="brand">
-      High Quality Method
-    </div>
-
-    <div class="creator">
-      <a
-        href="https://www.tiktok.com/@totolat?_r=1&_t=ZS-9AZ8eQiy7Hd"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        @totolat
-      </a>
-    </div>
-
-    <div class="powered">
-      Powered by CompressBase
-    </div>
-
-  </header>
-
-
-  <!-- =====================================================
-       UPLOAD
-  ====================================================== -->
-
-  <label
-    class="upload"
-    id="dropzone"
-    for="video"
-  >
-
-    <input
-      id="video"
-      type="file"
-      accept="video/mp4,.mp4"
+  <div class="creator">
+    <a
+      href="https://www.tiktok.com/@totolat?_r=1&_t=ZS-9AZ8eQiy7Hd"
+      target="_blank"
+      rel="noopener noreferrer"
     >
+      @totolat
+    </a>
+  </div>
 
-    <span class="upload-main">
-      Drop MP4 here · Choose file
-    </span>
+  <div class="powered">
+    Powered by CompressBase
+  </div>
 
-    <span class="upload-sub">
-      MP4 only
-    </span>
-
-  </label>
+</header>
 
 
-  <!-- =====================================================
-       PREVIEW
-  ====================================================== -->
+<!-- =======================================================
+     UPLOAD
+======================================================== -->
 
-  <div
-    class="preview-area"
-    id="previewArea"
+<label
+  class="upload"
+  id="dropzone"
+  for="video"
+>
+  <input
+    id="video"
+    type="file"
+    accept="video/mp4,.mp4"
   >
 
-    <div class="preview-box">
+  <span class="upload-main">
+    Drop MP4 here · Choose file
+  </span>
 
-      <video
-        id="preview"
-        controls
-        playsinline
-        preload="metadata"
-      ></video>
+  <span class="upload-sub">
+    MP4 only
+  </span>
+</label>
 
+
+<!-- =======================================================
+     PREVIEW
+======================================================== -->
+
+<div
+  class="preview-area"
+  id="previewArea"
+>
+
+  <div class="preview-box">
+
+    <video
+      id="preview"
+      controls
+      playsinline
+      preload="metadata"
+    ></video>
+
+  </div>
+
+  <div class="file-row">
+
+    <div
+      class="filename"
+      id="fileName"
+    >
+      —
     </div>
 
-    <div class="file-row">
+    <button
+      class="replace"
+      id="replace"
+      type="button"
+    >
+      REPLACE
+    </button>
+
+  </div>
+
+</div>
+
+
+<!-- =======================================================
+     MEDIA INFORMATION
+======================================================== -->
+
+<section
+  class="section"
+  id="infoSection"
+  hidden
+>
+
+  <div class="section-label">
+    Media Information
+  </div>
+
+  <div class="info">
+
+    <div class="info-file">
+
+      <div class="info-key">
+        File
+      </div>
 
       <div
-        class="filename"
-        id="fileName"
+        class="info-value"
+        id="infoFile"
       >
         —
       </div>
 
-      <button
-        class="replace"
-        id="replace"
-        type="button"
-      >
-        Replace
-      </button>
-
     </div>
 
-  </div>
 
+    <div class="info-grid">
 
-  <!-- =====================================================
-       MEDIA INFORMATION
-  ====================================================== -->
-
-  <section
-    class="section"
-    id="infoSection"
-    hidden
-  >
-
-    <div class="section-label">
-      Media Information
-    </div>
-
-    <div class="info">
-
-      <!-- FILE -->
-
-      <div class="info-file">
-
-        <div class="info-key">
-          File
-        </div>
-
+      <div class="info-item">
+        <div class="info-key">Size</div>
         <div
           class="info-value"
-          id="infoFile"
-        >
-          —
-        </div>
-
+          id="infoSize"
+        >—</div>
       </div>
 
+      <div class="info-item">
+        <div class="info-key">Duration</div>
+        <div
+          class="info-value"
+          id="infoDuration"
+        >—</div>
+      </div>
 
-      <!-- GRID 2 -->
+      <div class="info-item">
+        <div class="info-key">Resolution</div>
+        <div
+          class="info-value"
+          id="infoResolution"
+        >—</div>
+      </div>
 
-      <div class="info-grid">
+      <div class="info-item">
+        <div class="info-key">FPS</div>
+        <div
+          class="info-value"
+          id="infoFps"
+        >—</div>
+      </div>
 
-        <div class="info-item">
+      <div class="info-item">
+        <div class="info-key">Bitrate</div>
+        <div
+          class="info-value"
+          id="infoBitrate"
+        >—</div>
+      </div>
 
-          <div class="info-key">
-            Size
-          </div>
+      <div class="info-item">
+        <div class="info-key">Format</div>
+        <div
+          class="info-value"
+          id="infoFormat"
+        >—</div>
+      </div>
 
-          <div
-            class="info-value"
-            id="infoSize"
-          >
-            —
-          </div>
+      <div class="info-item">
+        <div class="info-key">Quality</div>
+        <div
+          class="info-value"
+          id="infoQuality"
+        >—</div>
+      </div>
 
-        </div>
-
-
-        <div class="info-item">
-
-          <div class="info-key">
-            Duration
-          </div>
-
-          <div
-            class="info-value"
-            id="infoDuration"
-          >
-            —
-          </div>
-
-        </div>
-
-
-        <div class="info-item">
-
-          <div class="info-key">
-            Resolution
-          </div>
-
-          <div
-            class="info-value"
-            id="infoResolution"
-          >
-            —
-          </div>
-
-        </div>
-
-
-        <div class="info-item">
-
-          <div class="info-key">
-            FPS
-          </div>
-
-          <div
-            class="info-value"
-            id="infoFps"
-          >
-            —
-          </div>
-
-        </div>
-
-
-        <div class="info-item">
-
-          <div class="info-key">
-            Bitrate
-          </div>
-
-          <div
-            class="info-value"
-            id="infoBitrate"
-          >
-            —
-          </div>
-
-        </div>
-
-
-        <div class="info-item">
-
-          <div class="info-key">
-            Format
-          </div>
-
-          <div
-            class="info-value"
-            id="infoFormat"
-          >
-            —
-          </div>
-
-        </div>
-
-
-        <div class="info-item">
-
-          <div class="info-key">
-            Quality
-          </div>
-
-          <div
-            class="info-value"
-            id="infoQuality"
-          >
-            —
-          </div>
-
-        </div>
-
-
-        <div class="info-item">
-
-          <div class="info-key">
-            Container
-          </div>
-
-          <div class="info-value">
-            MP4
-          </div>
-
-        </div>
-
+      <div class="info-item">
+        <div class="info-key">Container</div>
+        <div class="info-value">MP4</div>
       </div>
 
     </div>
 
-  </section>
-
-
-  <!-- =====================================================
-       VARIANT
-  ====================================================== -->
-
-  <section
-    class="section"
-    id="variantSection"
-    hidden
-  >
-
-    <div class="section-label">
-      Patch Variant
-    </div>
-
-    <select
-      id="posting-device"
-      class="variant-select"
-    >
-
-      <option value="variant-1">
-        Variant 1 — Not Aggressive
-      </option>
-
-      <option value="variant-2">
-        Variant 2 — Mid Aggressive
-      </option>
-
-      <option
-        value="variant-3"
-        selected
-      >
-        Variant 3 — Hard Aggressive
-      </option>
-
-      <option value="variant-4">
-        Variant 4 — HOLY AGGRESSIVE
-      </option>
-
-      <option value="variant-5">
-        Variant 5 — iPhone / iPad
-      </option>
-
-    </select>
-
-  </section>
-
-
-  <!-- =====================================================
-       PATCH
-  ====================================================== -->
-
-  <button
-    class="patch"
-    id="patch"
-    type="button"
-    disabled
-  >
-    PATCH VIDEO →
-  </button>
-
-
-  <!-- STATUS -->
-
-  <div
-    class="status"
-    id="status"
-  ></div>
-
-
-  <!-- FALLBACK DOWNLOAD -->
-
-  <div
-    class="manual-download"
-    id="manualDownload"
-  >
-    Automatic download blocked.
-    <a
-      id="download"
-      href="#"
-      download
-    >
-      Download manually
-    </a>
   </div>
 
+</section>
 
-  <!-- PRIVACY -->
 
-  <div class="privacy">
-    Your video stays on this device. No video upload is required.
+<!-- =======================================================
+     VARIANT
+======================================================== -->
+
+<section
+  class="section"
+  id="variantSection"
+  hidden
+>
+
+  <div class="section-label">
+    Patch Variant
   </div>
+
+  <select
+    id="posting-device"
+    class="variant-select"
+  >
+
+    <option value="variant-1">
+      Variant 1 — Not Aggressive
+    </option>
+
+    <option value="variant-2">
+      Variant 2 — Mid Aggressive
+    </option>
+
+    <option
+      value="variant-3"
+      selected
+    >
+      Variant 3 — Hard Aggressive
+    </option>
+
+    <option value="variant-4">
+      Variant 4 — HOLY AGGRESSIVE
+    </option>
+
+    <option value="variant-5">
+      Variant 5 — iPhone / iPad
+    </option>
+
+  </select>
+
+</section>
+
+
+<!-- =======================================================
+     PATCH
+======================================================== -->
+
+<button
+  class="patch"
+  id="patch"
+  type="button"
+  disabled
+>
+  PATCH VIDEO →
+</button>
+
+
+<div
+  class="status"
+  id="status"
+></div>
+
+
+<div
+  class="manual-download"
+  id="manualDownload"
+>
+  Automatic download blocked.
+  <a
+    id="download"
+    href="#"
+    download
+  >
+    Download manually
+  </a>
+</div>
+
+
+<div class="privacy">
+  Your video stays on this device. No video upload is required.
+</div>
 
 </main>
 
@@ -975,7 +921,7 @@ let MP4BoxModule = null;
 
 
 /* =========================================================
-   MP4BOX.JS
+   MP4BOX
 ========================================================= */
 
 async function getMP4Box(){
@@ -1062,6 +1008,7 @@ function formatDuration(seconds){
       ":" +
       String(secs).padStart(2,"0")
     );
+
   }
 
   return (
@@ -1087,6 +1034,7 @@ function formatBitrate(bits){
       (bits / 1000000).toFixed(1) +
       " Mbps"
     );
+
   }
 
   if(bits >= 1000){
@@ -1095,6 +1043,7 @@ function formatBitrate(bits){
       Math.round(bits / 1000) +
       " kbps"
     );
+
   }
 
   return (
@@ -1144,10 +1093,6 @@ function simplifyCodec(codec){
   return codec || "Unknown";
 }
 
-
-/* =========================================================
-   QUALITY
-========================================================= */
 
 function detectQuality(track){
 
@@ -1207,7 +1152,6 @@ async function parseMP4(file){
       const mp4 =
         MP4Box.createFile();
 
-
       mp4.onError =
         error => {
 
@@ -1227,7 +1171,6 @@ async function parseMP4(file){
           );
         };
 
-
       mp4.onMoovStart =
         () => {
 
@@ -1235,7 +1178,6 @@ async function parseMP4(file){
             "Reading media information…";
 
         };
-
 
       mp4.onReady =
         info => {
@@ -1249,12 +1191,10 @@ async function parseMP4(file){
           resolve(info);
         };
 
-
       const CHUNK =
         1024 * 1024;
 
       let offset = 0;
-
 
       async function readNext(){
 
@@ -1282,7 +1222,6 @@ async function parseMP4(file){
 
           offset = end;
 
-
           if(
             offset < file.size &&
             !finished
@@ -1306,10 +1245,12 @@ async function parseMP4(file){
             finished = true;
 
             reject(error);
-          }
-        }
-      }
 
+          }
+
+        }
+
+      }
 
       readNext();
 
@@ -1327,17 +1268,14 @@ async function readMediaInfo(file){
   status.textContent =
     "Reading media information…";
 
-
   try{
 
     const info =
       await parseMP4(file);
 
-
     const tracks =
       (info.videoTracks || [])
         .filter(Boolean);
-
 
     const track =
       tracks[0] ||
@@ -1345,28 +1283,23 @@ async function readMediaInfo(file){
         t => t.type === "video"
       );
 
-
     if(!track){
       throw new Error(
         "No video track found."
       );
     }
 
-
     const width =
       track.video?.width ||
       track.track_width ||
       0;
-
 
     const height =
       track.video?.height ||
       track.track_height ||
       0;
 
-
     let duration = NaN;
-
 
     if(
       Number.isFinite(
@@ -1396,7 +1329,6 @@ async function readMediaInfo(file){
         );
     }
 
-
     if(
       !Number.isFinite(duration) &&
       Number.isFinite(preview.duration)
@@ -1406,9 +1338,7 @@ async function readMediaInfo(file){
         preview.duration;
     }
 
-
     let fps = NaN;
-
 
     if(
       Number.isFinite(track.nb_samples) &&
@@ -1421,10 +1351,8 @@ async function readMediaInfo(file){
         duration;
     }
 
-
     let bitrate =
       Number(track.bitrate);
-
 
     if(
       !Number.isFinite(bitrate) ||
@@ -1443,16 +1371,13 @@ async function readMediaInfo(file){
       }
     }
 
-
     const format =
       simplifyCodec(
         track.codec
       );
 
-
     const quality =
       detectQuality(track);
-
 
     infoFile.textContent =
       file.name;
@@ -1488,7 +1413,6 @@ async function readMediaInfo(file){
     infoQuality.textContent =
       quality;
 
-
     status.textContent =
       "Media information ready.";
 
@@ -1498,7 +1422,6 @@ async function readMediaInfo(file){
       "MP4Box error:",
       error
     );
-
 
     infoFile.textContent =
       file.name;
@@ -1538,7 +1461,7 @@ async function readMediaInfo(file){
 
 
 /* =========================================================
-   FILE HANDLER
+   FILE
 ========================================================= */
 
 async function handleFile(file){
@@ -1546,7 +1469,6 @@ async function handleFile(file){
   if(!file){
     return;
   }
-
 
   if(
     file.type !== "video/mp4" &&
@@ -1561,10 +1483,8 @@ async function handleFile(file){
     return;
   }
 
-
   selectedFile =
     file;
-
 
   if(previewUrl){
 
@@ -1573,25 +1493,16 @@ async function handleFile(file){
     );
   }
 
-
   previewUrl =
     URL.createObjectURL(file);
-
 
   preview.src =
     previewUrl;
 
   preview.load();
 
-
   fileName.textContent =
     file.name;
-
-
-  /*
-   * Upload box disappears.
-   * Preview takes its place.
-   */
 
   dropzone.style.display =
     "none";
@@ -1599,21 +1510,17 @@ async function handleFile(file){
   previewArea.style.display =
     "block";
 
-
   infoSection.hidden =
     false;
 
   variantSection.hidden =
     false;
 
-
   patchButton.disabled =
     true;
 
-
   status.textContent =
     "Loading preview…";
-
 
   await new Promise(resolve => {
 
@@ -1625,7 +1532,6 @@ async function handleFile(file){
       return;
     }
 
-
     preview.addEventListener(
       "loadedmetadata",
       resolve,
@@ -1634,10 +1540,8 @@ async function handleFile(file){
 
   });
 
-
   patchButton.disabled =
     false;
-
 
   readMediaInfo(file);
 }
@@ -1704,7 +1608,6 @@ replaceBtn.addEventListener(
 
 });
 
-
 ["dragleave","drop"]
 .forEach(type => {
 
@@ -1722,7 +1625,6 @@ replaceBtn.addEventListener(
   );
 
 });
-
 
 dropzone.addEventListener(
   "drop",
@@ -1768,10 +1670,8 @@ patchButton.addEventListener(
       return;
     }
 
-
     const postingDevice =
       variant.value;
-
 
     if(!postingDevice){
 
@@ -1781,13 +1681,11 @@ patchButton.addEventListener(
       return;
     }
 
-
     patchButton.disabled =
       true;
 
     manualDownload.style.display =
       "none";
-
 
     if(outputUrl){
 
@@ -1799,10 +1697,8 @@ patchButton.addEventListener(
         null;
     }
 
-
     status.textContent =
       "Patching metadata…";
-
 
     try{
 
@@ -1827,12 +1723,10 @@ patchButton.addEventListener(
           }
         );
 
-
       outputUrl =
         URL.createObjectURL(
           output
         );
-
 
       const outputName =
         selectedFile.name
@@ -1842,17 +1736,11 @@ patchButton.addEventListener(
           ) +
         "_totolat.mp4";
 
-
       download.href =
         outputUrl;
 
       download.download =
         outputName;
-
-
-      /*
-       * Automatic download
-       */
 
       const link =
         document.createElement("a");
@@ -1874,14 +1762,8 @@ patchButton.addEventListener(
 
       link.remove();
 
-
       status.textContent =
         "Done. Download started.";
-
-
-      /*
-       * Manual fallback
-       */
 
       setTimeout(
         () => {
@@ -1893,7 +1775,6 @@ patchButton.addEventListener(
         1200
       );
 
-
     }catch(error){
 
       console.error(error);
@@ -1902,11 +1783,11 @@ patchButton.addEventListener(
         error?.message ||
         "Patch failed.";
 
-
     }finally{
 
       patchButton.disabled =
         false;
+
     }
 
   }
