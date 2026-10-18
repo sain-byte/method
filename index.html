@@ -310,10 +310,6 @@
 
       min-height: 27px;
 
-      border-bottom: 1px solid var(--border-soft);
-    }
-
-    .info-item:nth-last-child(-n + 2) {
       border-bottom: 0;
     }
 
@@ -856,8 +852,23 @@
        HEADER ACTIONS
     ======================================== */
 
-    .header-actions { position:absolute; top:1px; right:0; display:flex; gap:6px; }
-    .header-actions .tutorial-btn { position:static; }
+    .header-actions {
+      position: absolute;
+      top: 1px;
+      right: 0;
+
+      display: grid;
+      grid-template-columns: auto auto;
+      gap: 6px;
+    }
+
+    .header-actions .tutorial-btn {
+      position: static;
+    }
+
+    .header-actions #supportBtn {
+      grid-column: 1;
+    }
 
     /* ========================================
        STATS
@@ -956,14 +967,13 @@
 
       header {
         margin-bottom: 17px;
-        padding-right: 0;
+        padding-right: 185px;
       }
 
       .header-actions {
-        position: static;
-        margin-top: 12px;
-        justify-content: flex-start;
-        flex-wrap: wrap;
+        position: absolute;
+        top: 0;
+        right: 0;
       }
 
       .title {
@@ -1312,7 +1322,7 @@
             type="button"
             role="option"
             aria-selected="false"
-            data-value="variant-3"
+            data-value="variant-1"
           >
             Variant 1 — Not Aggressive
           </button>
@@ -1369,7 +1379,7 @@
       <input
         id="postingDevice"
         type="hidden"
-        value="variant-1"
+        value="variant-3"
       />
 
 
@@ -1920,6 +1930,8 @@
     let outputUrl = null;
 
     let mediaGeneration = 0;
+
+    let browserDuration = NaN;
 
 
     /* =========================================================
@@ -2578,6 +2590,26 @@
         );
 
 
+      browserDuration = NaN;
+
+      preview.onloadedmetadata =
+        () => {
+          if (generation !== mediaGeneration) {
+            return;
+          }
+
+          browserDuration = Number(
+            preview.duration
+          );
+
+          if (Number.isFinite(browserDuration) && browserDuration > 0) {
+            setInfo(
+              "duration",
+              formatDuration(browserDuration)
+            );
+          }
+        };
+
       preview.src =
         previewUrl;
 
@@ -3030,83 +3062,173 @@
     }
 
 
+    function formatCodec(codec) {
+
+      const value =
+        String(codec || "")
+          .trim();
+
+      const lower =
+        value.toLowerCase();
+
+      if (
+        lower.startsWith("avc1") ||
+        lower.startsWith("avc3")
+      ) {
+        return "H.264 (AVC)";
+      }
+
+      if (
+        lower.startsWith("hvc1") ||
+        lower.startsWith("hev1")
+      ) {
+        return "HEVC (H.265)";
+      }
+
+      if (lower.startsWith("av01")) {
+        return "AV1";
+      }
+
+      if (lower.startsWith("vp09")) {
+        return "VP9";
+      }
+
+      if (lower.startsWith("vp08")) {
+        return "VP8";
+      }
+
+      if (lower.startsWith("mp4v")) {
+        return "MPEG-4";
+      }
+
+      return value || "Unknown";
+
+    }
+
+
     /* =========================================================
-       FPS DETECTION
+       MEDIA TIMING / FPS
     ========================================================= */
 
-    function detectFPS(track) {
+    function getTrackTiming(track, mp4) {
 
-      /*
-       * MP4Box track duration is the safer source here.
-       * Do NOT use nb_samples / movie_duration.
-       */
+      let duration = NaN;
+      let fps = NaN;
+      let totalSamples = 0;
+      let totalTicks = 0;
 
-      const mediaDuration =
-        Number(
+      try {
+        const actualTrack =
+          mp4.getTrackById(track.id);
+
+        const stts =
+          actualTrack?.mdia?.minf?.stbl?.stts;
+
+        const counts =
+          stts?.sample_counts ||
+          stts?.sampleCounts ||
+          [];
+
+        const deltas =
+          stts?.sample_deltas ||
+          stts?.sampleDeltas ||
+          [];
+
+        const timescale = Number(
+          track.timescale ||
+          actualTrack?.mdia?.mdhd?.timescale
+        );
+
+        if (
+          Number.isFinite(timescale) &&
+          timescale > 0 &&
+          counts.length &&
+          deltas.length
+        ) {
+          const n = Math.min(
+            counts.length,
+            deltas.length
+          );
+
+          for (let i = 0; i < n; i++) {
+            const count = Number(counts[i]);
+            const delta = Number(deltas[i]);
+
+            if (
+              Number.isFinite(count) &&
+              count > 0 &&
+              Number.isFinite(delta) &&
+              delta > 0
+            ) {
+              totalSamples += count;
+              totalTicks += count * delta;
+            }
+          }
+
+          if (totalSamples > 0 && totalTicks > 0) {
+            duration = totalTicks / timescale;
+            fps = totalSamples / duration;
+          }
+        }
+      } catch (error) {
+        console.warn(
+          "Track timing lookup failed:",
+          error
+        );
+      }
+
+      /* Safe fallbacks for MP4Box variants. */
+
+      if (
+        !Number.isFinite(duration) ||
+        duration <= 0
+      ) {
+        const mediaDuration = Number(
           track.media_duration
         );
 
-      const timescale =
-        Number(
+        const timescale = Number(
           track.timescale
         );
 
-
-      if (
-        Number.isFinite(
-          mediaDuration
-        ) &&
-        mediaDuration > 0 &&
-        Number.isFinite(
-          timescale
-        ) &&
-        timescale > 0 &&
-        Number.isFinite(
-          track.nb_samples
-        ) &&
-        track.nb_samples > 0
-      ) {
-
-        const fps =
-          track.nb_samples /
-          (mediaDuration / timescale);
-
-
         if (
-          Number.isFinite(fps) &&
-          fps > 0 &&
-          fps < 1000
+          Number.isFinite(mediaDuration) &&
+          mediaDuration > 0 &&
+          Number.isFinite(timescale) &&
+          timescale > 0
         ) {
+          const candidate =
+            mediaDuration / timescale;
 
-          return fps;
-
+          if (candidate > 0 && candidate < 86400) {
+            duration = candidate;
+          }
         }
-
       }
 
-
-      /* Some MP4Box builds expose frame rate directly */
-
-      const directFPS =
-        Number(
+      if (
+        !Number.isFinite(fps) ||
+        fps <= 0 ||
+        fps >= 1000
+      ) {
+        const directFPS = Number(
           track.video?.frame_rate ||
           track.video?.frameRate
         );
 
-
-      if (
-        Number.isFinite(
-          directFPS
-        ) &&
-        directFPS > 0
-      ) {
-
-        return directFPS;
-
+        if (
+          Number.isFinite(directFPS) &&
+          directFPS > 0 &&
+          directFPS < 1000
+        ) {
+          fps = directFPS;
+        }
       }
 
-
-      return NaN;
+      return {
+        duration,
+        fps
+      };
 
     }
 
@@ -3170,32 +3292,48 @@
         );
 
 
-      /* Correct media duration */
-
-      let duration =
-        Number(
-          track.media_duration
-        ) /
-        Number(
-          track.timescale
+      const timing =
+        getTrackTiming(
+          track,
+          mp4
         );
 
+      /* Prefer the browser's decoded duration when available.
+       * This avoids broken MP4 timing values from being displayed. */
+      let duration =
+        Number.isFinite(browserDuration) &&
+        browserDuration > 0
+          ? browserDuration
+          : timing.duration;
 
       if (
         !Number.isFinite(duration) ||
-        duration <= 0
+        duration <= 0 ||
+        duration > 86400
       ) {
+        const movieDuration =
+          Number(mp4Info.duration);
 
-        duration =
-          Number(
-            mp4Info.duration
-          );
+        const movieTimescale =
+          Number(mp4Info.timescale);
 
+        if (
+          Number.isFinite(movieDuration) &&
+          movieDuration > 0 &&
+          Number.isFinite(movieTimescale) &&
+          movieTimescale > 0
+        ) {
+          const candidate =
+            movieDuration / movieTimescale;
+
+          if (candidate > 0 && candidate < 86400) {
+            duration = candidate;
+          }
+        }
       }
 
-
       const fps =
-        detectFPS(track);
+        timing.fps;
 
 
       const bitrate =
@@ -3212,7 +3350,7 @@
 
 
       const codec =
-        String(
+        formatCodec(
           track.codec ||
           track.codecName ||
           "Unknown"
