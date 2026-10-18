@@ -71,15 +71,7 @@
     header {
       position: relative;
       margin-bottom: 20px;
-      padding-right: 140px;
-    }
-
-    .header-actions {
-      position: absolute;
-      top: 1px;
-      right: 0;
-      display: flex;
-      gap: 6px;
+      padding-right: 250px;
     }
 
     .title {
@@ -110,6 +102,9 @@
     }
 
     .tutorial-btn {
+      position: absolute;
+      top: 1px;
+      right: 0;
 
       padding: 7px 10px;
 
@@ -314,6 +309,12 @@
       gap: 9px;
 
       min-height: 27px;
+
+      border-bottom: 1px solid var(--border-soft);
+    }
+
+    .info-item:nth-last-child(-n + 2) {
+      border-bottom: 0;
     }
 
     .info-label {
@@ -766,55 +767,6 @@
     }
 
     /* ========================================
-       STATS MODAL
-    ======================================== */
-
-    .stats-modal {
-      width: min(390px, 100%);
-      padding: 20px;
-      border: 1px solid #303534;
-      border-radius: 13px;
-      background: #0d0f0f;
-      box-shadow: 0 25px 70px rgba(0,0,0,.55);
-    }
-
-    .stats-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 8px;
-    }
-
-    .stat-card {
-      padding: 11px 12px;
-      border: 1px solid var(--border);
-      border-radius: 9px;
-      background: #101212;
-    }
-
-    .stat-label {
-      color: #666d69;
-      font-size: 8px;
-      font-weight: 700;
-      letter-spacing: .8px;
-      text-transform: uppercase;
-    }
-
-    .stat-value {
-      margin-top: 5px;
-      color: #e3e7e5;
-      font-size: 19px;
-      font-weight: 700;
-    }
-
-    .stats-status {
-      min-height: 15px;
-      margin-top: 12px;
-      color: var(--muted);
-      font-size: 9px;
-      text-align: center;
-    }
-
-    /* ========================================
        RESOLUTION MODAL
     ======================================== */
 
@@ -901,6 +853,32 @@
     }
 
     /* ========================================
+       HEADER ACTIONS
+    ======================================== */
+
+    .header-actions { position:absolute; top:1px; right:0; display:flex; gap:6px; }
+    .header-actions .tutorial-btn { position:static; }
+
+    /* ========================================
+       STATS
+    ======================================== */
+
+    .stats-grid { display:grid; grid-template-columns:1fr 1fr; gap:8px; }
+    .stat-card { padding:12px; border:1px solid var(--border-soft); border-radius:9px; background:#101212; }
+    .stat-label { color:#6f7773; font-size:8px; font-weight:700; letter-spacing:.8px; text-transform:uppercase; }
+    .stat-value { margin-top:5px; color:#e7ebe9; font-size:18px; font-weight:700; letter-spacing:-.3px; }
+    .stats-status { min-height:14px; margin-top:10px; color:var(--muted); font-size:9px; text-align:center; }
+
+    /* ========================================
+       SUPPORT
+    ======================================== */
+
+    .support-content { text-align:center; }
+    .qris-wrap { display:flex; justify-content:center; margin-top:2px; padding:10px; border:1px solid var(--border-soft); border-radius:10px; background:#f7f7f7; }
+    .qris-image { display:block; width:min(290px,100%); height:auto; border-radius:4px; }
+    .support-note { margin:11px 0 0; color:var(--muted); font-size:10px; line-height:1.6; }
+
+    /* ========================================
        FOOTER
     ======================================== */
 
@@ -978,6 +956,14 @@
 
       header {
         margin-bottom: 17px;
+        padding-right: 0;
+      }
+
+      .header-actions {
+        position: static;
+        margin-top: 12px;
+        justify-content: flex-start;
+        flex-wrap: wrap;
       }
 
       .title {
@@ -1050,20 +1036,14 @@
       </div>
 
       <div class="header-actions">
-        <button
-          id="tutorialBtn"
-          class="tutorial-btn"
-          type="button"
-        >
+        <button id="tutorialBtn" class="tutorial-btn" type="button">
           TUTORIAL
         </button>
-
-        <button
-          id="statsBtn"
-          class="tutorial-btn"
-          type="button"
-        >
+        <button id="statsBtn" class="tutorial-btn" type="button">
           STATS
+        </button>
+        <button id="supportBtn" class="tutorial-btn" type="button">
+          SUPPORT
         </button>
       </div>
 
@@ -1317,7 +1297,7 @@
           aria-haspopup="listbox"
           aria-expanded="false"
         >
-          Variant 1 — Not Aggressive
+          Variant 3 — Hard Aggressive 🌟
         </button>
 
 
@@ -1328,11 +1308,11 @@
         >
 
           <button
-            class="custom-option active"
+            class="custom-option"
             type="button"
             role="option"
-            aria-selected="true"
-            data-value="variant-1"
+            aria-selected="false"
+            data-value="variant-3"
           >
             Variant 1 — Not Aggressive
           </button>
@@ -1350,10 +1330,10 @@
 
 
           <button
-            class="custom-option"
+            class="custom-option active"
             type="button"
             role="option"
-            aria-selected="false"
+            aria-selected="true"
             data-value="variant-3"
           >
             Variant 3 — Hard Aggressive 🌟
@@ -1597,53 +1577,38 @@
   </div>
 
 
-  <!-- ==========================================
-       STATS MODAL
-  =========================================== -->
-
-  <div
-    id="statsBackdrop"
-    class="modal-backdrop"
-    aria-hidden="true"
-  >
-
-    <div
-      class="stats-modal"
-      role="dialog"
-      aria-modal="true"
-      aria-labelledby="statsTitle"
-    >
-
+  <!-- STATS MODAL -->
+  <div id="statsBackdrop" class="modal-backdrop" aria-hidden="true">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="statsTitle">
       <div class="modal-head">
-        <h2 id="statsTitle" class="modal-title">
-          Statistics
-        </h2>
-
-        <button
-          id="statsClose"
-          class="modal-close"
-          type="button"
-          aria-label="Close"
-        >
-          ×
-        </button>
+        <h2 id="statsTitle" class="modal-title">Statistics</h2>
+        <button id="statsClose" class="modal-close" type="button" aria-label="Close statistics">×</button>
       </div>
-
       <div class="stats-grid">
         <div class="stat-card"><div class="stat-label">Visits</div><div id="statVisits" class="stat-value">—</div></div>
         <div class="stat-card"><div class="stat-label">Patch clicks</div><div id="statClicks" class="stat-value">—</div></div>
         <div class="stat-card"><div class="stat-label">Success</div><div id="statSuccess" class="stat-value">—</div></div>
         <div class="stat-card"><div class="stat-label">Failed</div><div id="statFailed" class="stat-value">—</div></div>
-        <div class="stat-card"><div class="stat-label">Today</div><div id="statToday" class="stat-value">—</div></div>
-        <div class="stat-card"><div class="stat-label">Last 7 days</div><div id="statWeek" class="stat-value">—</div></div>
       </div>
-
-      <div id="statsStatus" class="stats-status">Loading statistics…</div>
-
+      <div id="statsStatus" class="stats-status">—</div>
     </div>
-
   </div>
 
+  <!-- SUPPORT MODAL -->
+  <div id="supportBackdrop" class="modal-backdrop" aria-hidden="true">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="supportTitle">
+      <div class="modal-head">
+        <h2 id="supportTitle" class="modal-title">Support the Project</h2>
+        <button id="supportClose" class="modal-close" type="button" aria-label="Close support">×</button>
+      </div>
+      <div class="support-content">
+        <div class="qris-wrap">
+          <img src="./qris.png" alt="QRIS support QR code" class="qris-image" />
+        </div>
+        <p class="support-note">Thank you for supporting the project.</p>
+      </div>
+    </div>
+  </div>
 
   <!-- ==========================================
        RESOLUTION WARNING
@@ -1828,36 +1793,6 @@
     const tutorialBtn =
       document.getElementById("tutorialBtn");
 
-    const statsBtn =
-      document.getElementById("statsBtn");
-
-    const statsBackdrop =
-      document.getElementById("statsBackdrop");
-
-    const statsClose =
-      document.getElementById("statsClose");
-
-    const statVisits =
-      document.getElementById("statVisits");
-
-    const statClicks =
-      document.getElementById("statClicks");
-
-    const statSuccess =
-      document.getElementById("statSuccess");
-
-    const statFailed =
-      document.getElementById("statFailed");
-
-    const statToday =
-      document.getElementById("statToday");
-
-    const statWeek =
-      document.getElementById("statWeek");
-
-    const statsStatus =
-      document.getElementById("statsStatus");
-
     const tutorialBackdrop =
       document.getElementById("tutorialBackdrop");
 
@@ -1875,6 +1810,83 @@
 
     const tutorialEN =
       document.getElementById("tutorialEN");
+
+
+    /* =========================================================
+       STATS + SUPPORT
+    ========================================================= */
+
+    const STATS_URL =
+      "https://script.google.com/macros/s/AKfycby41RWCBP_JhtEkKiN6DOCtaqKSbVSaSbeLKtjcis_QkwHk6-eac-WShlmUVhblfGOw/exec";
+
+    const statsBtn = document.getElementById("statsBtn");
+    const statsBackdrop = document.getElementById("statsBackdrop");
+    const statsClose = document.getElementById("statsClose");
+    const statVisits = document.getElementById("statVisits");
+    const statClicks = document.getElementById("statClicks");
+    const statSuccess = document.getElementById("statSuccess");
+    const statFailed = document.getElementById("statFailed");
+    const statsStatus = document.getElementById("statsStatus");
+
+    const supportBtn = document.getElementById("supportBtn");
+    const supportBackdrop = document.getElementById("supportBackdrop");
+    const supportClose = document.getElementById("supportClose");
+
+    function sendStats(event) {
+      try {
+        fetch(`${STATS_URL}?event=${encodeURIComponent(event)}`, {
+          method: "GET",
+          mode: "no-cors",
+          keepalive: true
+        }).catch(() => {});
+      } catch (_) {}
+    }
+
+    function openStats() {
+      statsBackdrop.classList.add("show");
+      statsBackdrop.setAttribute("aria-hidden", "false");
+      loadStats();
+    }
+
+    function closeStats() {
+      statsBackdrop.classList.remove("show");
+      statsBackdrop.setAttribute("aria-hidden", "true");
+    }
+
+    function openSupport() {
+      supportBackdrop.classList.add("show");
+      supportBackdrop.setAttribute("aria-hidden", "false");
+    }
+
+    function closeSupport() {
+      supportBackdrop.classList.remove("show");
+      supportBackdrop.setAttribute("aria-hidden", "true");
+    }
+
+    async function loadStats() {
+      statsStatus.textContent = "Loading statistics…";
+      try {
+        const response = await fetch(`${STATS_URL}?action=stats`, { method: "GET", cache: "no-store" });
+        const data = await response.json();
+        if (!data.ok) throw new Error(data.error || "Unable to load statistics");
+        statVisits.textContent = data.total.visits;
+        statClicks.textContent = data.total.patch_click;
+        statSuccess.textContent = data.total.patch_success;
+        statFailed.textContent = data.total.patch_failed;
+        statsStatus.textContent = "Updated just now.";
+      } catch (_) {
+        statsStatus.textContent = "Statistics unavailable right now.";
+      }
+    }
+
+    statsBtn.addEventListener("click", openStats);
+    statsClose.addEventListener("click", closeStats);
+    statsBackdrop.addEventListener("click", event => { if (event.target === statsBackdrop) closeStats(); });
+    supportBtn.addEventListener("click", openSupport);
+    supportClose.addEventListener("click", closeSupport);
+    supportBackdrop.addEventListener("click", event => { if (event.target === supportBackdrop) closeSupport(); });
+
+    sendStats("visit");
 
 
     /* =========================================================
@@ -2095,67 +2107,6 @@
       );
 
     }
-
-
-    /* =========================================================
-       STATISTICS
-    ========================================================= */
-
-    const STATS_URL =
-      "https://script.google.com/macros/s/AKfycby41RWCBP_JhtEkKiN6DOCtaqKSbVSaSbeLKtjcis_QkwHk6-eac-WShlmUVhblfGOw/exec";
-
-    function sendStats(event) {
-      try {
-        fetch(`${STATS_URL}?event=${encodeURIComponent(event)}`, {
-          method: "GET",
-          mode: "no-cors",
-          keepalive: true
-        }).catch(() => {});
-      } catch (_) {}
-    }
-
-    sendStats("visit");
-
-    async function loadStats() {
-      statsStatus.textContent = "Loading statistics…";
-      try {
-        const response = await fetch(`${STATS_URL}?action=stats`, {
-          method: "GET",
-          cache: "no-store"
-        });
-        const data = await response.json();
-        if (!data.ok) throw new Error(data.error || "Unable to load statistics");
-
-        statVisits.textContent = data.total.visits;
-        statClicks.textContent = data.total.patch_click;
-        statSuccess.textContent = data.total.patch_success;
-        statFailed.textContent = data.total.patch_failed;
-        statToday.textContent = data.today;
-        statWeek.textContent = data.last7Days;
-        statsStatus.textContent = "Updated just now.";
-      } catch (error) {
-        statsStatus.textContent = "Statistics unavailable right now.";
-      }
-    }
-
-    function openStats() {
-      statsBackdrop.classList.add("show");
-      statsBackdrop.setAttribute("aria-hidden", "false");
-      loadStats();
-    }
-
-    function closeStats() {
-      statsBackdrop.classList.remove("show");
-      statsBackdrop.setAttribute("aria-hidden", "true");
-    }
-
-    statsBtn.addEventListener("click", openStats);
-    statsClose.addEventListener("click", closeStats);
-    statsBackdrop.addEventListener("click", event => {
-      if (event.target === statsBackdrop) closeStats();
-    });
-
-    sendStats("visit");
 
 
     /* =========================================================
@@ -3083,289 +3034,79 @@
        FPS DETECTION
     ========================================================= */
 
-    function detectFPS(track, mp4) {
+    function detectFPS(track) {
 
       /*
-       * MP4Box exposes the MP4 `stts` timing table as
-       * sample_counts + sample_deltas (not `entries`).
-       * FPS = total samples / total decode time.
+       * MP4Box track duration is the safer source here.
+       * Do NOT use nb_samples / movie_duration.
        */
 
-      try {
+      const mediaDuration =
+        Number(
+          track.media_duration
+        );
 
-        const actualTrack =
-          mp4?.getTrackById?.(track.id);
+      const timescale =
+        Number(
+          track.timescale
+        );
 
-        const stts =
-          actualTrack
-            ?.mdia
-            ?.minf
-            ?.stbl
-            ?.stts;
 
-        const counts =
-          Array.isArray(stts?.sample_counts)
-            ? stts.sample_counts
-            : [];
+      if (
+        Number.isFinite(
+          mediaDuration
+        ) &&
+        mediaDuration > 0 &&
+        Number.isFinite(
+          timescale
+        ) &&
+        timescale > 0 &&
+        Number.isFinite(
+          track.nb_samples
+        ) &&
+        track.nb_samples > 0
+      ) {
 
-        const deltas =
-          Array.isArray(stts?.sample_deltas)
-            ? stts.sample_deltas
-            : [];
+        const fps =
+          track.nb_samples /
+          (mediaDuration / timescale);
 
-        if (counts.length && deltas.length) {
-
-          let sampleCount = 0;
-          let totalTicks = 0;
-
-          const n =
-            Math.min(
-              counts.length,
-              deltas.length
-            );
-
-          for (let i = 0; i < n; i++) {
-
-            const count = Number(counts[i]);
-            const delta = Number(deltas[i]);
-
-            if (
-              Number.isFinite(count) &&
-              count > 0 &&
-              Number.isFinite(delta) &&
-              delta > 0
-            ) {
-
-              sampleCount += count;
-              totalTicks += count * delta;
-
-            }
-
-          }
-
-          const timescale =
-            Number(
-              actualTrack?.mdia?.mdhd?.timescale ??
-              track.timescale
-            );
-
-          if (
-            sampleCount > 0 &&
-            totalTicks > 0 &&
-            Number.isFinite(timescale) &&
-            timescale > 0
-          ) {
-
-            const fps =
-              sampleCount /
-              (totalTicks / timescale);
-
-            if (
-              Number.isFinite(fps) &&
-              fps > 1 &&
-              fps < 240
-            ) {
-
-              return fps;
-
-            }
-
-          }
-
-        }
-
-        /* Some files expose enough information directly on the track. */
-
-        const sampleCount =
-          Number(track.nb_samples);
-
-        const timescale =
-          Number(track.timescale);
-
-        const trackDuration =
-          Number(track.duration);
 
         if (
-          Number.isFinite(sampleCount) &&
-          sampleCount > 0 &&
-          Number.isFinite(timescale) &&
-          timescale > 0 &&
-          Number.isFinite(trackDuration) &&
-          trackDuration > 0
+          Number.isFinite(fps) &&
+          fps > 0 &&
+          fps < 1000
         ) {
 
-          const fps =
-            sampleCount /
-            (trackDuration / timescale);
-
-          if (
-            Number.isFinite(fps) &&
-            fps > 1 &&
-            fps < 240
-          ) {
-
-            return fps;
-
-          }
+          return fps;
 
         }
-
-      } catch (error) {
-
-        console.warn(
-          "FPS detection failed:",
-          error
-        );
 
       }
 
+
+      /* Some MP4Box builds expose frame rate directly */
+
       const directFPS =
         Number(
-          track.video?.frame_rate ??
-          track.video?.frameRate ??
-          track.frame_rate ??
-          track.frameRate
+          track.video?.frame_rate ||
+          track.video?.frameRate
         );
 
+
       if (
-        Number.isFinite(directFPS) &&
-        directFPS > 0 &&
-        directFPS < 240
+        Number.isFinite(
+          directFPS
+        ) &&
+        directFPS > 0
       ) {
 
         return directFPS;
 
       }
 
+
       return NaN;
-
-    }
-
-    /* =========================================================
-       BROWSER MEDIA METADATA
-    ========================================================= */
-
-    function getBrowserMetadata(file) {
-
-      return new Promise(resolve => {
-
-        const video =
-          document.createElement("video");
-
-        const url =
-          URL.createObjectURL(file);
-
-        let settled = false;
-
-        const finish = data => {
-
-          if (settled) {
-            return;
-          }
-
-          settled = true;
-
-          URL.revokeObjectURL(url);
-
-          resolve(data);
-
-        };
-
-        video.preload = "metadata";
-
-        video.onloadedmetadata = () => {
-
-          finish({
-            width: Number(video.videoWidth),
-            height: Number(video.videoHeight),
-            duration: Number(video.duration)
-          });
-
-        };
-
-        video.onerror = () => {
-
-          finish({
-            width: NaN,
-            height: NaN,
-            duration: NaN
-          });
-
-        };
-
-        video.src = url;
-
-      });
-
-    }
-
-
-    /* =========================================================
-       FORMAT LABEL
-    ========================================================= */
-
-    function formatCodec(codec) {
-
-      const value =
-        String(codec || "").trim();
-
-      const c =
-        value.toLowerCase();
-
-      if (
-        c.startsWith("dvhe") ||
-        c.startsWith("dvh1")
-      ) {
-
-        return "Dolby Vision";
-
-      }
-
-      if (
-        c.startsWith("hvc1") ||
-        c.startsWith("hev1")
-      ) {
-
-        return "HEVC (H.265)";
-
-      }
-
-      if (
-        c.startsWith("avc1") ||
-        c.startsWith("avc3")
-      ) {
-
-        return "AVC (H.264)";
-
-      }
-
-      if (
-        c.startsWith("av01")
-      ) {
-
-        return "AV1";
-
-      }
-
-      if (
-        c.startsWith("vp09") ||
-        c.startsWith("vp9")
-      ) {
-
-        return "VP9";
-
-      }
-
-      if (
-        c.startsWith("vp08") ||
-        c.startsWith("vp8")
-      ) {
-
-        return "VP8";
-
-      }
-
-      return value || "Unknown";
 
     }
 
@@ -3379,23 +3120,10 @@
       generation
     ) {
 
-      /*
-       * Read browser metadata in parallel with MP4Box.
-       * Browser duration/resolution are used as the canonical display
-       * values because they are the values the media element itself
-       * can actually play.
-       */
-
-      const browserMetaPromise =
-        getBrowserMetadata(file);
-
       const {
         info: mp4Info,
         mp4
       } = await parseMP4(file);
-
-      const browserMeta =
-        await browserMetaPromise;
 
 
       if (
@@ -3430,38 +3158,27 @@
       }
 
 
-      const browserWidth =
-        Number(browserMeta.width);
-
-      const browserHeight =
-        Number(browserMeta.height);
-
-      const browserDuration =
-        Number(browserMeta.duration);
-
-
-      const trackWidth =
-        Number(track.video?.width);
-
-      const trackHeight =
-        Number(track.video?.height);
-
-
       const width =
-        Number.isFinite(browserWidth) &&
-        browserWidth > 0
-          ? browserWidth
-          : trackWidth;
+        Number(
+          track.video?.width
+        );
+
 
       const height =
-        Number.isFinite(browserHeight) &&
-        browserHeight > 0
-          ? browserHeight
-          : trackHeight;
+        Number(
+          track.video?.height
+        );
 
+
+      /* Correct media duration */
 
       let duration =
-        browserDuration;
+        Number(
+          track.media_duration
+        ) /
+        Number(
+          track.timescale
+        );
 
 
       if (
@@ -3470,28 +3187,15 @@
       ) {
 
         duration =
-          Number(track.media_duration) /
-          Number(track.timescale);
-
-      }
-
-
-      if (
-        !Number.isFinite(duration) ||
-        duration <= 0
-      ) {
-
-        duration =
-          Number(mp4Info.duration);
+          Number(
+            mp4Info.duration
+          );
 
       }
 
 
       const fps =
-        detectFPS(
-          track,
-          mp4
-        );
+        detectFPS(track);
 
 
       const bitrate =
@@ -3559,7 +3263,7 @@
 
       setInfo(
         "format",
-        formatCodec(codec)
+        codec
       );
 
 
@@ -3842,8 +3546,6 @@
 
         patchBtn.disabled =
           true;
-
-        sendStats("patch_click");
 
 
         downloadLink.hidden =
