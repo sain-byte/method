@@ -47,6 +47,83 @@
 
     body {
       min-height: 100dvh;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    /* ========================================
+       TRIAL AMBIENT BACKGROUND
+       Visible but still subtle.
+    ======================================== */
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: -35%;
+      z-index: 0;
+      pointer-events: none;
+      opacity: .86;
+      filter: blur(58px);
+      background:
+        radial-gradient(circle at 18% 18%, rgba(70, 210, 115, .24), transparent 24%),
+        radial-gradient(circle at 86% 52%, rgba(45, 170, 92, .19), transparent 27%),
+        radial-gradient(circle at 45% 105%, rgba(35, 135, 72, .16), transparent 25%);
+      transform: translate3d(-4%, -2%, 0) scale(1.02);
+      animation: ambientDrift 16s ease-in-out infinite alternate;
+      will-change: transform;
+    }
+
+    body::after {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      opacity: .13;
+      background: linear-gradient(115deg,
+        transparent 0%,
+        transparent 38%,
+        rgba(98, 217, 139, .18) 49%,
+        transparent 60%,
+        transparent 100%);
+      background-size: 220% 220%;
+      animation: ambientSweep 18s linear infinite;
+      will-change: background-position;
+    }
+
+    @keyframes ambientDrift {
+      0% {
+        transform: translate3d(-5%, -3%, 0) scale(1.02);
+      }
+      50% {
+        transform: translate3d(4%, 2%, 0) scale(1.08);
+      }
+      100% {
+        transform: translate3d(-1%, 5%, 0) scale(1.04);
+      }
+    }
+
+    @keyframes ambientSweep {
+      0% { background-position: 120% 45%; }
+      100% { background-position: -20% 55%; }
+    }
+
+    .app {
+      position: relative;
+      z-index: 1;
+    }
+
+    .restricted {
+      position: relative;
+      z-index: 1;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      body::before,
+      body::after,
+      .upload-box::before {
+        animation: none;
+      }
     }
 
     button,
@@ -137,6 +214,8 @@
     ======================================== */
 
     .upload-box {
+      position: relative;
+      isolation: isolate;
       min-height: 165px;
 
       border: 1px dashed #343a38;
@@ -148,19 +227,72 @@
 
       text-align: center;
       cursor: pointer;
+      overflow: hidden;
 
       transition:
         border-color .18s ease,
         background .18s ease;
     }
 
+    /* Animated green light traveling around the upload border */
+    .upload-box::before,
+    .upload-box::after {
+      content: "";
+      position: absolute;
+      inset: -1px;
+      border-radius: inherit;
+      pointer-events: none;
+    }
+
+    .upload-box::before {
+      z-index: -1;
+      padding: 2px;
+      background: conic-gradient(
+        from 0deg,
+        transparent 0deg,
+        transparent 315deg,
+        rgba(98, 217, 139, .08) 329deg,
+        rgba(98, 217, 139, .28) 340deg,
+        rgba(98, 217, 139, .95) 350deg,
+        rgba(183, 255, 207, .95) 356deg,
+        rgba(98, 217, 139, .45) 360deg
+      );
+      -webkit-mask:
+        linear-gradient(#000 0 0) content-box,
+        linear-gradient(#000 0 0);
+      -webkit-mask-composite: xor;
+      mask:
+        linear-gradient(#000 0 0) content-box,
+        linear-gradient(#000 0 0);
+      mask-composite: exclude;
+      animation: uploadBorderOrbit 3.8s linear infinite;
+      filter: drop-shadow(0 0 5px rgba(98, 217, 139, .42));
+    }
+
+    .upload-box::after {
+      z-index: -2;
+      background: radial-gradient(
+        ellipse at center,
+        rgba(98, 217, 139, .035),
+        transparent 68%
+      );
+    }
+
+    @keyframes uploadBorderOrbit {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
     .upload-box:hover,
     .upload-box.dragover {
       border-color: #59615e;
-      background: #0c0e0e;
+      background: rgba(12, 14, 14, .78);
     }
 
     .upload-inner {
+      position: relative;
+      z-index: 2;
       padding: 25px 18px;
     }
 
@@ -587,6 +719,209 @@
     }
 
     /* ========================================
+       PATCH PROCESS MODAL — TRIAL
+    ======================================== */
+
+    .patch-process-backdrop {
+      position: fixed;
+      z-index: 120;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 22px;
+      background: rgba(2, 4, 3, .68);
+      backdrop-filter: blur(5px);
+      -webkit-backdrop-filter: blur(5px);
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      transition: opacity .22s ease, visibility .22s ease;
+    }
+
+    .patch-process-backdrop.show {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+    }
+
+    .patch-process-modal {
+      position: relative;
+      width: min(410px, 100%);
+      overflow: hidden;
+      padding: 30px 25px 25px;
+      border: 1px solid rgba(98, 217, 139, .25);
+      border-radius: 16px;
+      background: rgba(10, 13, 12, .94);
+      box-shadow:
+        0 30px 90px rgba(0,0,0,.72),
+        0 0 45px rgba(65, 205, 112, .09);
+      transform: translateY(10px) scale(.975);
+      transition: transform .25s ease;
+    }
+
+    .patch-process-backdrop.show .patch-process-modal {
+      transform: translateY(0) scale(1);
+    }
+
+    .patch-process-modal::before,
+    .patch-process-modal::after {
+      content: "";
+      position: absolute;
+      width: 210px;
+      height: 210px;
+      border-radius: 50%;
+      pointer-events: none;
+      filter: blur(42px);
+      opacity: .20;
+      background: #43d77f;
+      animation: processOrb 5.5s ease-in-out infinite alternate;
+    }
+
+    .patch-process-modal::before {
+      left: -125px;
+      top: -135px;
+    }
+
+    .patch-process-modal::after {
+      right: -130px;
+      bottom: -145px;
+      opacity: .14;
+      animation-delay: -2.5s;
+    }
+
+    @keyframes processOrb {
+      from { transform: translate3d(-8px, 4px, 0) scale(.9); }
+      to   { transform: translate3d(34px, 24px, 0) scale(1.18); }
+    }
+
+    .patch-process-content {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+    }
+
+    .patch-loader {
+      position: relative;
+      width: 54px;
+      height: 54px;
+      margin: 0 auto 19px;
+      border: 1px solid rgba(98, 217, 139, .16);
+      border-radius: 50%;
+      box-shadow: 0 0 24px rgba(98, 217, 139, .08);
+    }
+
+    .patch-loader::before {
+      content: "";
+      position: absolute;
+      inset: 4px;
+      border: 2px solid transparent;
+      border-top-color: var(--green);
+      border-right-color: rgba(98, 217, 139, .28);
+      border-radius: 50%;
+      animation: patchSpin 1s linear infinite;
+    }
+
+    .patch-loader::after {
+      content: "";
+      position: absolute;
+      width: 5px;
+      height: 5px;
+      top: 4px;
+      left: 50%;
+      margin-left: -2.5px;
+      border-radius: 50%;
+      background: var(--green);
+      box-shadow: 0 0 12px rgba(98, 217, 139, .9);
+      transform-origin: 50% 23px;
+      animation: patchSpin 1s linear infinite;
+    }
+
+    @keyframes patchSpin {
+      to { transform: rotate(360deg); }
+    }
+
+    .patch-process-title {
+      margin: 0;
+      font-size: 16px;
+      font-weight: 700;
+      letter-spacing: -.2px;
+    }
+
+    .patch-process-status {
+      min-height: 18px;
+      margin-top: 8px;
+      color: var(--muted);
+      font-size: 11px;
+      line-height: 1.5;
+    }
+
+    .patch-process-line {
+      position: relative;
+      height: 2px;
+      margin-top: 22px;
+      overflow: hidden;
+      border-radius: 99px;
+      background: rgba(98, 217, 139, .08);
+    }
+
+    .patch-process-line::after {
+      content: "";
+      position: absolute;
+      inset: 0 auto 0 -35%;
+      width: 35%;
+      border-radius: inherit;
+      background: linear-gradient(90deg, transparent, var(--green), transparent);
+      box-shadow: 0 0 12px rgba(98, 217, 139, .45);
+      animation: processLine 1.35s ease-in-out infinite;
+    }
+
+    @keyframes processLine {
+      from { transform: translateX(0); }
+      to { transform: translateX(385%); }
+    }
+
+    .patch-process-modal.done {
+      border-color: rgba(98, 217, 139, .45);
+    }
+
+    .patch-process-modal.done .patch-loader {
+      border-color: rgba(98, 217, 139, .35);
+      box-shadow: 0 0 28px rgba(98, 217, 139, .13);
+    }
+
+    .patch-process-modal.done .patch-loader::before {
+      inset: 14px;
+      border: 0;
+      border-radius: 0;
+      background: var(--green);
+      clip-path: polygon(14% 48%, 39% 73%, 87% 22%, 92% 30%, 40% 84%, 8% 56%);
+      animation: none;
+    }
+
+    .patch-process-modal.done .patch-loader::after {
+      display: none;
+    }
+
+    .patch-process-modal.done .patch-process-line::after {
+      animation: none;
+      left: 0;
+      width: 100%;
+      background: var(--green);
+      box-shadow: 0 0 13px rgba(98, 217, 139, .45);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .patch-process-modal::before,
+      .patch-process-modal::after,
+      .patch-loader::before,
+      .patch-loader::after,
+      .patch-process-line::after {
+        animation: none;
+      }
+    }
+
+    /* ========================================
        TUTORIAL MODAL
     ======================================== */
 
@@ -874,7 +1209,7 @@
        STATS
     ======================================== */
 
-    .stats-grid { display:grid; grid-template-columns:1fr 1fr; gap:8px; }
+    .stats-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:8px; }
     .stat-card { padding:12px; border:1px solid var(--border-soft); border-radius:9px; background:#101212; }
     .stat-label { color:#6f7773; font-size:8px; font-weight:700; letter-spacing:.8px; text-transform:uppercase; }
     .stat-value { margin-top:5px; color:#e7ebe9; font-size:18px; font-weight:700; letter-spacing:-.3px; }
@@ -1587,6 +1922,18 @@
   </div>
 
 
+  <!-- PATCH PROCESS MODAL — TRIAL -->
+  <div id="patchProcessBackdrop" class="patch-process-backdrop" aria-hidden="true">
+    <div id="patchProcessModal" class="patch-process-modal" role="status" aria-live="polite">
+      <div class="patch-process-content">
+        <div id="patchLoader" class="patch-loader" aria-hidden="true"></div>
+        <h2 id="patchProcessTitle" class="patch-process-title">Patching video</h2>
+        <div id="patchProcessStatus" class="patch-process-status">Preparing video…</div>
+        <div class="patch-process-line" aria-hidden="true"></div>
+      </div>
+    </div>
+  </div>
+
   <!-- STATS MODAL -->
   <div id="statsBackdrop" class="modal-backdrop" aria-hidden="true">
     <div class="modal" role="dialog" aria-modal="true" aria-labelledby="statsTitle">
@@ -1596,7 +1943,6 @@
       </div>
       <div class="stats-grid">
         <div class="stat-card"><div class="stat-label">Visits</div><div id="statVisits" class="stat-value">—</div></div>
-        <div class="stat-card"><div class="stat-label">Patch clicks</div><div id="statClicks" class="stat-value">—</div></div>
         <div class="stat-card"><div class="stat-label">Success</div><div id="statSuccess" class="stat-value">—</div></div>
         <div class="stat-card"><div class="stat-label">Failed</div><div id="statFailed" class="stat-value">—</div></div>
       </div>
@@ -1833,7 +2179,6 @@
     const statsBackdrop = document.getElementById("statsBackdrop");
     const statsClose = document.getElementById("statsClose");
     const statVisits = document.getElementById("statVisits");
-    const statClicks = document.getElementById("statClicks");
     const statSuccess = document.getElementById("statSuccess");
     const statFailed = document.getElementById("statFailed");
     const statsStatus = document.getElementById("statsStatus");
@@ -1841,6 +2186,41 @@
     const supportBtn = document.getElementById("supportBtn");
     const supportBackdrop = document.getElementById("supportBackdrop");
     const supportClose = document.getElementById("supportClose");
+
+    const patchProcessBackdrop = document.getElementById("patchProcessBackdrop");
+    const patchProcessModal = document.getElementById("patchProcessModal");
+    const patchProcessTitle = document.getElementById("patchProcessTitle");
+    const patchProcessStatus = document.getElementById("patchProcessStatus");
+
+    function openPatchProcess() {
+      patchProcessModal.classList.remove("done");
+      patchProcessTitle.textContent = "Patching video";
+      patchProcessStatus.textContent = "Preparing video…";
+      patchProcessBackdrop.classList.add("show");
+      patchProcessBackdrop.setAttribute("aria-hidden", "false");
+    }
+
+    function updatePatchProcess(message) {
+      const text = String(message || "Processing…").trim();
+      patchProcessStatus.textContent = text || "Processing…";
+    }
+
+    function finishPatchProcess() {
+      patchProcessModal.classList.add("done");
+      patchProcessTitle.textContent = "Patch complete";
+      patchProcessStatus.textContent = "Download is ready.";
+    }
+
+    function failPatchProcess(message) {
+      patchProcessModal.classList.remove("done");
+      patchProcessTitle.textContent = "Patch failed";
+      patchProcessStatus.textContent = String(message || "Patch failed.");
+    }
+
+    function closePatchProcess() {
+      patchProcessBackdrop.classList.remove("show");
+      patchProcessBackdrop.setAttribute("aria-hidden", "true");
+    }
 
     function sendStats(event) {
       try {
@@ -1880,7 +2260,6 @@
         const data = await response.json();
         if (!data.ok) throw new Error(data.error || "Unable to load statistics");
         statVisits.textContent = data.total.visits;
-        statClicks.textContent = data.total.patch_click;
         statSuccess.textContent = data.total.patch_success;
         statFailed.textContent = data.total.patch_failed;
         statsStatus.textContent = "Updated just now.";
@@ -3690,6 +4069,8 @@
           true;
 
 
+        openPatchProcess();
+
         patchStatus.textContent =
           "Preparing patch…";
 
@@ -3719,6 +4100,8 @@
 
                     patchStatus.textContent =
                       message;
+
+                    updatePatchProcess(message);
 
                   }
 
@@ -3769,6 +4152,7 @@
           patchStatus.textContent =
             "Patch complete. Download ready.";
 
+          finishPatchProcess();
           sendStats("patch_success");
 
 
@@ -3798,6 +4182,10 @@
 
           link.remove();
 
+          setTimeout(() => {
+            closePatchProcess();
+          }, 850);
+
         } catch (error) {
 
           console.error(
@@ -3810,7 +4198,12 @@
             error?.message ||
             "Patch failed.";
 
+          failPatchProcess(error?.message || "Patch failed.");
           sendStats("patch_failed");
+
+          setTimeout(() => {
+            closePatchProcess();
+          }, 1800);
 
         } finally {
 
@@ -3825,7 +4218,7 @@
   </script>
 
 
-  <!-- Base64 block. -->
+  <!-- QRIS embedded: stored as reversed chunks to avoid a plain Base64 block. -->
   <script>
     (() => {
       const q = [
